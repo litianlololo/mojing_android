@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">mojing</string>
+    <string name="yichu">衣橱</string>
+    <string name="dapei">搭配</string>
+    <string name="vip">VIP</string>
+    <string name="msg">消息</string>
+    <string name="me">我的</string>
+    <string name="search">Search</string>
 </resources>

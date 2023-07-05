@@ -6,13 +6,64 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RadioGroup
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <RadioButton
+            android:id="@+id/nav_yichu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/vest"
+            android:text="@string/yichu"
+            android:gravity="center"/>
+
+        <RadioButton
+            android:id="@+id/nav_dapei"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/mockup"
+            android:text="@string/dapei"
+            android:gravity="center"/>
+
+        <RadioButton
+            android:id="@+id/nav_vip"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/crown"
+            android:text="@string/vip"
+            android:gravity="center"/>
+
+        <RadioButton
+            android:id="@+id/nav_msg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/message"
+            android:text="@string/msg"
+            android:gravity="center"/>
+
+        <RadioButton
+            android:id="@+id/nav_me"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/user"
+            android:text="@string/me"
+            android:gravity="center"/>
+
+    </RadioGroup>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
