@@ -1,69 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
-
-    <RadioGroup
-        android:id="@+id/bottom_navigation"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <RadioButton
-            android:id="@+id/nav_yichu"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewpager2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            tools:ignore="MissingConstraints">
+
+        </androidx.viewpager2.widget.ViewPager2>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab"
+            app:tabTextAppearance="@android:style/TextAppearance.Holo.Small"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:button="@null"
-            android:drawableTop="@drawable/vest"
-            android:text="@string/yichu"
-            android:gravity="center"/>
+            app:tabIndicatorHeight="0dp"
+            android:background="#F6F6F6"
+            tools:ignore="MissingConstraints">
 
-        <RadioButton
-            android:id="@+id/nav_dapei"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableTop="@drawable/mockup"
-            android:text="@string/dapei"
-            android:gravity="center"/>
+        </com.google.android.material.tabs.TabLayout>
 
-        <RadioButton
-            android:id="@+id/nav_vip"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableTop="@drawable/crown"
-            android:text="@string/vip"
-            android:gravity="center"/>
-
-        <RadioButton
-            android:id="@+id/nav_msg"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableTop="@drawable/message"
-            android:text="@string/msg"
-            android:gravity="center"/>
-
-        <RadioButton
-            android:id="@+id/nav_me"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:button="@null"
-            android:drawableTop="@drawable/user"
-            android:text="@string/me"
-            android:gravity="center"/>
-
-    </RadioGroup>
-
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

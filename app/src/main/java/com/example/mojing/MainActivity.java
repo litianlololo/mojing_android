@@ -1,60 +1,75 @@
 package com.example.mojing;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Toast;
+import android.view.WindowManager;
+
+import com.example.mojing.Adapter.SectionsPagerAdapter;
+import com.example.mojing.Fragments.Fragment_VIP;
+import com.example.mojing.Fragments.Fragment_dapei;
+import com.example.mojing.Fragments.Fragment_me;
+import com.example.mojing.Fragments.Fragment_msg;
+import com.example.mojing.Fragments.Fragment_yichu;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private RadioGroup radioGroup;
+    private TabLayout myTab;
+    private ViewPager2 myPager2;
+
+    List<String> titles = new ArrayList<>();
+    List<Integer> icons = new ArrayList<>();
+    List<Fragment> fragments = new ArrayList<>();
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
-        radioGroup = findViewById(R.id.bottom_navigation);
-        // 设置RadioGroup的选中监听器
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        myTab = findViewById(R.id.tab);
+        myPager2 = findViewById(R.id.viewpager2);
+
+        titles.add("衣橱");
+        titles.add("搭配");
+        titles.add("VIP");
+        titles.add("消息");
+        titles.add("我的");
+
+        icons.add(R.drawable.yichu_24);
+        icons.add(R.drawable.dapei_24);
+        icons.add(R.drawable.vip_24);
+        icons.add(R.drawable.msg_24);
+        icons.add(R.drawable.user_24);
+
+        fragments.add(new Fragment_yichu());
+        fragments.add(new Fragment_dapei());
+        fragments.add(new Fragment_VIP());
+        fragments.add(new Fragment_msg());
+        fragments.add(new Fragment_me());
+        myTab.setTabMode(TabLayout.MODE_FIXED);
+
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), getLifecycle(), fragments);
+        myPager2.setAdapter(sectionsPagerAdapter);
+
+        new TabLayoutMediator(myTab, myPager2, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                // 处理选中项的逻辑
-                switch (checkedId) {
-                    case R.id.nav_yichu:
-                        showToast("衣橱");
-                        // 处理衣橱选中的逻辑
-                        break;
-                    case R.id.nav_dapei:
-                        showToast("搭配");
-                        // 处理搭配选中的逻辑
-                        break;
-                    case R.id.nav_vip:
-                        // 处理VIP选中的逻辑
-                        showToast("VIP");
-                        break;
-                    case R.id.nav_msg:
-                        // 处理消息选中的逻辑
-                        showToast("消息");
-                        break;
-                    case R.id.nav_me:
-                        showToast("我的");
-                        // 处理我的选中的逻辑
-                        break;
-                }
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                tab.setText(titles.get(position));
+                tab.setIcon(icons.get(position));
             }
-        });
-        // 默认选中第一个RadioButton
-        radioGroup.check(R.id.nav_yichu);
-    }
-    private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        }).attach();
     }
 }
