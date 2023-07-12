@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Dapei_Tag_Activity">
+
+    <!-- 返回按钮 -->
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/dapei_back"
+        android:background="@null"
+        android:padding="8dp"/>
+
+    <!-- 垂直排布的按钮组 -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_back">
+
+        <!-- 个人搭配按钮 -->
+        <Button
+            android:id="@+id/btn_personal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dapei_self" />
+
+        <!-- AI按钮 -->
+        <Button
+            android:id="@+id/btn_ai"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dapei_ai" />
+
+        <!-- 设计师按钮 -->
+        <Button
+            android:id="@+id/btn_designer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dapei_designer" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
