@@ -1,27 +1,10 @@
-# Gradle build files
-.gradle/
-/build/
-
-# Local configuration file (sdk location)
-local.properties
-
-# Android Studio project files
-/.idea/
 *.iml
-
-# Compiled application files
-*.apk
-
-# Generated files
-/captures/
-/app/build/
-
-# Raw resources
-/app/src/main/res/raw/
-
-# Debug build files
-/app/src/main/debug/
-
-# Firebase configuration file
-/app/src/main/google-services.json
-
+.gradle
+/local.properties
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
