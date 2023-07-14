@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="8dp">
 
   <ImageView
+      android:id="@+id/avatarImage"
       android:layout_width="100dp"
       android:layout_height="100dp"
       tools:src="@tools:sample/avatars" />
 
   <LinearLayout
-      android:layout_width="wrap_content"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:orientation="vertical"
       android:padding="5dp">
 
     <TextView
-        android:id="@+id/textView1"
-        android:layout_width="300dp"
+        android:id="@+id/nameText"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textSize="20sp"
         tools:text="@tools:sample/lorem[3]" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/introductionText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="@tools:sample/lorem[4]" />
@@ -37,14 +38,14 @@
         android:orientation="horizontal">
 
       <Button
-          android:id="@+id/button1"
+          android:id="@+id/chatButton"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_weight="1"
           android:text="留言" />
 
       <Button
-          android:id="@+id/button2"
+          android:id="@+id/orderButton"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_weight="1"
