@@ -12,15 +12,12 @@ import android.view.ViewGroup;
 
 import com.example.mojing.Adapter.VipListAdapter;
 import com.example.mojing.R;
+import com.example.mojing.VIP_Designer_InfoType;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Fragment_VIP#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class Fragment_VIP extends Fragment {
 
     public Fragment_VIP() {
@@ -47,13 +44,13 @@ public class Fragment_VIP extends Fragment {
         RecyclerView recyclerView = rootView.findViewById(R.id.vipRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        List<String> dataList = new ArrayList<>(); // 假设有一个数据源
-        dataList.add("Item 1");
-        dataList.add("Item 2");
-        dataList.add("Baga 3");
+        List<VIP_Designer_InfoType> vip_designer_infoList = new ArrayList<>();
+        vip_designer_infoList.add(new VIP_Designer_InfoType("User 1","baga", R.drawable.yichu_24));
+        vip_designer_infoList.add(new VIP_Designer_InfoType("User 2","baga", R.drawable.dapei_24));
+        vip_designer_infoList.add(new VIP_Designer_InfoType("User 3","baga", R.drawable.yichu_24));
 
         // 实例化适配器对象
-        VipListAdapter vipListAdapter = new VipListAdapter(dataList);
+        VipListAdapter vipListAdapter = new VipListAdapter(vip_designer_infoList);
 
         // 将适配器设置给 RecyclerView
         recyclerView.setAdapter(vipListAdapter);

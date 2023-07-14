@@ -3,29 +3,39 @@ package com.example.mojing.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mojing.R;
+import com.example.mojing.VIP_Designer_InfoType;
 
 import java.util.List;
+import com.example.mojing.Fragments.Fragment_VIP;
 
 public class VipListAdapter extends RecyclerView.Adapter<VipListAdapter.MyViewHolder> {
 
-    private List<String> data;
+    private List<VIP_Designer_InfoType> vip_designer_infoList;
 
-    public VipListAdapter(List<String> data) {
-        this.data = data;
+    public VipListAdapter(List<VIP_Designer_InfoType> data) {
+        this.vip_designer_infoList = data;
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView textView;
+        ImageView avatarImage;
+        TextView nameText, introductionText;
+        Button chatButton, orderButton;
 
         public MyViewHolder(View view) {
             super(view);
-            textView = view.findViewById(R.id.textView1);
+            avatarImage=view.findViewById(R.id.avatarImage);
+            nameText = view.findViewById(R.id.nameText);
+            introductionText = view.findViewById(R.id.introductionText);
+            chatButton = view.findViewById(R.id.chatButton);
+            orderButton = view.findViewById(R.id.orderButton);
         }
     }
 
@@ -39,12 +49,39 @@ public class VipListAdapter extends RecyclerView.Adapter<VipListAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        String item = data.get(position);
-        holder.textView.setText(item);
+        final VIP_Designer_InfoType userInfo = vip_designer_infoList.get(position);
+
+        // 设置用户头像、名字等数据
+        holder.nameText.setText(userInfo.getName());
+        holder.introductionText.setText(userInfo.getIntroduction());
+        holder.avatarImage.setImageResource(userInfo.getAvatarResId());
+
+//        // 为聊天按钮设置点击事件监听器
+//        holder.chatButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // 处理点击聊天按钮的逻辑，跳转到聊天页面
+//                // 这里可以根据需要进行具体的跳转操作，例如使用 Intent 跳转到聊天页面
+//                Intent chatIntent = new Intent(context, ChatActivity.class);
+//                context.startActivity(chatIntent);
+//            }
+//        });
+//
+//        // 为下单按钮设置点击事件监听器
+//        holder.orderButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // 处理点击下单按钮的逻辑，跳转到下单页面
+//                // 这里可以根据需要进行具体的跳转操作，例如使用 Intent 跳转到下单页面
+//                Intent orderIntent = new Intent(context, OrderActivity.class);
+//                context.startActivity(orderIntent);
+//            }
+//        });
     }
+
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return vip_designer_infoList.size();
     }
 }
