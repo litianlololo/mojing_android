@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.example.mojing.Adapter.SectionsPagerAdapter;
 import com.example.mojing.Fragments.Fragment_VIP;
@@ -22,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    //sharedPreferences 用于存储用户基础信息
+    public SharedPreferencesManager sharedPreferencesManager;
     private TabLayout myTab;
     private ViewPager2 myPager2;
 
@@ -36,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
 //        getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
+
+        sharedPreferencesManager = new SharedPreferencesManager(this);
 
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -71,5 +77,31 @@ public class MainActivity extends AppCompatActivity {
                 tab.setIcon(icons.get(position));
             }
         }).attach();
+
+        // 接收传递的数据
+//        Intent intent = getIntent();
+//        if (intent != null) {
+//            String value = intent.getStringExtra("username");
+//            // 根据需要更新组件内容
+//            TextView textView = findViewById(R.id.user_name);
+//            textView.setText(value);
+//        }
+//        if (intent != null) {
+//            String value = intent.getStringExtra("password");
+//            // 根据需要更新组件内容
+//            TextView textView = findViewById(R.id.user_val);
+//            textView.setText(value);
+//        }
+    }
+
+    public SharedPreferencesManager getSharedPreferencesManager() {
+        return sharedPreferencesManager;
+    }
+
+    //重启MainActivity
+    public void restartMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish(); // 结束当前的Activity
     }
 }

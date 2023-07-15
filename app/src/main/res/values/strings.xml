@@ -12,4 +12,8 @@
     <string name="dapei_ai">AI</string>
     <string name="dapei_designer">设计师</string>
     <string name="dapei_share">分享</string>
+    <string name="logout">注销</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
 </resources>
