@@ -77,21 +77,6 @@ public class MainActivity extends AppCompatActivity {
                 tab.setIcon(icons.get(position));
             }
         }).attach();
-
-        // 接收传递的数据
-//        Intent intent = getIntent();
-//        if (intent != null) {
-//            String value = intent.getStringExtra("username");
-//            // 根据需要更新组件内容
-//            TextView textView = findViewById(R.id.user_name);
-//            textView.setText(value);
-//        }
-//        if (intent != null) {
-//            String value = intent.getStringExtra("password");
-//            // 根据需要更新组件内容
-//            TextView textView = findViewById(R.id.user_val);
-//            textView.setText(value);
-//        }
     }
 
     public SharedPreferencesManager getSharedPreferencesManager() {

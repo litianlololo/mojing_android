@@ -1,6 +1,7 @@
 package com.example.mojing.Fragments;
 
-import android.content.Context;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,17 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.mojing.Dapei_Tag_Activity;
 import com.example.mojing.LoginActivity;
 import com.example.mojing.MainActivity;
 import com.example.mojing.R;
 import com.example.mojing.SharedPreferencesManager;
 
-import org.w3c.dom.Text;
 
 public class Fragment_me extends Fragment {
     MainActivity activity;
@@ -28,13 +25,13 @@ public class Fragment_me extends Fragment {
     private Button exitButton;
     private TextView user_name;
     private TextView user_val;
-    public Fragment_me() {
-        // Required empty public constructor
-    }
-    public static Fragment_me newInstance(String param1, String param2) {
-        Fragment_me fragment = new Fragment_me();
-        return fragment;
-    }
+//    public Fragment_me() {
+//        // Required empty public constructor
+//    }
+//    public static Fragment_me newInstance(String param1, String param2) {
+//        Fragment_me fragment = new Fragment_me();
+//        return fragment;
+//    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,20 +69,35 @@ public class Fragment_me extends Fragment {
                     startActivity(intent);
                 }
                 else{
-                    Logout();
-                    activity.restartMainActivity();
+                    showConfirmationDialog();
                 }
             }
         });
     }
-
+    //确认退出登录弹窗
+    private void showConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("确认退出登录");
+        builder.setMessage("确定要退出登录吗？");
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // 执行注销操作
+                Logout();
+                activity.restartMainActivity();
+            }
+        });
+        builder.setNegativeButton("取消", null);
+        builder.show();
+    }
+    //退出登录
     private void Logout(){
         activity.sharedPreferencesManager.setLoggedIn(false);
         activity.sharedPreferencesManager.setUsername("Username");
         activity.sharedPreferencesManager.setUserVal("user_val");
         user_name.setText(activity.sharedPreferencesManager.getUsername());
         user_val.setText(activity.sharedPreferencesManager.getUserVal());
-        exitButton.setText("注销");
+        exitButton.setText("退出登录");
     }
 
 }

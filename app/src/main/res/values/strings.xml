@@ -12,8 +12,13 @@
     <string name="dapei_ai">AI</string>
     <string name="dapei_designer">设计师</string>
     <string name="dapei_share">分享</string>
-    <string name="logout">注销</string>
+    <string name="logout">退出登录</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
-    <string name="login">Login</string>
+    <string name="login">登录</string>
+    <string name="signup">注册</string>
+
+    <string name="switch_to_code_login">验证码登录</string>
+    <string name="switch_to_password_login">密码登录</string>
+    <string name="editVerificationCode">请输入验证码</string>
 </resources>
