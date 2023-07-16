@@ -25,7 +25,7 @@ public class Fragment_me extends Fragment {
     private Button exitButton;
     private TextView user_name;
     private TextView user_val;
-//    public Fragment_me() {
+    //    public Fragment_me() {
 //        // Required empty public constructor
 //    }
 //    public static Fragment_me newInstance(String param1, String param2) {
@@ -58,7 +58,7 @@ public class Fragment_me extends Fragment {
             exitButton.setText("点击登录/注册");
         }else{
             user_name.setText(activity.sharedPreferencesManager.getUsername());
-            user_val.setText(activity.sharedPreferencesManager.getUserVal());
+            user_val.setText(activity.sharedPreferencesManager.getUserPassword());
         }
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,12 +92,24 @@ public class Fragment_me extends Fragment {
     }
     //退出登录
     private void Logout(){
-        activity.sharedPreferencesManager.setLoggedIn(false);
-        activity.sharedPreferencesManager.setUsername("Username");
-        activity.sharedPreferencesManager.setUserVal("user_val");
+        DataClear();
         user_name.setText(activity.sharedPreferencesManager.getUsername());
-        user_val.setText(activity.sharedPreferencesManager.getUserVal());
+        user_val.setText(activity.sharedPreferencesManager.getUserPassword());
         exitButton.setText("退出登录");
     }
+    private void DataClear()
+    {
+        activity.sharedPreferencesManager.setLoggedIn(false);
+        activity.sharedPreferencesManager.setUsername("Username");
+        activity.sharedPreferencesManager.setUserPassword("user_password");
+        activity.sharedPreferencesManager.setFigureYaowei("yaowei");
+        activity.sharedPreferencesManager.setFigureXiongwei("xiongwei");
+        activity.sharedPreferencesManager.setFigureTizhong("tizhong");
+        activity.sharedPreferencesManager.setFigureTunwei("tunwei");
+        activity.sharedPreferencesManager.setFigureShengao("shengao");
+        activity.sharedPreferencesManager.setUserRole("userRole");
+        activity.sharedPreferencesManager.setUserID("userID");
+        activity.sharedPreferencesManager.setUserPhone("userPhone");
 
+    }
 }
