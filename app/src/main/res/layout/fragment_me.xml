@@ -69,7 +69,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:icon="@drawable/user_24"
-        app:name="内容1"
+        app:name="我的身材"
+        app:activity="Me_Figure_Activity"
         android:background="#fff"
         app:show_more="true"
         app:show_line="true"/>

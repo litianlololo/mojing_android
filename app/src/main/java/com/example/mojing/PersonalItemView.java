@@ -53,9 +53,9 @@ public class PersonalItemView extends RelativeLayout {
                 }
             }
         };
-        icon.setOnClickListener(clickListener);
-        name.setOnClickListener(clickListener);
-        more.setOnClickListener(clickListener);
+            icon.setOnClickListener(clickListener);
+            name.setOnClickListener(clickListener);
+            more.setOnClickListener(clickListener);
     }
 
     public void setTargetActivityName(String targetActivityName) {

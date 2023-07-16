@@ -6,6 +6,7 @@
         <attr name="activity" format="string"/>//右侧描述文字
         <attr name="show_more" format="boolean"/>//是否显示右侧小箭头
         <attr name="show_line" format="boolean"/>//是否显示下划线
+        <attr name="ifdrop" format="boolean"/>//是否跳转
     </declare-styleable>
 </resources>
 
