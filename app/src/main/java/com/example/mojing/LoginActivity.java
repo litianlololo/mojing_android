@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
         textViewRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isRegister = !isRegister; // 切换登录方式标志
+                isRegister = !isRegister; // 切换登录注册标志
 
                 if (isRegister) {
                     // 切换为注册界面
@@ -118,20 +118,20 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        // 登录按钮的点击事件
+        // 登录/注册按钮的点击事件
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String phone_number = UserPhoneEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
-                if (phone_number.equals("") || password.equals("")) {
-                    return;
-                }
-                ;
-                if (isPasswordLogin) {
-                    // 使用密码登录
-                    // 进行密码登录的逻辑处理
-                    if (true) {
+                if(!isRegister) {
+                    if (isPasswordLogin) {
+                        // 使用密码登录
+                        // 进行密码登录的逻辑处理
+                        String phone_number = UserPhoneEditText.getText().toString();
+                        String password = passwordEditText.getText().toString();
+                        if (phone_number.equals("") || password.equals("")) {
+                            return;
+                        }
+                        ;
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -163,7 +163,7 @@ public class LoginActivity extends AppCompatActivity {
                                         // 提取键为"code"的值
                                         int code = responseJson.getInt("code");
                                         //确定返回状态
-                                        switch (code){
+                                        switch (code) {
                                             case 200:
                                                 setData(responseJson);
                                                 break;
@@ -202,19 +202,181 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         }).start();
                         // 登录成功，改变登录状态
-                        if(sharedPreferencesManager.isLoggedIn()) {
+                        if (sharedPreferencesManager.isLoggedIn()) {
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish(); // 结束当前的LoginActivity
+                        }
+                    } else {
+                        // 使用验证码登录
+                        // 进行验证码登录的逻辑处理
+                        String phone_number = UserPhoneEditText.getText().toString();
+                        String code = verificationCodeEditText.getText().toString();
+                        if (phone_number.equals("") || code.equals("")) {
+                            return;
+                        }
+                        ;
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                MediaType JSON = MediaType.parse("application/json;charset=utf-8");
+                                JSONObject json = new JSONObject();
+                                try {
+                                    json.put("phone_number", phone_number);
+                                    json.put("code", code);
+                                } catch (JSONException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                //创建一个OkHttpClient对象
+                                OkHttpClient okHttpClient = new OkHttpClient();
+                                RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
+                                Request request = new Request.Builder()
+                                        .url("http://47.102.43.156:8007/auth/loginByCode")
+                                        .post(requestBody)
+                                        .build();
+                                // 发送请求并获取响应
+                                try {
+                                    Response response = okHttpClient.newCall(request).execute();
+                                    // 检查响应是否成功
+                                    if (response.isSuccessful()) {
+                                        // 获取响应体
+                                        ResponseBody responseBody = response.body();
+                                        // 处理响应数据
+                                        String responseData = responseBody.string();
+                                        JSONObject responseJson = new JSONObject(responseData);
+                                        // 提取键为"code"的值
+                                        int code = responseJson.getInt("code");
+                                        //确定返回状态
+                                        switch (code) {
+                                            case 200:
+                                                setData(responseJson);
+                                                break;
+                                            //登录成功
+                                            case 2002:
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        showRequestFailedDialog("用户不存在");
+                                                    }
+                                                });
+                                                break;
+                                            //用户不存在
+                                            case 1002:
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        showRequestFailedDialog("验证码错误");
+                                                    }
+                                                });
+                                                break;
+                                            //密码错误
+                                        }
+                                        //System.out.println("Response: " + responseData);
+                                        // 记得关闭响应体
+                                        responseBody.close();
+                                    } else {
+                                        // 请求失败，处理错误
+                                        System.out.println("Request failed");
+                                    }
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                } catch (JSONException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                        }).start();
+                        // 登录成功，改变登录状态
+                        if (sharedPreferencesManager.isLoggedIn()) {
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish(); // 结束当前的LoginActivity
                         }
                     }
-                } else {
-                    // 使用验证码登录
-                    // 进行验证码登录的逻辑处理
                 }
-            }
+                else{
+                    //注册按钮
+                    String phone_number = UserPhoneEditText.getText().toString();
+                    String code = verificationCodeEditText.getText().toString();
+                    if (phone_number.equals("") || code.equals("")) {return;};
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            MediaType JSON = MediaType.parse("application/json;charset=utf-8");
+                            JSONObject json = new JSONObject();
+                            try {
+                                json.put("phone_number", phone_number);
+                                json.put("code", code);
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                            //创建一个OkHttpClient对象
+                            OkHttpClient okHttpClient = new OkHttpClient();
+                            RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
+                            Request request = new Request.Builder()
+                                    .url("http://47.102.43.156:8007/auth/register")
+                                    .post(requestBody)
+                                    .build();
+                            // 发送请求并获取响应
+                            try {
+                                Response response = okHttpClient.newCall(request).execute();
+                                // 检查响应是否成功
+                                if (response.isSuccessful()) {
+                                    // 获取响应体
+                                    ResponseBody responseBody = response.body();
+                                    // 处理响应数据
+                                    String responseData = responseBody.string();
+                                    JSONObject responseJson = new JSONObject(responseData);
+                                    // 提取键为"code"的值
+                                    int code = responseJson.getInt("code");
+                                    //确定返回状态
+                                    switch (code) {
+                                        case 200:
+                                            setData(responseJson);
+                                            break;
+                                        //登录成功
+                                        case 502:
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    showRequestFailedDialog("账号已注册");
+                                                }
+                                            });
+                                            break;
+                                        //用户不存在
+                                        case 501:
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    showRequestFailedDialog("验证码错误");
+                                                }
+                                            });
+                                            break;
+                                    }
+                                    System.out.println("Response: " + responseData);
+                                    // 记得关闭响应体
+                                    responseBody.close();
+                                } else {
+                                    // 请求失败，处理错误
+                                    System.out.println("Request failed");
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                    }).start();
+                    // 登录成功，改变登录状态
+                    if (sharedPreferencesManager.isLoggedIn()) {
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish(); // 结束当前的LoginActivity
+                    }
+                }
+        }
         });
-        //注册按钮
+
+
     }
     // 弹出请求失败的对话框
     private void showRequestFailedDialog(String str) {
