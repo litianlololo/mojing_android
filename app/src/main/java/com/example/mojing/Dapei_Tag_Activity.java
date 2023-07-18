@@ -32,7 +32,7 @@ public class Dapei_Tag_Activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        Button btn_ai = findViewById(R.id.btn_ai);
+        Button btn_ai = findViewById(R.id.btn_AI);
         btn_ai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,7 +42,7 @@ public class Dapei_Tag_Activity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        Button btn_designer = findViewById(R.id.btn_designer);
+        Button btn_designer = findViewById(R.id.btn_Designer);
         btn_designer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

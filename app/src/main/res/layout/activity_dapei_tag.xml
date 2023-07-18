@@ -5,44 +5,76 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Dapei_Tag_Activity">
-
-    <!-- 返回按钮 -->
-    <ImageButton
-        android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/dapei_back"
-        android:background="@null"
-        android:padding="8dp"/>
-
-    <!-- 垂直排布的按钮组 -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_back">
+        android:orientation="horizontal"
+        android:gravity="center">
 
-        <!-- 个人搭配按钮 -->
+            <!-- 返回按钮 -->
+            <ImageButton
+                android:id="@+id/btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:padding="8dp"
+                android:src="@drawable/dapei_back"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-40dp"
+                android:text="搭配相册"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="40dp">
         <Button
             android:id="@+id/btn_personal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/dapei_self" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="个人搭配"
+            android:textSize="20sp"
+            android:background="@android:color/holo_blue_light"
+            android:textColor="@android:color/white"
+            android:layout_margin="10dp"/>
 
-        <!-- AI按钮 -->
         <Button
-            android:id="@+id/btn_ai"
+            android:id="@+id/btn_AI"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/dapei_ai" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="AI"
+            android:textSize="20sp"
+            android:background="@android:color/holo_green_light"
+            android:textColor="@android:color/white"
+            android:layout_margin="10dp"/>
 
-        <!-- 设计师按钮 -->
         <Button
-            android:id="@+id/btn_designer"
+            android:id="@+id/btn_Designer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/dapei_designer" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="设计师"
+            android:textSize="20sp"
+            android:background="@android:color/holo_orange_light"
+            android:textColor="@android:color/white"
+            android:layout_margin="10dp"/>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
