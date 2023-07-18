@@ -7,7 +7,6 @@
     tools:context=".Me_Figure_Activity">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left"
@@ -27,6 +26,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -45,17 +45,30 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="50dp"
             android:text="身高"
             android:textColor="#353535"
             android:textSize="16sp" />
+            <EditText
+                android:id="@+id/et_shengao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="50dp"
+                android:layout_toRightOf="@id/tv_temp_shengao"
+                android:ellipsize="end"
+                android:gravity="right"
+                android:singleLine="true"
+                android:background="@null"
+                android:visibility="gone" />
         <TextView
             android:id="@+id/tv_shengao"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="50dp"
             android:layout_toRightOf="@id/tv_temp_shengao"
             android:ellipsize="end"
             android:gravity="right"
@@ -84,18 +97,31 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="50dp"
             android:text="体重"
             android:textColor="#353535"
             android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/tv_tizhong"
+        <EditText
+            android:id="@+id/et_tizhong"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="50dp"
+            android:layout_toRightOf="@id/tv_temp_shengao"
+            android:ellipsize="end"
+            android:gravity="right"
+            android:background="@null"
+            android:singleLine="true"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_tizhong"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="50dp"
             android:layout_toRightOf="@id/tv_temp_tizhong"
             android:ellipsize="end"
             android:gravity="right"
@@ -121,18 +147,30 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="50dp"
             android:text="胸围"
             android:textColor="#353535"
             android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/tv_xiongwei"
+        <EditText
+            android:id="@+id/et_xiongwei"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="50dp"
+            android:layout_toRightOf="@id/tv_temp_shengao"
+            android:ellipsize="end"
+            android:gravity="right"
+            android:background="@null"
+            android:singleLine="true"
+            android:visibility="gone" />
+        <TextView
+            android:id="@+id/tv_xiongwei"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="50dp"
             android:layout_toRightOf="@id/tv_temp_xiongwei"
             android:ellipsize="end"
             android:gravity="right"
@@ -160,18 +198,30 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="50dp"
             android:text="腰围"
             android:textColor="#353535"
             android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/tv_yaowei"
+        <EditText
+            android:id="@+id/et_yaowei"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="50dp"
+            android:layout_toRightOf="@id/tv_temp_shengao"
+            android:ellipsize="end"
+            android:gravity="right"
+            android:background="@null"
+            android:singleLine="true"
+            android:visibility="gone" />
+        <TextView
+            android:id="@+id/tv_yaowei"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="50dp"
             android:layout_toRightOf="@id/tv_temp_yaowei"
             android:ellipsize="end"
             android:gravity="right"
@@ -200,18 +250,30 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="50dp"
             android:text="臀围"
             android:textColor="#353535"
             android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/tv_tunwei"
+        <EditText
+            android:id="@+id/et_tunwei"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="50dp"
+            android:layout_toRightOf="@id/tv_temp_shengao"
+            android:ellipsize="end"
+            android:gravity="right"
+            android:background="@null"
+            android:singleLine="true"
+            android:visibility="gone" />
+        <TextView
+            android:id="@+id/tv_tunwei"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="50dp"
             android:layout_toRightOf="@id/tv_temp_tunwei"
             android:ellipsize="end"
             android:gravity="right"
