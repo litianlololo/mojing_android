@@ -84,6 +84,7 @@ public class Fragment_me extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 // 执行注销操作
                 Logout();
+
                 activity.restartMainActivity();
             }
         });
