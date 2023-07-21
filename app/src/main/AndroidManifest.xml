@@ -31,6 +31,18 @@
             android:name=".Dapei_Tag_Activity"
             android:exported="false" />
         <activity
+            android:name=".Yichu_Tops_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Yichu_Bottoms_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Yichu_Single_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Yichu_Add_Activity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
