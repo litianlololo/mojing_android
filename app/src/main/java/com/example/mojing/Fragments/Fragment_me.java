@@ -11,12 +11,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.mojing.LoginActivity;
 import com.example.mojing.MainActivity;
 import com.example.mojing.R;
 import com.example.mojing.SharedPreferencesManager;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 
 public class Fragment_me extends Fragment {
@@ -25,6 +38,7 @@ public class Fragment_me extends Fragment {
     private Button exitButton;
     private TextView user_name;
     private TextView user_val;
+    private ImageButton downloadBtn;
     //    public Fragment_me() {
 //        // Required empty public constructor
 //    }
@@ -53,6 +67,7 @@ public class Fragment_me extends Fragment {
         user_name= activity.findViewById(R.id.user_name);
         user_val = activity.findViewById(R.id.user_val);
         exitButton = activity.findViewById(R.id.btn_exit);
+
         //没有登录
         if(!activity.sharedPreferencesManager.isLoggedIn()){
             exitButton.setText("点击登录/注册");
@@ -84,7 +99,44 @@ public class Fragment_me extends Fragment {
             public void onClick(DialogInterface dialog, int which) {
                 // 执行注销操作
                 Logout();
-
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        MediaType JSON = MediaType.parse("application/json;charset=utf-8");
+//                        JSONObject json = new JSONObject();
+//                        try {
+//                            json.put("phone_number", sharedPreferencesManager.getUserPhone());
+//                        } catch (JSONException e) {
+//                            throw new RuntimeException(e);
+//                        }
+//                        //创建一个OkHttpClient对象
+//                        OkHttpClient okHttpClient = new OkHttpClient();
+//                        RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
+//                        Request request = new Request.Builder()
+//                                .url("http://47.102.43.156:8007/auth/remove-account")
+//                                .post(requestBody)
+//                                .build();
+//                        // 发送请求并获取响应
+//                        try {
+//                            Response response = okHttpClient.newCall(request).execute();
+//                            // 检查响应是否成功
+//                            if (response.isSuccessful()) {
+//                                // 获取响应体
+//                                ResponseBody responseBody = response.body();
+//                                // 处理响应数据
+//                                String responseData = responseBody.string();
+//                                System.out.println("Response: " + responseData);
+//                                // 记得关闭响应体
+//                                responseBody.close();
+//                            } else {
+//                                // 请求失败，处理错误
+//                                System.out.println("Request failed");
+//                            }
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }).start();
                 activity.restartMainActivity();
             }
         });

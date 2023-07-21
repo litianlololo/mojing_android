@@ -64,23 +64,25 @@
                     android:id="@+id/ImgBtn_1"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
-                    android:src="@drawable/dapei_vest_24" />
+                    android:src="@drawable/navbar_icon_home_default" />
 
                 <ImageButton
                     android:id="@+id/ImgBtn_2"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
-                    android:src="@drawable/dapei_vest_24" />
+                    android:src="@drawable/navbar_icon_home_default_1" />
 
             </LinearLayout>
 
             <!-- 保存到相册和自动搭配按钮 -->
             <LinearLayout
+
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <ImageButton
+                    android:id="@+id/download"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/folder_download_24" />
