@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,6 +13,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import android.provider.ContactsContract;
@@ -20,6 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -28,6 +31,8 @@ import com.example.mojing.Dapei_Tag_Activity;
 import com.example.mojing.LoginActivity;
 import com.example.mojing.R;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -41,9 +46,15 @@ public class Fragment_dapei extends Fragment {
     private ImageButton ImgBtn_2;
     private ImageButton imageButton;
     private ImageButton downloadBtn;
+    private Button shareBtn;
+    private Bitmap combinedBitmap;
+    private Boolean iscombined = false;
+    private String fileName;
+
     public Fragment_dapei() {
         // Required empty public constructor
     }
+
     public static Fragment_dapei newInstance(String param1, String param2) {
         Fragment_dapei fragment = new Fragment_dapei();
         return fragment;
@@ -75,7 +86,7 @@ public class Fragment_dapei extends Fragment {
             @Override
             public void onClick(View v) {
                 // 在这里编写单击事件的逻辑
-                String TAG="Main";
+                String TAG = "Main";
                 score_edit.setText("dianji");
                 Intent intent = new Intent(getActivity(), Dapei_Tag_Activity.class);
                 startActivity(intent);
@@ -85,11 +96,23 @@ public class Fragment_dapei extends Fragment {
         ImgBtn_1 = getActivity().findViewById(R.id.ImgBtn_1);
         ImgBtn_2 = getActivity().findViewById(R.id.ImgBtn_2);
         downloadBtn = getActivity().findViewById(R.id.download);
+        shareBtn = getActivity().findViewById(R.id.shareBtn);
+        shareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!iscombined) {
+                    showRequestFailedDialog("请先保存您的搭配");
+                    return;
+                } else {
+                    // 分享已合并的图片
+                }
+            }
+        });
         ImgBtn_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openGallery(ImgBtn_1);
-                imageButton= getActivity().findViewById(R.id.ImgBtn_1);
+                imageButton = getActivity().findViewById(R.id.ImgBtn_1);
             }
         });
 
@@ -97,16 +120,18 @@ public class Fragment_dapei extends Fragment {
             @Override
             public void onClick(View v) {
                 openGallery(ImgBtn_2);
-                imageButton= getActivity().findViewById(R.id.ImgBtn_2);
+                imageButton = getActivity().findViewById(R.id.ImgBtn_2);
             }
         });
     }
+
     private void openGallery(ImageButton imageButton) {
         // 在这里处理打开手机图库并选择图片的逻辑
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(galleryIntent, 1);
         imageButton.setPressed(true);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -135,8 +160,9 @@ public class Fragment_dapei extends Fragment {
                         Bitmap resizedBitmap = Bitmap.createScaledBitmap(originalBitmap, imageButton.getWidth(), imageButton.getHeight(), false);
 
                         // Assuming both images have the same width
-                        Bitmap combinedBitmap = combineImagesVertically(((BitmapDrawable) ImgBtn_1.getDrawable()).getBitmap(), ((BitmapDrawable) ImgBtn_2.getDrawable()).getBitmap());
+                        combinedBitmap = combineImagesVertically(((BitmapDrawable) ImgBtn_1.getDrawable()).getBitmap(), ((BitmapDrawable) ImgBtn_2.getDrawable()).getBitmap());
                         saveImageToGallery(combinedBitmap);
+                        iscombined = true;
                         showRequestFailedDialog("保存成功，已同时保存到手机相册");
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -145,6 +171,7 @@ public class Fragment_dapei extends Fragment {
             }
         });
     }
+
     // Function to concatenate two images vertically
     private Bitmap combineImagesVertically(Bitmap topImage, Bitmap bottomImage) {
         int width = topImage.getWidth();
@@ -162,7 +189,7 @@ public class Fragment_dapei extends Fragment {
     // Function to save the image to the gallery
     private void saveImageToGallery(Bitmap bitmap) {
         ContentResolver contentResolver = getActivity().getContentResolver();
-        String fileName = System.currentTimeMillis() + ".jpg";
+        fileName = System.currentTimeMillis() + ".jpg";
 
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.DISPLAY_NAME, fileName);
@@ -180,6 +207,7 @@ public class Fragment_dapei extends Fragment {
             e.printStackTrace();
         }
     }
+
     private void showRequestFailedDialog(String str) {
         if (getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
