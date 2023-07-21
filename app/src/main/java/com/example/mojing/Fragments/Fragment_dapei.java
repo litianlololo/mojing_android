@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.example.mojing.Dapei_SetTags_Activity;
 import com.example.mojing.Dapei_Tag_Activity;
 import com.example.mojing.LoginActivity;
 import com.example.mojing.R;
@@ -49,6 +50,7 @@ public class Fragment_dapei extends Fragment {
     private Button shareBtn;
     private Bitmap combinedBitmap;
     private Boolean iscombined = false;
+    private Button TagBtn;
     private String fileName;
 
     public Fragment_dapei() {
@@ -97,6 +99,14 @@ public class Fragment_dapei extends Fragment {
         ImgBtn_2 = getActivity().findViewById(R.id.ImgBtn_2);
         downloadBtn = getActivity().findViewById(R.id.download);
         shareBtn = getActivity().findViewById(R.id.shareBtn);
+        TagBtn = getActivity().findViewById(R.id.TagBtn);
+        TagBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), Dapei_SetTags_Activity.class);
+                startActivity(intent);
+            }
+        });
         shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

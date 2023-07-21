@@ -16,6 +16,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Dapei_SetTags_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Dapei_SetTag_Activity"
+            android:exported="false" />
+        <activity
             android:name=".Me_Figure_Activity"
             android:exported="false" />
         <activity
