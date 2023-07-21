@@ -19,9 +19,6 @@
             android:name=".Dapei_SetTags_Activity"
             android:exported="false" />
         <activity
-            android:name=".Dapei_SetTag_Activity"
-            android:exported="false" />
-        <activity
             android:name=".Me_Figure_Activity"
             android:exported="false" />
         <activity
@@ -57,6 +54,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 
 </manifest>
