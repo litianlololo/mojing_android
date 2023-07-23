@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="360dp"
+        android:layout_width="match_parent"
         android:layout_height="46dp"
         android:gravity="left"
         android:orientation="horizontal"
@@ -32,66 +32,60 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="342dp"
-        android:layout_height="379dp"
-        android:gravity="center"
-        android:orientation="vertical"
+
+    <EditText
+        android:id="@+id/editTextUserName"
+        android:layout_width="331dp"
+        android:layout_height="wrap_content"
+        android:hint="用户名"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.33" />
+
+    <!-- 水平排布验证码输入文本框和获取验证码按钮的容器 -->
+    <EditText
+        android:id="@+id/editTextUserPhone"
+        android:layout_width="331dp"
+        android:layout_height="wrap_content"
+        android:hint="手机号码"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editTextPassword"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="@+id/editTextPassword"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
+        app:layout_constraintVertical_bias="0.042" />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="334dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editTextUserName"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="@+id/editTextUserName"
+        app:layout_constraintTop_toBottomOf="@+id/editTextUserName"
+        app:layout_constraintVertical_bias="0.002" />
+
+
+    <Button
+        android:id="@+id/buttonLogin"
+        android:layout_width="263dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="128dp"
+        android:backgroundTint="@color/black"
+        android:text="@string/signup"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-
-        <EditText
-            android:id="@+id/editTextUserPhone"
-            android:layout_width="331dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:hint="手机号码" />
-
-        <EditText
-            android:id="@+id/editTextPassword"
-            android:layout_width="334dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="Password"
-            android:inputType="textPassword" />
-        <!-- 水平排布验证码输入文本框和获取验证码按钮的容器 -->
-        <LinearLayout
-            android:layout_width="339dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <!-- 输入验证码的文本框 -->
-            <EditText
-                android:id="@+id/editTextVerificationCode"
-                android:layout_width="290dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_weight="1"
-                android:hint="@string/editVerificationCode"
-                android:inputType="number" />
-            <!-- 获取验证码按钮 -->
-            <Button
-                android:id="@+id/buttonGetCode"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:backgroundTint="@color/black"
-                android:text="获取验证码"
-                android:textColor="@color/white" />
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/buttonLogin"
-            android:layout_width="263dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:backgroundTint="@color/black"
-            android:text="@string/signup"
-            android:textColor="@color/white" />
-
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/editTextUserPhone"
+        app:layout_constraintVertical_bias="0.06" />
 
     <TextView
         android:id="@+id/textView"
@@ -99,10 +93,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="Hello!"
-        android:textSize="48dp"
+        android:textSize="48sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.138"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
@@ -113,12 +107,39 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="欢迎使用SD"
-        android:textSize="24dp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.136"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_bias="0.444" />
+
+    <EditText
+        android:id="@+id/editTextVerificationCode"
+        android:layout_width="202dp"
+        android:layout_height="52dp"
+        android:layout_weight="1"
+        android:hint="@string/editVerificationCode"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/editTextUserPhone"
+        app:layout_constraintHorizontal_bias="0.007"
+        app:layout_constraintStart_toStartOf="@+id/editTextUserPhone"
+        app:layout_constraintTop_toBottomOf="@+id/editTextUserPhone"
+        app:layout_constraintVertical_bias="0.048" />
+
+    <Button
+        android:id="@+id/buttonGetCode"
+        android:layout_width="130dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="9dp"
+        android:backgroundTint="@color/black"
+        android:text="获取验证码"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@+id/editTextUserPhone"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toEndOf="@+id/editTextVerificationCode"
+        app:layout_constraintTop_toBottomOf="@+id/editTextUserPhone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

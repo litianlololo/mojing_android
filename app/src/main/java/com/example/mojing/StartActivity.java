@@ -13,7 +13,7 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 public class StartActivity extends AppCompatActivity {
-
+    private SharedPreferencesManager sharedPreferencesManager;
     private CheckBox checkbox;
     private Button LoginBtn;
     private Button RegisteBtn;
@@ -22,6 +22,7 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+        sharedPreferencesManager = new SharedPreferencesManager(this);
         checkbox = findViewById(R.id.checkbox);
         LoginBtn =findViewById(R.id.LoginBtn);
         RegisteBtn = findViewById(R.id.RegisterBtn);
@@ -29,7 +30,9 @@ public class StartActivity extends AppCompatActivity {
         SKIPBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish(); // 返回上一个Activity
+                sharedPreferencesManager.setIsYouke(true);
+                Intent loginIntent = new Intent(StartActivity.this, MainActivity.class);
+                StartActivity.this.startActivity(loginIntent);finish();
             }
         });
         LoginBtn.setOnClickListener(new View.OnClickListener() {

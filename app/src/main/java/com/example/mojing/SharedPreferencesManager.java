@@ -19,10 +19,20 @@ public class SharedPreferencesManager {
     private static final String KEY_Figure_Xiongwei = "xiongwei";
     private static final String KEY_Figure_Yaowei = "yaowei";
 
+    private static final String KEY_IS_Youke = "isyouke";
     private SharedPreferences sharedPreferences;
 
     public SharedPreferencesManager(Context context) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+    }
+
+    public boolean isYouke() {
+        return sharedPreferences.getBoolean(KEY_IS_Youke, false);
+    }
+    public void setIsYouke(boolean isyouke) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(KEY_IS_LOGGED_IN, isyouke);
+        editor.apply();
     }
 
     public boolean isLoggedIn() {

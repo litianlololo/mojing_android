@@ -137,6 +137,8 @@ public class Fragment_me extends Fragment {
 //                        }
 //                    }
 //                }).start();
+
+
                 activity.restartMainActivity();
             }
         });
@@ -163,6 +165,7 @@ public class Fragment_me extends Fragment {
         activity.sharedPreferencesManager.setUserRole("userRole");
         activity.sharedPreferencesManager.setUserID("userID");
         activity.sharedPreferencesManager.setUserPhone("userPhone");
-
+        //IsYouke重置
+        sharedPreferencesManager.setIsYouke(false);
     }
 }
