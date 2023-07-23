@@ -5,33 +5,72 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".StartActivity">
+    <!-- 返回按钮 -->
+    <Button
+        android:id="@+id/SKIP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:padding="8dp"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        android:text="SKIP"/>
 
     <Button
         android:id="@+id/LoginBtn"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:background="@color/black"
+        android:backgroundTint="@color/black"
         android:text="@string/login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.676" />
+        app:layout_constraintVertical_bias="0.675" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="249dp"
+        android:layout_height="51dp"
+        android:backgroundTint="@color/black"
+        android:text=""
+        app:iconPadding="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LoginBtn"
+        app:layout_constraintVertical_bias="0.056" />
 
     <Button
         android:id="@+id/RegisterBtn"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
+        android:backgroundTint="@color/white"
+        android:insetLeft="2dp"
+        android:insetTop="7dp"
+        android:insetRight="2dp"
+        android:insetBottom="7dp"
         android:text="@string/signup"
+        android:textColor="@color/black"
         app:iconPadding="0dp"
-        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LoginBtn"
-        app:layout_constraintVertical_bias="0.147" />
+        app:layout_constraintVertical_bias="0.055" />
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="阅读并同意《用户协议》和《隐私协议》"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button3"
+        app:layout_constraintVertical_bias="0.27" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
