@@ -27,6 +27,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     //sharedPreferences 用于存储用户基础信息
     public SharedPreferencesManager sharedPreferencesManager;
+
     private TabLayout myTab;
     private ViewPager2 myPager2;
 
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         sharedPreferencesManager = new SharedPreferencesManager(this);
-
+        boolean isLoggedIn = sharedPreferencesManager.isLoggedIn();
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         myTab = findViewById(R.id.tab);
@@ -78,6 +79,12 @@ public class MainActivity extends AppCompatActivity {
                 tab.setIcon(icons.get(position));
             }
         }).attach();
+
+        // 如果用户未登录，则打开登录页面
+        if (!isLoggedIn) {
+            Intent loginIntent = new Intent(this, StartActivity.class);
+            this.startActivity(loginIntent);
+        }
     }
 
     public SharedPreferencesManager getSharedPreferencesManager() {
