@@ -56,11 +56,11 @@ public class MainActivity extends AppCompatActivity {
         titles.add("消息");
         titles.add("我的");
 
-        icons.add(R.drawable.yichu_24);
-        icons.add(R.drawable.dapei_24);
-        icons.add(R.drawable.vip_24);
-        icons.add(R.drawable.msg_24);
-        icons.add(R.drawable.user_24);
+        icons.add(R.drawable.tabbar_icon_home_default);
+        icons.add(R.drawable.tabbar_icon_home_default_1);
+        icons.add(R.drawable.tabbar_icon_home_default_2);
+        icons.add(R.drawable.tabbar_icon_home_default_3);
+        icons.add(R.drawable.tabbar_icon_home_default_4);
 
         fragments.add(new Fragment_yichu());
         fragments.add(new Fragment_dapei());

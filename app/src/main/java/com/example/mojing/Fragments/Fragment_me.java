@@ -66,7 +66,7 @@ public class Fragment_me extends Fragment {
 
         user_name= activity.findViewById(R.id.user_name);
         user_val = activity.findViewById(R.id.user_val);
-        exitButton = activity.findViewById(R.id.btn_exit);
+        //exitButton = activity.findViewById(R.id.btn_exit);
 
         //没有登录
         if(!activity.sharedPreferencesManager.isLoggedIn()){
@@ -75,19 +75,20 @@ public class Fragment_me extends Fragment {
             user_name.setText(activity.sharedPreferencesManager.getUsername());
             user_val.setText(activity.sharedPreferencesManager.getUserPassword());
         }
-        exitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //没有登录
-                if(!activity.sharedPreferencesManager.isLoggedIn()){
-                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-                    startActivity(intent);
-                }
-                else{
-                    showConfirmationDialog();
-                }
-            }
-        });
+
+//        exitButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //没有登录
+//                if(!activity.sharedPreferencesManager.isLoggedIn()){
+//                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+//                    startActivity(intent);
+//                }
+//                else{
+//                    showConfirmationDialog();
+//                }
+//            }
+//        });
     }
     //确认退出登录弹窗
     private void showConfirmationDialog() {
