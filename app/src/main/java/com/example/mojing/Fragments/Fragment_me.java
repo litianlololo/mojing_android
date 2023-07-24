@@ -14,8 +14,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.mojing.InitFigureActivity;
+import com.example.mojing.InitSanweiActivity;
 import com.example.mojing.LoginActivity;
 import com.example.mojing.MainActivity;
+import com.example.mojing.ModifyAccountActivity;
 import com.example.mojing.R;
 import com.example.mojing.SharedPreferencesManager;
 
@@ -37,15 +40,10 @@ public class Fragment_me extends Fragment {
     private SharedPreferencesManager sharedPreferencesManager;
     private Button exitButton;
     private TextView user_name;
-    private TextView user_val;
+    private TextView user_ID;
     private ImageButton downloadBtn;
-    //    public Fragment_me() {
-//        // Required empty public constructor
-//    }
-//    public static Fragment_me newInstance(String param1, String param2) {
-//        Fragment_me fragment = new Fragment_me();
-//        return fragment;
-//    }
+    private Button ModifyBtn;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +63,7 @@ public class Fragment_me extends Fragment {
         sharedPreferencesManager = activity.getSharedPreferencesManager();
 
         user_name= activity.findViewById(R.id.user_name);
-        user_val = activity.findViewById(R.id.user_val);
+        user_ID = activity.findViewById(R.id.user_val);
         //exitButton = activity.findViewById(R.id.btn_exit);
 
         //没有登录
@@ -73,9 +71,17 @@ public class Fragment_me extends Fragment {
             exitButton.setText("点击登录/注册");
         }else{
             user_name.setText(activity.sharedPreferencesManager.getUsername());
-            user_val.setText(activity.sharedPreferencesManager.getUserPassword());
+            user_ID.setText(activity.sharedPreferencesManager.getUserID());
         }
-
+        //编辑资料
+        ModifyBtn = getActivity().findViewById(R.id.edit);
+        ModifyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent tmp = new Intent(getActivity(), ModifyAccountActivity.class);
+                startActivity(tmp);
+            }
+        });
 //        exitButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -150,7 +156,7 @@ public class Fragment_me extends Fragment {
     private void Logout(){
         DataClear();
         user_name.setText(activity.sharedPreferencesManager.getUsername());
-        user_val.setText(activity.sharedPreferencesManager.getUserPassword());
+        user_ID.setText(activity.sharedPreferencesManager.getUserID());
         exitButton.setText("退出登录");
     }
     private void DataClear()

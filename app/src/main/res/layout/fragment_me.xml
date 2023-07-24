@@ -13,36 +13,25 @@
         android:layout_height="match_parent"
         android:background="#C4F3F3F3">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="412dp"
-            android:layout_height="468dp"
-            android:layout_marginTop="1dp"
-            android:background="#FFFFFF"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/BackgroundImg">
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
         <ImageView
             android:id="@+id/BackgroundImg"
-            android:layout_width="409dp"
+            android:layout_width="0dp"
             android:layout_height="259dp"
-            android:src="@drawable/picture_24"
+            android:scaleType="centerCrop"
+            android:src="@drawable/back_tmp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.002" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
-            android:id="@+id/h_head"
+            android:id="@+id/headIcon"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/user_24"
+            android:background="@drawable/tabbar_icon_home_press_1"
             android:src="@drawable/circle_images"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -56,13 +45,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:background="#C4737373"
             android:text="Username"
             android:textColor="@color/white"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/h_head"
+            app:layout_constraintBottom_toBottomOf="@+id/headIcon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/h_head"
+            app:layout_constraintStart_toEndOf="@+id/headIcon"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.75" />
 
@@ -71,13 +61,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:background="#C4737373"
             android:text="user_val"
             android:textColor="@color/white"
             android:textSize="10sp"
-            app:layout_constraintBottom_toBottomOf="@+id/h_head"
+            app:layout_constraintBottom_toBottomOf="@+id/headIcon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/h_head"
+            app:layout_constraintStart_toEndOf="@+id/headIcon"
             app:layout_constraintTop_toBottomOf="@+id/user_name"
             app:layout_constraintVertical_bias="0.781" />
 
@@ -90,7 +81,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.818"
-            app:layout_constraintStart_toEndOf="@+id/h_head"
+            app:layout_constraintStart_toEndOf="@+id/headIcon"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.199" />
 
@@ -99,10 +90,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:background="#C4737373"
             android:text="未设置个性签名"
             android:textColor="#FFFFFF"
-            app:layout_constraintStart_toStartOf="@+id/h_head"
-            app:layout_constraintTop_toBottomOf="@+id/h_head" />
+            app:layout_constraintStart_toStartOf="@+id/headIcon"
+            app:layout_constraintTop_toBottomOf="@+id/headIcon" />
 
         <ImageButton
             android:id="@+id/imageButton"
@@ -223,11 +215,11 @@
 
         <com.example.mojing.PersonalItemView
             android:id="@+id/xiongwei_content"
-            android:layout_width="376dp"
+            android:layout_width="0dp"
             android:layout_height="46dp"
             android:background="#fff"
             app:activity="Me_Figure_Activity"
-            app:icon="@drawable/user_24"
+            app:icon="@drawable/image_3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -236,80 +228,74 @@
             app:layout_constraintVertical_bias="0.451"
             app:name="胸围"
             app:show_line="true"
-            app:show_more="true" >
+            app:show_more="true">
 
             <TextView
                 android:id="@+id/textView20"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
+                android:layout_width="60dp"
+                android:layout_height="20dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="279dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="39dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="57dp"
+                android:layout_marginBottom="13dp"
                 android:text="xxcm" />
         </com.example.mojing.PersonalItemView>
 
         <com.example.mojing.PersonalItemView
             android:id="@+id/yaowei_content"
-            android:layout_width="376dp"
+            android:layout_width="0dp"
             android:layout_height="50dp"
             android:background="#fff"
-            app:icon="@drawable/user_24"
             app:activity="Me_Figure_Activity"
+            app:icon="@drawable/image_2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/xiongwei_content"
             app:name="腰围"
             app:show_line="true"
-            app:show_more="true" >
+            app:show_more="true">
 
             <TextView
                 android:id="@+id/textView21"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
+                android:layout_width="60dp"
+                android:layout_height="20dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="280dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginEnd="56dp"
+                android:layout_marginBottom="14dp"
                 android:text="xxcm" />
         </com.example.mojing.PersonalItemView>
 
         <com.example.mojing.PersonalItemView
             android:id="@+id/tunwei_content"
-            android:layout_width="376dp"
+            android:layout_width="0dp"
             android:layout_height="46dp"
             android:background="#fff"
-            app:icon="@drawable/user_24"
             app:activity="Me_Figure_Activity"
+            app:icon="@drawable/image_1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/yaowei_content"
             app:name="臀围"
             app:show_line="true"
-            app:show_more="true" >
+            app:show_more="true">
 
             <TextView
                 android:id="@+id/textView22"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
+                android:layout_width="60dp"
+                android:layout_height="20dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="280dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginBottom="17dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="55dp"
+                android:layout_marginBottom="15dp"
                 android:text="xxcm" />
         </com.example.mojing.PersonalItemView>
 
