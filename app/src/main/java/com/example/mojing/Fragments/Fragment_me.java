@@ -18,12 +18,16 @@ import com.example.mojing.InitFigureActivity;
 import com.example.mojing.InitSanweiActivity;
 import com.example.mojing.LoginActivity;
 import com.example.mojing.MainActivity;
+import com.example.mojing.Me_Figure_Activity;
 import com.example.mojing.ModifyAccountActivity;
+import com.example.mojing.PersonalItemView;
 import com.example.mojing.R;
+import com.example.mojing.SettingActivity;
 import com.example.mojing.SharedPreferencesManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 
@@ -39,10 +43,14 @@ public class Fragment_me extends Fragment {
     MainActivity activity;
     private SharedPreferencesManager sharedPreferencesManager;
     private Button exitButton;
+    private ImageButton settingBtn;
+    private TextView signatureText;
     private TextView user_name;
     private TextView user_ID;
+    private TextView shengaoText, tizhongText, xiongweiText, yaoweiText, tunweiText;
     private ImageButton downloadBtn;
     private Button ModifyBtn;
+    private PersonalItemView xiongwei_content, yaowei_content, tunwei_content;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +63,20 @@ public class Fragment_me extends Fragment {
 
         return inflater.inflate(R.layout.fragment_me, container, false);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // 在这里更新 A Activity 的内容
+        user_name.setText(sharedPreferencesManager.getUsername());
+        signatureText.setText(sharedPreferencesManager.getUserSignature());
+        shengaoText.setText(sharedPreferencesManager.getFigureShengao());
+        tizhongText.setText(sharedPreferencesManager.getFigureTizhong());
+        xiongweiText.setText(sharedPreferencesManager.getFigureXiongwei());
+        yaoweiText.setText(sharedPreferencesManager.getFigureYaowei());
+        tunweiText.setText(sharedPreferencesManager.getFigureTunwei());
+    }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -62,14 +84,22 @@ public class Fragment_me extends Fragment {
         assert activity != null;
         sharedPreferencesManager = activity.getSharedPreferencesManager();
 
-        user_name= activity.findViewById(R.id.user_name);
+        user_name = activity.findViewById(R.id.user_name);
         user_ID = activity.findViewById(R.id.user_val);
-        //exitButton = activity.findViewById(R.id.btn_exit);
+        signatureText = activity.findViewById(R.id.signatureText);
+        shengaoText = activity.findViewById(R.id.shengaoText);
+        tizhongText = activity.findViewById(R.id.tizhongText);
+        xiongweiText = activity.findViewById(R.id.xiongweiText);
+        yaoweiText = activity.findViewById(R.id.yaoweiText);
+        tunweiText = activity.findViewById(R.id.tunweiText);
+        settingBtn = activity.findViewById(R.id.settingBtn);
+        signatureText.setText(sharedPreferencesManager.getUserSignature());
+
 
         //没有登录
-        if(!activity.sharedPreferencesManager.isLoggedIn()){
-            exitButton.setText("点击登录/注册");
-        }else{
+        if (!activity.sharedPreferencesManager.isLoggedIn()) {
+            //
+        } else {
             user_name.setText(activity.sharedPreferencesManager.getUsername());
             user_ID.setText(activity.sharedPreferencesManager.getUserID());
         }
@@ -82,97 +112,26 @@ public class Fragment_me extends Fragment {
                 startActivity(tmp);
             }
         });
-//        exitButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //没有登录
-//                if(!activity.sharedPreferencesManager.isLoggedIn()){
-//                    Intent intent = new Intent(getActivity(), LoginActivity.class);
-//                    startActivity(intent);
-//                }
-//                else{
-//                    showConfirmationDialog();
-//                }
-//            }
-//        });
-    }
-    //确认退出登录弹窗
-    private void showConfirmationDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("确认退出登录");
-        builder.setMessage("确定要退出登录吗？");
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+        settingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // 执行注销操作
-                Logout();
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        MediaType JSON = MediaType.parse("application/json;charset=utf-8");
-//                        JSONObject json = new JSONObject();
-//                        try {
-//                            json.put("phone_number", sharedPreferencesManager.getUserPhone());
-//                        } catch (JSONException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//                        //创建一个OkHttpClient对象
-//                        OkHttpClient okHttpClient = new OkHttpClient();
-//                        RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
-//                        Request request = new Request.Builder()
-//                                .url("http://47.102.43.156:8007/auth/remove-account")
-//                                .post(requestBody)
-//                                .build();
-//                        // 发送请求并获取响应
-//                        try {
-//                            Response response = okHttpClient.newCall(request).execute();
-//                            // 检查响应是否成功
-//                            if (response.isSuccessful()) {
-//                                // 获取响应体
-//                                ResponseBody responseBody = response.body();
-//                                // 处理响应数据
-//                                String responseData = responseBody.string();
-//                                System.out.println("Response: " + responseData);
-//                                // 记得关闭响应体
-//                                responseBody.close();
-//                            } else {
-//                                // 请求失败，处理错误
-//                                System.out.println("Request failed");
-//                            }
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }).start();
-
-
-                activity.restartMainActivity();
+            public void onClick(View view) {
+                Intent tmp = new Intent(getActivity(), SettingActivity.class);
+                startActivity(tmp);
             }
         });
-        builder.setNegativeButton("取消", null);
-        builder.show();
-    }
-    //退出登录
-    private void Logout(){
-        DataClear();
-        user_name.setText(activity.sharedPreferencesManager.getUsername());
-        user_ID.setText(activity.sharedPreferencesManager.getUserID());
-        exitButton.setText("退出登录");
-    }
-    private void DataClear()
-    {
-        activity.sharedPreferencesManager.setLoggedIn(false);
-        activity.sharedPreferencesManager.setUsername("Username");
-        activity.sharedPreferencesManager.setUserPassword("user_password");
-        activity.sharedPreferencesManager.setFigureYaowei("yaowei");
-        activity.sharedPreferencesManager.setFigureXiongwei("xiongwei");
-        activity.sharedPreferencesManager.setFigureTizhong("tizhong");
-        activity.sharedPreferencesManager.setFigureTunwei("tunwei");
-        activity.sharedPreferencesManager.setFigureShengao("shengao");
-        activity.sharedPreferencesManager.setUserRole("userRole");
-        activity.sharedPreferencesManager.setUserID("userID");
-        activity.sharedPreferencesManager.setUserPhone("userPhone");
-        //IsYouke重置
-        sharedPreferencesManager.setIsYouke(false);
+//
+        View.OnClickListener clickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent tmp = new Intent(getActivity(), Me_Figure_Activity.class);
+                startActivity(tmp);
+            }
+        };
+        xiongwei_content = getActivity().findViewById(R.id.xiongwei_content);
+        yaowei_content = getActivity().findViewById(R.id.yaowei_content);
+        tunwei_content = getActivity().findViewById(R.id.tunwei_content);
+        xiongwei_content.setOnClickListener(clickListener);
+        yaowei_content.setOnClickListener(clickListener);
+        tunwei_content.setOnClickListener(clickListener);
     }
 }

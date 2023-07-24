@@ -43,7 +43,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         sharedPreferencesManager = new SharedPreferencesManager(this);
         // 初始化视图
-        UserPhoneEditText = findViewById(R.id.editTextUserName);
+        UserPhoneEditText = findViewById(R.id.editTextUserPhone);
         loginButton = findViewById(R.id.buttonLogin);
         getCodeButton = findViewById(R.id.buttonGetCode);
         verificationCodeEditText = findViewById(R.id.editTextVerificationCode);

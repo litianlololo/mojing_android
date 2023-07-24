@@ -18,7 +18,8 @@ public class SharedPreferencesManager {
     private static final String KEY_Figure_Tunwei = "tunwei";
     private static final String KEY_Figure_Xiongwei = "xiongwei";
     private static final String KEY_Figure_Yaowei = "yaowei";
-
+    private static final String KEY_UserSignature = "未设置";
+    private static final String KEY_UserGender = "女";
     private static final String KEY_IS_Youke = "isyouke";
     private SharedPreferences sharedPreferences;
 
@@ -50,6 +51,24 @@ public class SharedPreferencesManager {
     public void setUsername(String username) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(KEY_USERNAME, username);
+        editor.apply();
+    }
+
+    public String getUserSignature() {
+        return sharedPreferences.getString(KEY_UserSignature, "");
+    }
+    public void setUserSignature(String UserSignature) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_UserSignature, UserSignature);
+        editor.apply();
+    }
+
+    public String getUserGender() {
+        return sharedPreferences.getString(KEY_UserGender, "");
+    }
+    public void setUserGender(String UserGender) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_UserGender, UserGender);
         editor.apply();
     }
 
