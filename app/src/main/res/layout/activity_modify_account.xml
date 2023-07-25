@@ -160,7 +160,7 @@
 
         <TextView
             android:id="@+id/genderText"
-            android:layout_width="52dp"
+            android:layout_width="223dp"
             android:layout_height="20dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"

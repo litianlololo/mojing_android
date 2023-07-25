@@ -86,14 +86,12 @@ public class Fragment_dapei extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         ImageButton imgButton = (ImageButton) getActivity().findViewById(R.id.img_button);
-        EditText score_edit = (EditText) getActivity().findViewById(R.id.score_edit);
-        score_edit.setText("init");
+
         imgButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 在这里编写单击事件的逻辑
                 String TAG = "Main";
-                score_edit.setText("dianji");
                 Intent intent = new Intent(getActivity(), Dapei_Tag_Activity.class);
                 startActivity(intent);
             }
@@ -102,26 +100,7 @@ public class Fragment_dapei extends Fragment {
         ImgBtn_1 = getActivity().findViewById(R.id.ImgBtn_1);
         ImgBtn_2 = getActivity().findViewById(R.id.ImgBtn_2);
         downloadBtn = getActivity().findViewById(R.id.download);
-        shareBtn = getActivity().findViewById(R.id.shareBtn);
-        TagBtn = getActivity().findViewById(R.id.TagBtn);
-        TagBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), Dapei_SetTags_Activity.class);
-                startActivity(intent);
-            }
-        });
-        shareBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!iscombined) {
-                    showRequestFailedDialog("请先保存您的搭配");
-                    return;
-                } else {
-                    // 分享已合并的图片
-                }
-            }
-        });
+
         ImgBtn_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

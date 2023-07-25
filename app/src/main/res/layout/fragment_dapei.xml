@@ -1,146 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragments.Fragment_dapei">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <!-- 第一排布局 -->
-        <LinearLayout
-            android:layout_marginTop="50dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
 
             <!-- "打分"文本和文本输入框 -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="打分" />
 
-            <EditText
-                android:id="@+id/score_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="输入打分" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-            <!-- "搭配相册"图片按钮 -->
-            <ImageButton
-                android:id="@+id/img_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/picture_24" />
+        <View
+            android:id="@+id/view2"
+            android:layout_width="295dp"
+            android:layout_height="562dp"
+            android:layout_marginTop="104dp"
+            android:background="@drawable/radius_border1"
+            android:backgroundTint="#36BFBEBE"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+        <ImageButton
+            android:id="@+id/img_button"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/radius_border1"
+            android:backgroundTint="#787878"
+            android:src="@drawable/button_icon_detail_default"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- 第二排布局 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3">
+        <ImageButton
+            android:id="@+id/ImgBtn_1"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="208dp"
+            android:background="@drawable/radius_border1"
+            android:backgroundTint="#FFFFFF"
+            android:scaleType="fitCenter"
+            android:src="@drawable/navbar_icon_home_default"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- 分享按钮 -->
+        <ImageButton
+            android:id="@+id/ImgBtn_2"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/radius_border1"
+            android:backgroundTint="#FFFFFF"
+            android:scaleType="fitCenter"
+            android:src="@drawable/navbar_icon_home_default_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ImgBtn_1" />
 
-            <!-- 选择上衣和选择下装按钮 -->
-            <Button
-                android:id="@+id/shareBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="分享" />
+        <ImageButton
+            android:id="@+id/download"
+            android:layout_width="67dp"
+            android:layout_height="71dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="28dp"
+            android:background="@drawable/circle_style1"
+            android:src="@drawable/folder_download_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <ImageButton
-                    android:id="@+id/ImgBtn_1"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:src="@drawable/navbar_icon_home_default" />
-
-                <ImageButton
-                    android:id="@+id/ImgBtn_2"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:src="@drawable/navbar_icon_home_default_1" />
-
-            </LinearLayout>
-
-            <!-- 保存到相册和自动搭配按钮 -->
-            <LinearLayout
-
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <ImageButton
-                    android:id="@+id/download"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/folder_download_24" />
-
-                <ImageButton
-                    android:id="@+id/AI"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ai" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <!-- 第三排布局 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <Button
-                android:id="@+id/TagBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginLeft="140dp"
-                android:text="添加标签" />
-        </LinearLayout>
-<!--            &lt;!&ndash; 5个多选框 &ndash;&gt;-->
-<!--            <CheckBox-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="场景1" />-->
-
-<!--            <CheckBox-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="场景2" />-->
-
-<!--            <CheckBox-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="场景3" />-->
-
-<!--            <CheckBox-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="场景4" />-->
-
-<!--            <CheckBox-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="场景5" />-->
-
-
-
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </FrameLayout>
