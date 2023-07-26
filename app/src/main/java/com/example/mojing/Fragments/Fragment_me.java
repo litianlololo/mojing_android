@@ -1,5 +1,6 @@
 package com.example.mojing.Fragments;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -64,17 +65,18 @@ public class Fragment_me extends Fragment {
         return inflater.inflate(R.layout.fragment_me, container, false);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onResume() {
         super.onResume();
         // 在这里更新 A Activity 的内容
         user_name.setText(sharedPreferencesManager.getUsername());
         signatureText.setText(sharedPreferencesManager.getUserSignature());
-        shengaoText.setText(sharedPreferencesManager.getFigureShengao());
-        tizhongText.setText(sharedPreferencesManager.getFigureTizhong());
-        xiongweiText.setText(sharedPreferencesManager.getFigureXiongwei());
-        yaoweiText.setText(sharedPreferencesManager.getFigureYaowei());
-        tunweiText.setText(sharedPreferencesManager.getFigureTunwei());
+        shengaoText.setText(sharedPreferencesManager.getFigureShengao()+"cm");
+        tizhongText.setText(sharedPreferencesManager.getFigureTizhong()+"kg");
+        xiongweiText.setText(sharedPreferencesManager.getFigureXiongwei()+"cm");
+        yaoweiText.setText(sharedPreferencesManager.getFigureYaowei()+"cm");
+        tunweiText.setText(sharedPreferencesManager.getFigureTunwei()+"cm");
     }
 
     @Override
