@@ -149,27 +149,30 @@ public class LoginActivity extends AppCompatActivity {
         textViewRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isRegister = !isRegister; // 切换登录注册标志
-
-                if (isRegister) {
-                    // 切换为注册界面
-                    passwordEditText.setVisibility(View.VISIBLE);
-                    getCodeButton.setVisibility(View.VISIBLE);
-                    verificationCodeEditText.setVisibility(View.VISIBLE);
-                    switchTextView.setVisibility(View.GONE);
-                    textViewRegister.setText("返回登录");
-                    loginButton.setText("注册");
-                } else {
-                    // 切换为验证码登录界面
-                    passwordEditText.setVisibility(View.GONE);
-                    getCodeButton.setVisibility(View.VISIBLE);
-                    verificationCodeEditText.setVisibility(View.VISIBLE);
-                    switchTextView.setVisibility(View.VISIBLE);
-                    textViewRegister.setText("注册");
-                    switchTextView.setText(R.string.switch_to_password_login);
-                    loginButton.setText("登录");
-                    isPasswordLogin = false;
-                }
+                //跳转至注册页面
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);finish(); //
+//                isRegister = !isRegister; // 切换登录注册标志
+//
+//                if (isRegister) {
+//                    // 切换为注册界面
+//                    passwordEditText.setVisibility(View.VISIBLE);
+//                    getCodeButton.setVisibility(View.VISIBLE);
+//                    verificationCodeEditText.setVisibility(View.VISIBLE);
+//                    switchTextView.setVisibility(View.GONE);
+//                    textViewRegister.setText("返回登录");
+//                    loginButton.setText("注册");
+//                } else {
+//                    // 切换为验证码登录界面
+//                    passwordEditText.setVisibility(View.GONE);
+//                    getCodeButton.setVisibility(View.VISIBLE);
+//                    verificationCodeEditText.setVisibility(View.VISIBLE);
+//                    switchTextView.setVisibility(View.VISIBLE);
+//                    textViewRegister.setText("注册");
+//                    switchTextView.setText(R.string.switch_to_password_login);
+//                    loginButton.setText("登录");
+//                    isPasswordLogin = false;
+//                }
             }
         });
         // 登录按钮的点击事件

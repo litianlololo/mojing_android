@@ -1,5 +1,6 @@
 package com.example.mojing.Fragments;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
@@ -9,7 +10,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -27,12 +30,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.mojing.Dapei_Album_Activity;
 import com.example.mojing.Dapei_SetTags_Activity;
 import com.example.mojing.Dapei_Tag_Activity;
 import com.example.mojing.LoginActivity;
 import com.example.mojing.R;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
@@ -40,6 +45,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.util.Arrays;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,9 +61,16 @@ public class Fragment_dapei extends Fragment {
     private Bitmap combinedBitmap;
     private Boolean iscombined = false;
     private Button TagBtn;
+    private TextView changjingText;
     private String fileName;
+
     private Uri croppedImageUri_1; // 保存裁剪后的图片的 URI1
     private Uri croppedImageUri_2; // 保存裁剪后的图片的 URI2
+    private BottomSheetDialog bottomSheetDialog;
+    private Boolean[] isView;
+    private View[] changjingView;
+    private Drawable radius_border1,radius_chosed;
+    private static int changjingCNT=5;
     public Fragment_dapei() {
         // Required empty public constructor
     }
@@ -83,6 +96,7 @@ public class Fragment_dapei extends Fragment {
     }
 
     //在fragment不能直接进行点击事件，需要放到oncreatActivity中,重载该函数即可
+    @SuppressLint({"UseCompatLoadingForDrawables", "CutPasteId"})
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -101,7 +115,15 @@ public class Fragment_dapei extends Fragment {
         ImgBtn_1 = getActivity().findViewById(R.id.ImgBtn_1);
         ImgBtn_2 = getActivity().findViewById(R.id.ImgBtn_2);
         downloadBtn = getActivity().findViewById(R.id.download);
+        changjingText = getActivity().findViewById(R.id.changjingBtn);
 
+
+        changjingText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BottomSheet();
+            }
+        });
         ImgBtn_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -276,5 +298,38 @@ public class Fragment_dapei extends Fragment {
         }
         return null;
     }
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private void BottomSheet(){
+        //创建布局
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.dapei_changjing, null, false);
+        bottomSheetDialog = new BottomSheetDialog(getActivity());
+        //设置布局
+        bottomSheetDialog.setContentView(view);
+        changjingView=new View[changjingCNT];
+        isView=new Boolean[5];
+        Arrays.fill(isView, Boolean.FALSE);
+        changjingView[0]=view.findViewById(R.id.workView);
+        changjingView[1]=view.findViewById(R.id.travelView);
+        changjingView[2] =view.findViewById(R.id.dateView);
+        changjingView[3]=view.findViewById(R.id.leisureView);
+        changjingView[4]=view.findViewById(R.id.sportsView);
+        radius_border1 = getResources().getDrawable(R.drawable.radius_border1,null);
+        radius_chosed = getResources().getDrawable(R.drawable.radius_border_chosed,null);
+        for (int tmp = 0; tmp < changjingCNT; tmp++) {
+            int finalTmp = tmp;
+            changjingView[tmp].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (!isView[finalTmp]) {
+                        changjingView[finalTmp].setBackground(radius_chosed);
+                    } else {
+                        changjingView[finalTmp].setBackground(radius_border1);
+                    }
+                    isView[finalTmp] = !isView[finalTmp];
+                }
+            });
+        }
 
+        bottomSheetDialog.show();
+    }
 }
