@@ -1,16 +1,24 @@
 package com.example.mojing;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.TextView;
+import android.widget.FrameLayout;
 
 import com.example.mojing.Adapter.SectionsPagerAdapter;
 import com.example.mojing.Fragments.Fragment_VIP;
@@ -18,6 +26,9 @@ import com.example.mojing.Fragments.Fragment_dapei;
 import com.example.mojing.Fragments.Fragment_me;
 import com.example.mojing.Fragments.Fragment_msg;
 import com.example.mojing.Fragments.Fragment_yichu;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -110,4 +121,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+//    public static class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
+//
+//        @Nullable
+//        @Override
+//        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//            return inflater.inflate(R.layout.fragment_bottom_sheet, container, false);
+//        }
+//    }
+
 }

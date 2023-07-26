@@ -11,55 +11,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@null"
+        android:backgroundTint="@color/white"
         android:padding="8dp"
-        android:backgroundTint="@color/white"
+        android:text="SKIP"
         android:textColor="@color/black"
-        android:text="SKIP"/>
-
-    <Button
-        android:id="@+id/LoginBtn"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:backgroundTint="@color/black"
-        android:text="@string/login"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.675" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="249dp"
-        android:layout_height="51dp"
-        android:backgroundTint="@color/black"
-        android:text=""
-        app:iconPadding="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LoginBtn"
-        app:layout_constraintVertical_bias="0.056" />
-
-    <Button
-        android:id="@+id/RegisterBtn"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:backgroundTint="@color/white"
-        android:insetLeft="2dp"
-        android:insetTop="7dp"
-        android:insetRight="2dp"
-        android:insetBottom="7dp"
-        android:text="@string/signup"
-        android:textColor="@color/black"
-        app:iconPadding="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LoginBtn"
-        app:layout_constraintVertical_bias="0.055" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
         android:id="@+id/checkbox"
@@ -70,7 +27,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3"
-        app:layout_constraintVertical_bias="0.27" />
+        app:layout_constraintTop_toBottomOf="@+id/RegisterBtn" />
+
+    <TextView
+        android:id="@+id/RegisterBtn"
+        android:layout_width="263dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/radius_border_chosed"
+        android:backgroundTint="#22B3B3B3"
+        android:gravity="center"
+        android:text="注册"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LoginBtn" />
+
+    <TextView
+        android:id="@+id/LoginBtn"
+        android:layout_width="263dp"
+        android:layout_height="41dp"
+        android:background="@drawable/radius_border1"
+        android:backgroundTint="#000000"
+        android:gravity="center"
+        android:text="登录"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.665" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

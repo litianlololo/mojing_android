@@ -10,13 +10,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class StartActivity extends AppCompatActivity {
     private SharedPreferencesManager sharedPreferencesManager;
     private CheckBox checkbox;
-    private Button LoginBtn;
-    private Button RegisteBtn;
+    private TextView LoginBtn;
+    private TextView RegisteBtn;
     private Button SKIPBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

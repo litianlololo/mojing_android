@@ -28,6 +28,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.example.mojing.Dapei_Album_Activity;
 import com.example.mojing.Dapei_SetTags_Activity;
 import com.example.mojing.Dapei_Tag_Activity;
 import com.example.mojing.LoginActivity;
@@ -92,7 +93,7 @@ public class Fragment_dapei extends Fragment {
             public void onClick(View v) {
                 // 在这里编写单击事件的逻辑
                 String TAG = "Main";
-                Intent intent = new Intent(getActivity(), Dapei_Tag_Activity.class);
+                Intent intent = new Intent(getActivity(), Dapei_Album_Activity.class);
                 startActivity(intent);
             }
         });
@@ -116,6 +117,16 @@ public class Fragment_dapei extends Fragment {
                 imageButton = getActivity().findViewById(R.id.ImgBtn_2);
             }
         });
+        downloadBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                        // Assuming both images have the same width
+                        combinedBitmap = combineImagesVertically(((BitmapDrawable) ImgBtn_1.getDrawable()).getBitmap(), ((BitmapDrawable) ImgBtn_2.getDrawable()).getBitmap());
+                        saveImageToGallery(combinedBitmap);
+                        iscombined = true;
+                        showRequestFailedDialog("保存成功，已同时保存到手机相册");
+                }
+        });
     }
 
     private void openGallery(ImageButton imageButton) {
@@ -129,34 +140,6 @@ public class Fragment_dapei extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-//        if (requestCode == 1 && data != null) {
-//            Uri selectedImageUri = data.getData();
-//
-//            try {
-//                Bitmap originalBitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImageUri);
-//                Bitmap resizedBitmap = Bitmap.createScaledBitmap(originalBitmap, imageButton.getWidth(), imageButton.getHeight(), false);
-//                imageButton.setImageBitmap(resizedBitmap);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        if (requestCode == 1 && resultCode == Activity.RESULT_OK && data != null) {
-//            Uri selectedImageUri = data.getData();
-//
-//            // 使用 UCrop 进行图片裁剪
-//            UCrop.Options options = new UCrop.Options();
-//            options.setToolbarColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
-//            options.setStatusBarColor(ContextCompat.getColor(getActivity(), R.color.colorPrimaryDark));
-//            UCrop.of(selectedImageUri, Uri.fromFile(new File(getActivity().getCacheDir(), "cropped_image.jpg")))
-//                    .withAspectRatio(1, 1) // 设置裁剪框的宽高比为1:1
-//                    .withMaxResultSize(200, 200) // 设置裁剪后图片的最大尺寸为200x200像素
-//                    .withOptions(options)
-//                    .start(getActivity(), this); // 传入当前的 Activity 和 Fragment 实例，以便接收裁剪后的结果
-//        } else if (requestCode == UCrop.REQUEST_CROP && resultCode == Activity.RESULT_OK && data != null) {
-//            Uri croppedImageUri = UCrop.getOutput(data);
-//            ImgBtn_1.setImageURI(croppedImageUri);
-//            this.croppedImageUri = croppedImageUri;
-//        }
         if (requestCode == 1 && resultCode == Activity.RESULT_OK && data != null) {
             // 从图库选择图片后的裁剪操作结果
             Uri selectedImageUri = data.getData();
@@ -179,27 +162,27 @@ public class Fragment_dapei extends Fragment {
 //                this.croppedImageUri_2 = croppedImageUri; // 保存裁剪后的图片的 URI2
 //            }
         }
-        downloadBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (requestCode == 1 && data != null) {
-                    Uri selectedImageUri = data.getData();
-
-                    try {
-                        Bitmap originalBitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImageUri);
-                        Bitmap resizedBitmap = Bitmap.createScaledBitmap(originalBitmap, imageButton.getWidth(), imageButton.getHeight(), false);
-
-                        // Assuming both images have the same width
-                        combinedBitmap = combineImagesVertically(((BitmapDrawable) ImgBtn_1.getDrawable()).getBitmap(), ((BitmapDrawable) ImgBtn_2.getDrawable()).getBitmap());
-                        saveImageToGallery(combinedBitmap);
-                        iscombined = true;
-                        showRequestFailedDialog("保存成功，已同时保存到手机相册");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
+//        downloadBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (requestCode == 1 && data != null) {
+//                    Uri selectedImageUri = data.getData();
+//
+//                    try {
+//                        Bitmap originalBitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImageUri);
+//                        Bitmap resizedBitmap = Bitmap.createScaledBitmap(originalBitmap, imageButton.getWidth(), imageButton.getHeight(), false);
+//
+//                        // Assuming both images have the same width
+//                        combinedBitmap = combineImagesVertically(((BitmapDrawable) ImgBtn_1.getDrawable()).getBitmap(), ((BitmapDrawable) ImgBtn_2.getDrawable()).getBitmap());
+//                        saveImageToGallery(combinedBitmap);
+//                        iscombined = true;
+//                        showRequestFailedDialog("保存成功，已同时保存到手机相册");
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        });
     }
 
     // Function to concatenate two images vertically

@@ -25,6 +25,7 @@ import com.example.mojing.PersonalItemView;
 import com.example.mojing.R;
 import com.example.mojing.SettingActivity;
 import com.example.mojing.SharedPreferencesManager;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,6 +53,7 @@ public class Fragment_me extends Fragment {
     private ImageButton downloadBtn;
     private Button ModifyBtn;
     private PersonalItemView xiongwei_content, yaowei_content, tunwei_content;
+    private TextView changjingBtn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,9 +97,15 @@ public class Fragment_me extends Fragment {
         yaoweiText = activity.findViewById(R.id.yaoweiText);
         tunweiText = activity.findViewById(R.id.tunweiText);
         settingBtn = activity.findViewById(R.id.settingBtn);
+        changjingBtn = activity.findViewById(R.id.changjingBtn);
         signatureText.setText(sharedPreferencesManager.getUserSignature());
 
-
+//        changjingBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                showBottomSheetDialog();
+//            }
+//        });
         //没有登录
         if (!activity.sharedPreferencesManager.isLoggedIn()) {
             //
@@ -136,4 +144,14 @@ public class Fragment_me extends Fragment {
         yaowei_content.setOnClickListener(clickListener);
         tunwei_content.setOnClickListener(clickListener);
     }
+//    public void showBottomSheetDialog() {
+//        MainActivity.MyBottomSheetDialogFragment bottomSheetDialogFragment = new MainActivity.MyBottomSheetDialogFragment();
+//        bottomSheetDialogFragment.show(getParentFragmentManager(), bottomSheetDialogFragment.getTag());
+//
+//        // 设置弹窗的高度为屏幕高度的1/4
+//        bottomSheetDialogFragment.getDialog().getWindow().setLayout(
+//                ViewGroup.LayoutParams.MATCH_PARENT,
+//                getResources().getDisplayMetrics().heightPixels / 4
+//        );
+//    }
 }
