@@ -95,7 +95,7 @@ public class Dapei_Album_Activity extends AppCompatActivity {
     private void showphoto(int size) {
         photoView = findViewById(R.id.photoView);
         photoView.removeAllViews();
-
+        @SuppressLint("UseCompatLoadingForDrawables") Drawable radius_border1 = getResources().getDrawable(R.drawable.radius_border1,null);
         int columnCount = 3; // Number of columns
         int spacingInPixels = (int) (getResources().getDisplayMetrics().density * 6); // Convert 6dp to pixels
 
@@ -105,7 +105,7 @@ public class Dapei_Album_Activity extends AppCompatActivity {
             imageView.setImageResource(R.drawable.dapei_tmp);
             imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
             // Set the rounded corner background
-            imageView.setBackgroundResource(R.drawable.radius_border1);
+            imageView.setBackground(radius_border1);
             // Set the image view's width and height to desired dimensions
             int desiredWidthInPixels = (int) (getResources().getDisplayMetrics().density * 10); // Convert 50dp to pixels
             int desiredHeightInPixels = (int) (getResources().getDisplayMetrics().density * 140); // Convert 100dp to pixels
