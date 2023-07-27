@@ -45,12 +45,12 @@ public class Fragment_VIP extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         List<VIP_Designer_InfoType> vip_designer_infoList = new ArrayList<>();
-        vip_designer_infoList.add(new VIP_Designer_InfoType("User 1","baga", R.drawable.yichu_24));
-        vip_designer_infoList.add(new VIP_Designer_InfoType("User 2","baga", R.drawable.dapei_24));
-        vip_designer_infoList.add(new VIP_Designer_InfoType("User 3","baga", R.drawable.yichu_24));
+        vip_designer_infoList.add(new VIP_Designer_InfoType("User 1","bagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabaga", R.drawable.yichu_24,12));
+        vip_designer_infoList.add(new VIP_Designer_InfoType("User 2","baga", R.drawable.dapei_24,34));
+        vip_designer_infoList.add(new VIP_Designer_InfoType("User 3","baga", R.drawable.yichu_24,56));
 
         // 实例化适配器对象
-        VipListAdapter vipListAdapter = new VipListAdapter(vip_designer_infoList);
+        VipListAdapter vipListAdapter = new VipListAdapter(getActivity(), vip_designer_infoList);
 
         // 将适配器设置给 RecyclerView
         recyclerView.setAdapter(vipListAdapter);

@@ -68,6 +68,5 @@ public class MsgOrderItemFragment extends Fragment {
             }
             recyclerView.setAdapter(new MsgOrderItemRecyclerViewAdapter(PlaceholderContent.ITEMS));
         }
-        return view;
-    }
+        return view;    }
 }
