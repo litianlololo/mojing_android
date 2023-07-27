@@ -8,6 +8,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -71,6 +72,11 @@ public class Fragment_dapei extends Fragment {
     private View[] changjingView;
     private Drawable radius_border1,radius_chosed;
     private static int changjingCNT=5;
+
+    private boolean Automode;
+    private TextView AutoBtn,PerBtn;
+    private ColorStateList backgroundColor;
+    private ImageView reefreshBtn;
     public Fragment_dapei() {
         // Required empty public constructor
     }
@@ -116,8 +122,48 @@ public class Fragment_dapei extends Fragment {
         ImgBtn_2 = getActivity().findViewById(R.id.ImgBtn_2);
         downloadBtn = getActivity().findViewById(R.id.download);
         changjingText = getActivity().findViewById(R.id.changjingBtn);
-
-
+        AutoBtn=getActivity().findViewById(R.id.AutoBtn);
+        PerBtn=getActivity().findViewById(R.id.PerBtn);
+        backgroundColor= ColorStateList.valueOf(Color.parseColor("#36BFBEBE"));
+        Automode=true;
+        AutoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!Automode){
+                    //修改按钮样式
+                    //AutoBtn.setBackground(radius_chosed);/#36BFBEBE
+                    AutoBtn.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
+                    AutoBtn.setTextColor(getResources().getColor(R.color.white,null));
+                    //PerBtn.setBackground(radius_chosed);
+                    PerBtn.setBackgroundTintList(backgroundColor);
+                    PerBtn.setTextColor(getResources().getColor(R.color.black,null));
+                    //逻辑切换为自动模式
+                    //设置上下装按钮禁用
+                    ImgBtn_1.setClickable(false);
+                    ImgBtn_2.setClickable(false);
+                    Automode=true;
+                }
+            }
+        });
+        PerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(Automode){
+                    //修改按钮样式
+                    //PerBtn.setBackground(radius_chosed);
+                    PerBtn.setTextColor(getResources().getColor(R.color.white,null));
+                    PerBtn.setBackgroundTintList(ColorStateList.valueOf(Color.BLACK));
+                    //AutoBtn.setBackground(radius_chosed);
+                    AutoBtn.setBackgroundTintList(backgroundColor);
+                    AutoBtn.setTextColor(getResources().getColor(R.color.black,null));
+                    //逻辑切换为个人模式
+                    //设置上下装按钮可用
+                    ImgBtn_1.setClickable(true);
+                    ImgBtn_2.setClickable(true);
+                    Automode=false;
+                }
+            }
+        });
         changjingText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
