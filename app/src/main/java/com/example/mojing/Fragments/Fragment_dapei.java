@@ -138,7 +138,7 @@ public class Fragment_dapei extends Fragment {
                     PerBtn.setBackgroundTintList(backgroundColor);
                     PerBtn.setTextColor(getResources().getColor(R.color.black,null));
                     //逻辑切换为自动模式
-                    //设置上下装按钮禁用
+                    //设置上下装按钮禁用12211111
                     ImgBtn_1.setClickable(false);
                     ImgBtn_2.setClickable(false);
                     Automode=true;
