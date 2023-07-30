@@ -1,6 +1,289 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:padding="8dp"
+        android:src="@drawable/dapei_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="单品"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/btn_back"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/navbar_icon_detail_cancel" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:srcCompat="@drawable/navbar_icon_home_default" />
+
+    <com.example.mojing.PersonalItemView
+        android:id="@+id/fenlei_content"
+        android:layout_width="395dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="24dp"
+        android:background="#fff"
+        app:activity="Me_Figure_Activity"
+        app:icon="@drawable/tabbar_icon_detail_default_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image"
+        app:name="分类"
+        app:show_line="true"
+        app:show_more="true">
+
+        <TextView
+            android:id="@+id/fenleiText"
+            android:layout_width="150dp"
+            android:layout_height="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="57dp"
+            android:layout_marginBottom="13dp"
+            android:gravity="right"
+            android:text="" />
+    </com.example.mojing.PersonalItemView>
+
+    <com.example.mojing.PersonalItemView
+        android:id="@+id/season_content"
+        android:layout_width="395dp"
+        android:layout_height="46dp"
+        android:background="#fff"
+        app:activity="Me_Figure_Activity"
+        app:icon="@drawable/tabbar_icon_detail_default_9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fenlei_content"
+        app:name="季节"
+        app:show_line="true"
+        app:show_more="true">
+
+        <TextView
+            android:id="@+id/seasonText"
+            android:layout_width="150dp"
+            android:layout_height="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="57dp"
+            android:layout_marginBottom="13dp"
+            android:gravity="right"
+            android:text="" />
+    </com.example.mojing.PersonalItemView>
+
+    <com.example.mojing.PersonalItemView
+        android:id="@+id/place_content"
+        android:layout_width="395dp"
+        android:layout_height="46dp"
+        android:background="#fff"
+        app:activity="Me_Figure_Activity"
+        app:icon="@drawable/tabbar_icon_detail_default_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/season_content"
+        app:name="存放位置"
+        app:show_line="true"
+        app:show_more="true">
+
+        <TextView
+            android:id="@+id/placeText"
+            android:layout_width="150dp"
+            android:layout_height="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="57dp"
+            android:layout_marginBottom="13dp"
+            android:gravity="right"
+            android:text="" />
+    </com.example.mojing.PersonalItemView>
+
+    <com.example.mojing.PersonalItemView
+        android:id="@+id/lingxing_content"
+        android:layout_width="395dp"
+        android:layout_height="46dp"
+        android:background="#fff"
+        app:activity="Me_Figure_Activity"
+        app:icon="@drawable/tabbar_icon_detail_default_7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/place_content"
+        app:name="领型"
+        app:show_line="true"
+        app:show_more="true">
+
+        <TextView
+            android:id="@+id/lingxingText"
+            android:layout_width="150dp"
+            android:layout_height="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="57dp"
+            android:layout_marginBottom="13dp"
+            android:gravity="right"
+            android:text="" />
+    </com.example.mojing.PersonalItemView>
+
+    <com.example.mojing.PersonalItemView
+        android:id="@+id/bihe_content"
+        android:layout_width="395dp"
+        android:layout_height="46dp"
+        android:background="#fff"
+        app:activity="Me_Figure_Activity"
+        app:icon="@drawable/tabbar_icon_detail_default_6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lingxing_content"
+        app:name="闭合方式"
+        app:show_line="true"
+        app:show_more="true">
+
+        <TextView
+            android:id="@+id/biheText"
+            android:layout_width="150dp"
+            android:layout_height="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="57dp"
+            android:layout_marginBottom="13dp"
+            android:gravity="right"
+            android:text="" />
+    </com.example.mojing.PersonalItemView>
+
+    <com.example.mojing.PersonalItemView
+        android:id="@+id/xiuchang_content"
+        android:layout_width="395dp"
+        android:layout_height="46dp"
+        android:background="#fff"
+        app:activity="Me_Figure_Activity"
+        app:icon="@drawable/tabbar_icon_detail_default_5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bihe_content"
+        app:name="袖长"
+        app:show_line="true"
+        app:show_more="true">
+
+        <TextView
+            android:id="@+id/xiuchangText"
+            android:layout_width="150dp"
+            android:layout_height="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="57dp"
+            android:layout_marginBottom="13dp"
+            android:gravity="right"
+            android:text="" />
+    </com.example.mojing.PersonalItemView>
+
+    <com.example.mojing.PersonalItemView
+        android:id="@+id/mianliao_content"
+        android:layout_width="395dp"
+        android:layout_height="46dp"
+        android:background="#fff"
+        app:activity="Me_Figure_Activity"
+        app:icon="@drawable/tabbar_icon_detail_default_4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/xiuchang_content"
+        app:name="面料"
+        app:show_line="true"
+        app:show_more="true">
+
+        <TextView
+            android:id="@+id/mianliaoText"
+            android:layout_width="150dp"
+            android:layout_height="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="57dp"
+            android:layout_marginBottom="13dp"
+            android:gravity="right"
+            android:text="" />
+    </com.example.mojing.PersonalItemView>
+
+    <com.example.mojing.PersonalItemView
+        android:id="@+id/fengge_content"
+        android:layout_width="395dp"
+        android:layout_height="46dp"
+        android:background="#fff"
+        app:activity="Me_Figure_Activity"
+        app:icon="@drawable/tabbar_icon_detail_default_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mianliao_content"
+        app:name="风格"
+        app:show_line="true"
+        app:show_more="true">
+
+        <TextView
+            android:id="@+id/fenggeText"
+            android:layout_width="150dp"
+            android:layout_height="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="57dp"
+            android:layout_marginBottom="13dp"
+            android:gravity="right"
+            android:text="" />
+    </com.example.mojing.PersonalItemView>
+
+    <TextView
+        android:id="@+id/Btn"
+        android:layout_width="170dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/radius_border1"
+        android:backgroundTint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fengge_content" />
 </androidx.constraintlayout.widget.ConstraintLayout>
