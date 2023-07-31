@@ -6,9 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Dapei_Album_Activity">
 
-
-
-
             <!-- 返回按钮 -->
     <ImageButton
         android:id="@+id/btn_back"
