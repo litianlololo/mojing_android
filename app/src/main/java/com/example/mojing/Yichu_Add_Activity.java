@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -25,6 +26,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.yalantis.ucrop.UCrop;
 
 import org.json.JSONException;
@@ -39,6 +41,7 @@ import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
+import java.util.Arrays;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -55,6 +58,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
     public Activity activity=this;
     private Uri croppedImageUri;
     private Danpin danpin;
+    private BottomSheetDialog bottomSheetDialog;
     private PersonalItemView fenlei_content,season_content,place_content
             , lingxing_content,bihe_content,xiuchang_content,mianliao_content
             ,fengge_content;
@@ -85,7 +89,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
         fenlei_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                FenleiBottomSheet();
             }
         });
         danpin = new Danpin();
@@ -234,5 +238,15 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                         .show();
             }
         });
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private void FenleiBottomSheet(){
+        //创建布局
+        View view = LayoutInflater.from(activity).inflate(R.layout.danpin_fenlei, null, false);
+        bottomSheetDialog = new BottomSheetDialog(activity);
+        //设置布局
+        bottomSheetDialog.setContentView(view);
+        bottomSheetDialog.show();
     }
 }

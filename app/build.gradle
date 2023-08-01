@@ -49,4 +49,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'com.github.yalantis:ucrop:2.2.6'
     implementation("me.nikhilchaudhari:composeNeumorphism:1.0.0-alpha02")
+
+    implementation 'cn.aigestudio.wheelpicker:WheelPicker:1.1.3'
 }
