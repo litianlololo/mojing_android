@@ -17,7 +17,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.List;
 
+import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -213,6 +215,23 @@ public class LoginActivity extends AppCompatActivity {
                                     Response response = okHttpClient.newCall(request).execute();
                                     // 检查响应是否成功
                                     if (response.isSuccessful()) {
+                                        // 检查响应头部中是否存在 "Set-Cookie" 字段
+                                        Headers headers = response.headers();
+                                        List<String> cookies = headers.values("Set-Cookie");
+                                        String s = cookies.get(0);
+                                        String sessionCookie;
+                                        if (s != null) {
+                                            // 在这里处理获取到的会话信息
+                                            // sessionCookie 变量中存储了服务器返回的会话信息
+                                            // 可以将其存储在本地，后续的请求可以携带这个会话信息
+                                            sessionCookie = s.substring(0, s.indexOf(";"));
+                                            sharedPreferencesManager.setKEY_Session_ID(sessionCookie);
+                                            //showRequestFailedDialog(sessionCookie);
+                                        } else {
+                                            // 服务器没有返回会话信息
+                                            // 可能是未登录状态或者会话已经过期
+                                        }
+
                                         // 获取响应体
                                         ResponseBody responseBody = response.body();
                                         // 处理响应数据
@@ -479,11 +498,11 @@ public class LoginActivity extends AppCompatActivity {
     private void setData(JSONObject responseJson) throws JSONException {
         // 提取键为"data"的值
         JSONObject dataJson = responseJson.getJSONObject("data");
-        //sharedPreferencesManager.setFigureShengao(dataJson.getString("shengao"));
-        //sharedPreferencesManager.setFigureTizhong(dataJson.getString("tizhong"));
-        //sharedPreferencesManager.setFigureTunwei(dataJson.getString("tunwei"));
-        //sharedPreferencesManager.setFigureXiongwei(dataJson.getString("xiongwei"));
-        //sharedPreferencesManager.setFigureYaowei(dataJson.getString("yaowei"));
+        sharedPreferencesManager.setFigureShengao(dataJson.getString("shengao"));
+        sharedPreferencesManager.setFigureTizhong(dataJson.getString("tizhong"));
+        sharedPreferencesManager.setFigureTunwei(dataJson.getString("tunwei"));
+        sharedPreferencesManager.setFigureXiongwei(dataJson.getString("xiongwei"));
+        sharedPreferencesManager.setFigureYaowei(dataJson.getString("yaowei"));
         sharedPreferencesManager.setUserID(dataJson.getString("_id"));
         //sharedPreferencesManager.setUserPassword(dataJson.getString("password"));
         sharedPreferencesManager.setUserPhone(dataJson.getString("phone"));

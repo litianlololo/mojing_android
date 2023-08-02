@@ -21,6 +21,7 @@ public class SharedPreferencesManager {
     private static final String KEY_UserSignature = "未设置";
     private static final String KEY_UserGender = "女";
     private static final String KEY_IS_Youke = "isyouke";
+    private static final String KEY_Session_ID = "";
     private SharedPreferences sharedPreferences;
 
     public SharedPreferencesManager(Context context) {
@@ -44,7 +45,14 @@ public class SharedPreferencesManager {
         editor.putBoolean(KEY_IS_LOGGED_IN, isLoggedIn);
         editor.apply();
     }
-
+    public String getKEY_Session_ID() {
+        return sharedPreferences.getString(KEY_Session_ID, "");
+    }
+    public void setKEY_Session_ID(String Session_ID) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_Session_ID, Session_ID);
+        editor.apply();
+    }
     public String getUsername() {
         return sharedPreferences.getString(KEY_USERNAME, "");
     }

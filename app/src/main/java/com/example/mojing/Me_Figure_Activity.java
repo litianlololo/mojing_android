@@ -24,6 +24,7 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class Me_Figure_Activity extends AppCompatActivity {
+    public String uu="http://47.103.223.106:5004/api";
     private TextView tv_shengao;
     private TextView tv_tizhong;
     private TextView tv_xiongwei;
@@ -102,6 +103,7 @@ public class Me_Figure_Activity extends AppCompatActivity {
                     etXiongwei.setText(tv_xiongwei.getText().toString());
 
                     btnModify.setText("保存修改");
+                    showRequestFailedDialog(sharedPreferencesManager.getKEY_Session_ID());
                 } else if (btnModify.getText().toString().equals("保存修改")) {
                     // 保存修改的值到变量中
                     String modifiedTunwei = etTunwei.getText().toString();
@@ -137,24 +139,32 @@ public class Me_Figure_Activity extends AppCompatActivity {
                             JSONObject json = new JSONObject();
                             try {
                                 json.put("username", sharedPreferencesManager.getUsername());
-                                json.put("phone_number", sharedPreferencesManager.getUserPhone());
-                                json.put("shengao", sharedPreferencesManager.getFigureShengao());
-                                json.put("tizhong", sharedPreferencesManager.getFigureTizhong());
-                                json.put("xiongwei", sharedPreferencesManager.getFigureXiongwei());
-                                json.put("yaowei", sharedPreferencesManager.getFigureYaowei());
-                                json.put("tunwei", sharedPreferencesManager.getFigureTunwei());
+                                json.put("phone", sharedPreferencesManager.getUserPhone());
+                                json.put("shengao", Integer.valueOf(sharedPreferencesManager.getFigureShengao()));
+                                json.put("tizhong", Integer.valueOf(sharedPreferencesManager.getFigureTizhong()));
+                                json.put("xiongwei", Integer.valueOf(sharedPreferencesManager.getFigureXiongwei()));
+                                json.put("yaowei", Integer.valueOf(sharedPreferencesManager.getFigureYaowei()));
+                                json.put("tunwei", Integer.valueOf(sharedPreferencesManager.getFigureTunwei()));
                             } catch (JSONException e) {
                                 throw new RuntimeException(e);
                             }
                             //创建一个OkHttpClient对象
                             OkHttpClient okHttpClient = new OkHttpClient();
                             RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
-                            Request request = new Request.Builder()
+                            // 创建请求
+                            Request.Builder requestBuilder = new Request.Builder()
                                     .url("http://47.102.43.156:8007/auth/update")
                                     .post(requestBody)
-                                    .build();
+                                    .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID());
+                            // 将会话信息添加到请求头部
+                            if (sharedPreferencesManager.getKEY_Session_ID() != null) {
+                                //showRequestFailedDialog(sharedPreferencesManager.getKEY_Session_ID());
+                            }else{
+                                showRequestFailedDialog("null");
+                            }
                             // 发送请求并获取响应
                             try {
+                                Request request = requestBuilder.build();
                                 Response response = okHttpClient.newCall(request).execute();
                                 // 检查响应是否成功
                                 if (response.isSuccessful()) {
@@ -181,6 +191,7 @@ public class Me_Figure_Activity extends AppCompatActivity {
                                 } else {
                                     // 请求失败，处理错误
                                     System.out.println("Request failed");
+                                    showRequestFailedDialog("修改失败");
                                 }
                             } catch (IOException e) {
                                 e.printStackTrace();

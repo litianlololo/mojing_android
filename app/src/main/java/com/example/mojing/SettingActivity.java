@@ -97,6 +97,9 @@ public class SettingActivity extends AppCompatActivity {
         sharedPreferencesManager.setUserRole("userRole");
         sharedPreferencesManager.setUserID("userID");
         sharedPreferencesManager.setUserPhone("userPhone");
+        sharedPreferencesManager.setKEY_Session_ID("");
+        sharedPreferencesManager.setUserSignature("");
+        sharedPreferencesManager.setUserGender("");
         //IsYouke重置
         sharedPreferencesManager.setIsYouke(false);
     }
