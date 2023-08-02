@@ -26,6 +26,7 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class LoginActivity extends AppCompatActivity {
+    public String uu="http://47.103.223.106:5004/api";
     private int countdownTime = 60; // 倒计时时长，单位：秒
 
     private Handler handler = new Handler(Looper.getMainLooper());
@@ -92,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                         OkHttpClient okHttpClient = new OkHttpClient();
                         RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
                         Request request = new Request.Builder()
-                                .url("http://47.102.43.156:8007/auth/code")
+                                .url(uu+"/auth/code")
                                 .post(requestBody)
                                 .build();
                         // 发送请求并获取响应
@@ -195,7 +196,7 @@ public class LoginActivity extends AppCompatActivity {
                                 MediaType JSON = MediaType.parse("application/json;charset=utf-8");
                                 JSONObject json = new JSONObject();
                                 try {
-                                    json.put("username", phone_number);
+                                    json.put("phone", phone_number);
                                     json.put("password", password);
                                 } catch (JSONException e) {
                                     throw new RuntimeException(e);
@@ -204,7 +205,7 @@ public class LoginActivity extends AppCompatActivity {
                                 OkHttpClient okHttpClient = new OkHttpClient();
                                 RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
                                 Request request = new Request.Builder()
-                                        .url("http://47.102.43.156:8007/auth/login")
+                                        .url(uu+"/auth/login")
                                         .post(requestBody)
                                         .build();
                                 // 发送请求并获取响应
@@ -288,7 +289,7 @@ public class LoginActivity extends AppCompatActivity {
                                 OkHttpClient okHttpClient = new OkHttpClient();
                                 RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
                                 Request request = new Request.Builder()
-                                        .url("http://47.102.43.156:8007/auth/loginByCode")
+                                        .url(uu+"/auth/loginByCode")
                                         .post(requestBody)
                                         .build();
                                 // 发送请求并获取响应
@@ -374,7 +375,7 @@ public class LoginActivity extends AppCompatActivity {
                             OkHttpClient okHttpClient = new OkHttpClient();
                             RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
                             Request request = new Request.Builder()
-                                    .url("http://47.102.43.156:8007/auth/register")
+                                    .url(uu+"/auth/register")
                                     .post(requestBody)
                                     .build();
                             // 发送请求并获取响应
@@ -478,15 +479,15 @@ public class LoginActivity extends AppCompatActivity {
     private void setData(JSONObject responseJson) throws JSONException {
         // 提取键为"data"的值
         JSONObject dataJson = responseJson.getJSONObject("data");
-        sharedPreferencesManager.setFigureShengao(dataJson.getString("shengao"));
-        sharedPreferencesManager.setFigureTizhong(dataJson.getString("tizhong"));
-        sharedPreferencesManager.setFigureTunwei(dataJson.getString("tunwei"));
-        sharedPreferencesManager.setFigureXiongwei(dataJson.getString("xiongwei"));
-        sharedPreferencesManager.setFigureYaowei(dataJson.getString("yaowei"));
+        //sharedPreferencesManager.setFigureShengao(dataJson.getString("shengao"));
+        //sharedPreferencesManager.setFigureTizhong(dataJson.getString("tizhong"));
+        //sharedPreferencesManager.setFigureTunwei(dataJson.getString("tunwei"));
+        //sharedPreferencesManager.setFigureXiongwei(dataJson.getString("xiongwei"));
+        //sharedPreferencesManager.setFigureYaowei(dataJson.getString("yaowei"));
         sharedPreferencesManager.setUserID(dataJson.getString("_id"));
-        sharedPreferencesManager.setUserPassword(dataJson.getString("password"));
-        sharedPreferencesManager.setUserPhone(dataJson.getString("phone_number"));
-        sharedPreferencesManager.setUserRole(dataJson.getString("role"));
+        //sharedPreferencesManager.setUserPassword(dataJson.getString("password"));
+        sharedPreferencesManager.setUserPhone(dataJson.getString("phone"));
+        //sharedPreferencesManager.setUserRole(dataJson.getString("role"));
         sharedPreferencesManager.setUsername(dataJson.getString("username"));
         sharedPreferencesManager.setLoggedIn(true);
     }

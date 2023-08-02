@@ -31,6 +31,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.aigestudio.wheelpicker.WheelPicker;
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.yalantis.ucrop.UCrop;
 
@@ -60,7 +61,8 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class Yichu_Add_Activity extends AppCompatActivity {
-
+    public String uu="http://47.103.223.106:5004/api";
+    public String uuimg="http://47.103.223.106:5004";
     private ImageView imageButton;
     private TextView addBtn;
     public Activity activity = this;
@@ -153,10 +155,11 @@ public class Yichu_Add_Activity extends AppCompatActivity {
             }
         });
         danpin = new Danpin();
+        //添加单品
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                
             }
         });
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -187,16 +190,39 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                 croppedImageUri = saveBitmapToCache(scaledBitmap);
             }
             //去除背景
-//            try {
-//                croppedImageUri=removebackground(croppedImageUri);
-//            } catch (URISyntaxException e) {
-//                throw new RuntimeException(e);
-//            }
-            imageButton.setImageURI(croppedImageUri); // 设置裁剪后的图片到对应的 ImageButton
+            try {
+                removebackground(croppedImageUri, new RemoveBackgroundCallback() {
+                    @Override
+                    public void onBackgroundRemoved(Uri result) {
+                        // 在这里处理返回的结果
+                        if (result != null) {
+                            croppedImageUri = result;
+                            runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                            Glide.with(activity)
+                                    .load(croppedImageUri)
+                                            .into(imageButton);
+                            }
+                        });
+                        }else {
+                            // 处理请求失败等情况
+                            showRequestFailedDialog("网络请求失败，请检查网络或稍后再试");
+                        }
+                    }
+                });
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+
         }
     }
+    //回调接口，用来加载图片
+    public interface RemoveBackgroundCallback {
+        void onBackgroundRemoved(Uri result);
+    }
 
-    private Uri removebackground(Uri uri) throws URISyntaxException {
+    private Uri removebackground(Uri uri,RemoveBackgroundCallback callback) throws URISyntaxException {
         File pngFile = new File(new URI(uri.toString()));
         final Uri[] result = new Uri[1];
         new Thread(new Runnable() {
@@ -211,7 +237,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                                 RequestBody.create(MediaType.parse("image/png"), pngFile))
                         .build();
                 Request request = new Request.Builder()
-                        .url("http://47.103.223.106:5004/api/file/rembg")
+                        .url(uu+"/file/rembg")
                         .post(requestBody)
                         .build();
                 // 发送请求并获取响应
@@ -230,9 +256,11 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                             danpin.img_url = responseJson.getJSONObject("data")
                                     .getString("url");
 
-                            result[0] = Uri.parse(danpin.img_url);
+                            result[0] = Uri.parse(uuimg+danpin.img_url);
                         }
                         System.out.println("Response: " + responseData);
+                        System.out.println("img_url: " + result[0]);
+                        callback.onBackgroundRemoved(result[0]);
                         // 记得关闭响应体
                         responseBody.close();
                     } else {
@@ -327,6 +355,9 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                 // 获取第二级选中的选项内容
                 int secondLevelSelectedIndex = secondLevelPicker.getCurrentItemPosition();
                 fenleiselect2 = (String) secondLevelPicker.getData().get(secondLevelSelectedIndex);
+
+                danpin.type = fenleiselect1;
+                danpin.type2 = fenleiselect2;
 
                 TextView fenleiText = findViewById(R.id.fenleiText);
                 fenleiText.setText(fenleiselect1+"-"+fenleiselect2);
@@ -447,10 +478,10 @@ public class Yichu_Add_Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String result="";
-                if(chuncheck.isChecked()) result+="春 ";
-                if(xiacheck.isChecked()) result+="夏 ";
-                if(qiucheck.isChecked()) result+="秋 ";
-                if(dongcheck.isChecked()) result+="冬";
+                if(chuncheck.isChecked()){ result+="春 "; danpin.season.spring=true;}
+                if(xiacheck.isChecked()) {result+="夏 ";danpin.season.summer=true;}
+                if(qiucheck.isChecked()) {result+="秋 ";danpin.season.autumn=true;}
+                if(dongcheck.isChecked()) {result+="冬";danpin.season.winter=true;}
 
                 TextView seasonText = findViewById(R.id.seasonText);
                 seasonText.setText(result);
@@ -477,6 +508,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                 if (editText != null)
                     result = editText.getText().toString();
                 else showRequestFailedDialog("null");
+                danpin.storeplace=result;
                 TextView placeText = findViewById(R.id.placeText);
                 placeText.setText(result);
                 placebottomSheetDialog.cancel();
@@ -509,6 +541,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                 String select = "";
                 int SelectedIndex = wheelPicker.getCurrentItemPosition();
                 select = (String) wheelPicker.getData().get(SelectedIndex);
+                danpin.lingxing=select;
                 lingxingText.setText(select);
                 lingxingbottomSheetDialog.cancel();
             }
@@ -547,6 +580,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                 String select = "";
                 int SelectedIndex = wheelPicker.getCurrentItemPosition();
                 select = (String) wheelPicker.getData().get(SelectedIndex);
+                danpin.bihe = select;
                 biheText.setText(select);
                 bihebottomSheetDialog.cancel();
             }
@@ -581,6 +615,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                 String select = "";
                 int SelectedIndex = wheelPicker.getCurrentItemPosition();
                 select = (String) wheelPicker.getData().get(SelectedIndex);
+                danpin.xiuchang = select;
                 xiuchangText.setText(select);
                 xiuchangbottomSheetDialog.cancel();
             }
@@ -627,6 +662,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                 String select = "";
                 int SelectedIndex = wheelPicker.getCurrentItemPosition();
                 select = (String) wheelPicker.getData().get(SelectedIndex);
+                danpin.mianliao = select;
                 mianliaoText.setText(select);
                 mianliaobottomSheetDialog.cancel();
             }
@@ -669,6 +705,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                 String select = "";
                 int SelectedIndex = wheelPicker.getCurrentItemPosition();
                 select = (String) wheelPicker.getData().get(SelectedIndex);
+                danpin.fengge = select;
                 fenggeText.setText(select);
                 fenggebottomSheetDialog.cancel();
             }
