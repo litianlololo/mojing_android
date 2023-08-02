@@ -15,22 +15,27 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.aigestudio.wheelpicker.WheelPicker;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.yalantis.ucrop.UCrop;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -41,7 +46,9 @@ import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -55,14 +62,18 @@ public class Yichu_Add_Activity extends AppCompatActivity {
 
     private ImageView imageButton;
     private TextView addBtn;
-    public Activity activity=this;
+    public Activity activity = this;
     private Uri croppedImageUri;
     private Danpin danpin;
-    private BottomSheetDialog bottomSheetDialog;
-    private PersonalItemView fenlei_content,season_content,place_content
-            , lingxing_content,bihe_content,xiuchang_content,mianliao_content
-            ,fengge_content;
+    private BottomSheetDialog fenleibottomSheetDialog;
+    private BottomSheetDialog seasonbottomSheetDialog;
+    private  BottomSheetDialog placebottomSheetDialog;
+    private PersonalItemView fenlei_content, season_content, place_content, lingxing_content, bihe_content, xiuchang_content, mianliao_content, fengge_content;
     private static final int REQUEST_CODE_WRITE_EXTERNAL_STORAGE = 1;
+
+    private String fenleiselect1="";
+    private String fenleiselect2="";
+    private TextView fenleiBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,19 +88,30 @@ public class Yichu_Add_Activity extends AppCompatActivity {
         });
         imageButton = findViewById(R.id.clothBtn);
         addBtn = findViewById(R.id.Btn);
-        fenlei_content =findViewById(R.id.fenlei_content);
-        season_content =findViewById(R.id.season_content);
-        place_content =findViewById(R.id.place_content);
+        fenlei_content = findViewById(R.id.fenlei_content);
+        season_content = findViewById(R.id.season_content);
+        place_content = findViewById(R.id.place_content);
         lingxing_content = findViewById(R.id.lingxing_content);
-        bihe_content =findViewById(R.id.bihe_content);
-        xiuchang_content=findViewById(R.id.xiuchang_content);
-        mianliao_content=findViewById(R.id.mianliao_content);
-        fengge_content=findViewById(R.id.fengge_content);
-
+        bihe_content = findViewById(R.id.bihe_content);
+        xiuchang_content = findViewById(R.id.xiuchang_content);
+        mianliao_content = findViewById(R.id.mianliao_content);
+        fengge_content = findViewById(R.id.fengge_content);
+        season_content = findViewById(R.id.season_content);
+        place_content = findViewById(R.id.place_content);
         fenlei_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FenleiBottomSheet();
+            }
+        });
+        season_content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {SeasonBottomSheet();}
+        });
+        place_content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
         danpin = new Danpin();
@@ -106,6 +128,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -134,6 +157,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
             imageButton.setImageURI(croppedImageUri); // 设置裁剪后的图片到对应的 ImageButton
         }
     }
+
     private Uri removebackground(Uri uri) throws URISyntaxException {
         File pngFile = new File(new URI(uri.toString()));
         final Uri[] result = new Uri[1];
@@ -164,8 +188,8 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                         JSONObject responseJson = new JSONObject(responseData);
                         int code = responseJson.getInt("code");
                         String msg = responseJson.getString("msg");
-                        if(msg.equals("success")){
-                            danpin.img_url= responseJson.getJSONObject("data")
+                        if (msg.equals("success")) {
+                            danpin.img_url = responseJson.getJSONObject("data")
                                     .getString("url");
 
                             result[0] = Uri.parse(danpin.img_url);
@@ -186,12 +210,14 @@ public class Yichu_Add_Activity extends AppCompatActivity {
         }).start();
         return result[0];
     }
+
     private void openGallery(ImageView imageButton) {
         // 在这里处理打开手机图库并选择图片的逻辑
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(galleryIntent, 1);
         imageButton.setPressed(true);
     }
+
     private void cropImage(Uri selectedImageUri) {
         // 使用 UCrop 进行图片裁剪
         UCrop.Options options = new UCrop.Options();
@@ -203,6 +229,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                 .withOptions(options)
                 .start(activity); // 传入当前的 Activity 和 Fragment 实例，以便接收裁剪后的结果
     }
+
     private Bitmap getBitmapFromUri(Uri uri) {
         try {
             return MediaStore.Images.Media.getBitmap(activity.getContentResolver(), uri);
@@ -211,6 +238,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
         }
         return null;
     }
+
     // 将 Bitmap 保存到缓存并获取其 Uri
     private Uri saveBitmapToCache(Bitmap bitmap) {
         File cacheDir = activity.getCacheDir();
@@ -226,6 +254,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
         }
         return null;
     }
+
     // 弹出请求失败的对话框
     private void showRequestFailedDialog(String str) {
         runOnUiThread(new Runnable() {
@@ -241,12 +270,187 @@ public class Yichu_Add_Activity extends AppCompatActivity {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void FenleiBottomSheet(){
+    private void FenleiBottomSheet() {
         //创建布局
         View view = LayoutInflater.from(activity).inflate(R.layout.danpin_fenlei, null, false);
-        bottomSheetDialog = new BottomSheetDialog(activity);
+        fenleibottomSheetDialog = new BottomSheetDialog(activity);
         //设置布局
-        bottomSheetDialog.setContentView(view);
-        bottomSheetDialog.show();
+        WheelPicker firstLevelPicker = view.findViewById(R.id.firstLevelPicker);
+        WheelPicker secondLevelPicker = view.findViewById(R.id.secondLevelPicker);
+        fenleiBtn = view.findViewById(R.id.fenleiBtn);
+        fenleiBtn.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View view) {
+                // 获取第一级选中的选项内容
+                int firstLevelSelectedIndex = firstLevelPicker.getCurrentItemPosition();
+                fenleiselect1 = (String) firstLevelPicker.getData().get(firstLevelSelectedIndex);
+
+                // 获取第二级选中的选项内容
+                int secondLevelSelectedIndex = secondLevelPicker.getCurrentItemPosition();
+                fenleiselect2 = (String) secondLevelPicker.getData().get(secondLevelSelectedIndex);
+
+                TextView fenleiText = findViewById(R.id.fenleiText);
+                fenleiText.setText(fenleiselect1+"-"+fenleiselect2);
+                fenleibottomSheetDialog.cancel();
+            }
+        });
+        // 设置第一级数据
+        List<String> firstLevelData = new ArrayList<>();
+        firstLevelData.add("上衣");
+        firstLevelData.add("下装");
+        firstLevelData.add("连体装");
+        firstLevelPicker.setData(firstLevelData);
+
+        // 初始化第二级数据（假设第一级选择"Option 1"时，第二级可选项为："Sub-option 1"、"Sub-option 2"、"Sub-option 3"）
+        List<String> secondLevelData = new ArrayList<>();
+        secondLevelData.add("上衣");
+        secondLevelData.add("大衣");
+        secondLevelData.add("衬衫");
+        secondLevelData.add("西装");
+        secondLevelData.add("开衫");
+        secondLevelData.add("棒球服");
+        secondLevelData.add("卫衣");
+        secondLevelData.add("夹克");
+        secondLevelData.add("斗篷/披风");
+        secondLevelData.add("毛衣针织");
+        secondLevelData.add("背心/吊带");
+        secondLevelData.add("T恤");
+        secondLevelData.add("皮衣/皮革");
+        secondLevelData.add("羽绒服");
+        secondLevelData.add("棉衣/羊羔绒");
+        secondLevelData.add("风衣");
+        secondLevelData.add("POLO衫");
+        secondLevelData.add("牛仔外套");
+        secondLevelPicker.setData(secondLevelData);
+
+        // 监听第一级选择变化
+        firstLevelPicker.setOnWheelChangeListener(new WheelPicker.OnWheelChangeListener() {
+            @Override
+            public void onWheelSelected(int position) {
+                // 等同于选择监听器的onItemSelected，停止滑动时所在的position
+                // 当第一级选择器的选项发生变化时触发
+                // index 是选中的选项的索引，data 是选中的选项数据
+                // 在这里根据第一级选择的值，动态更新第二级数据
+                if (position == 0) { // 如果第一级选择了"Option 1"
+                    List<String> subOptionData = new ArrayList<>();
+                    subOptionData.add("上衣");
+                    subOptionData.add("大衣");
+                    subOptionData.add("衬衫");
+                    subOptionData.add("西装");
+                    subOptionData.add("开衫");
+                    subOptionData.add("棒球服");
+                    subOptionData.add("卫衣");
+                    subOptionData.add("夹克");
+                    subOptionData.add("斗篷/披风");
+                    subOptionData.add("毛衣针织");
+                    subOptionData.add("背心/吊带");
+                    subOptionData.add("T恤");
+                    subOptionData.add("皮衣/皮革");
+                    subOptionData.add("羽绒服");
+                    subOptionData.add("棉衣/羊羔绒");
+                    subOptionData.add("风衣");
+                    subOptionData.add("POLO衫");
+                    subOptionData.add("牛仔外套");
+                    secondLevelPicker.setData(subOptionData);
+                } else if (position == 1) { // 如果第一级选择了"Option 2"
+                    List<String> subOptionData = new ArrayList<>();
+                    subOptionData.add("打底裤");
+                    subOptionData.add("休闲裤");
+                    subOptionData.add("运动裤");
+                    subOptionData.add("牛仔裤");
+                    subOptionData.add("半身裙");
+                    subOptionData.add("其他裤子");
+                    secondLevelPicker.setData(subOptionData);
+                } else if (position == 2) { // 如果第一级选择了"Option 3"
+                    List<String> subOptionData = new ArrayList<>();
+                    subOptionData.add("连衣裙");
+                    subOptionData.add("连身裤");
+                    secondLevelPicker.setData(subOptionData);
+                }
+            }
+            @Override
+            public void onWheelScrolled(int offset) {
+                // 滑动距离，初始状态（即一开始position=0时）为0
+                // 数据往上滑（即手往下滑）为正数，往下滑为负数
+            }
+            @Override
+            public void onWheelScrollStateChanged(int state) {
+                // 滚动状态监听器，0表示没有在滑动，1表示触屏造成的滑动，
+                // 2表示停止触屏时造成的滑动（停止触屏后的回弹）
+            }
+        });
+        // 设置是否有卷曲感，不能微调卷曲幅度，默认false
+        firstLevelPicker.setCurved(true);
+        secondLevelPicker.setCurved(true);
+        //设置是否有指示器，设置后选中项的上下会用线框柱
+        firstLevelPicker.setIndicator(true);
+        firstLevelPicker.setIndicatorColor(0xFF123456); //16进制
+        firstLevelPicker.setIndicatorSize(3); //单位是px
+        secondLevelPicker.setIndicator(true);
+        secondLevelPicker.setIndicatorColor(0xFF123456); //16进制
+        secondLevelPicker.setIndicatorSize(3); //单位是px
+        fenleibottomSheetDialog.setContentView(view);
+        fenleibottomSheetDialog.show();
     }
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private void SeasonBottomSheet() {
+        //创建布局
+        View view = LayoutInflater.from(activity).inflate(R.layout.danpin_season, null, false);
+        seasonbottomSheetDialog = new BottomSheetDialog(activity);
+        //设置布局
+        TextView seasonBtn = view.findViewById(R.id.seasonBtn);
+        CheckBox chuncheck = view.findViewById(R.id.chuncheck);
+        CheckBox xiacheck = view.findViewById(R.id.xiacheck);
+        CheckBox qiucheck = view.findViewById(R.id.qiucheck);
+        CheckBox dongcheck = view.findViewById(R.id.dongcheck);
+        seasonBtn.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View view) {
+                String result="";
+                if(chuncheck.isChecked()) result+="春 ";
+                if(xiacheck.isChecked()) result+="夏 ";
+                if(qiucheck.isChecked()) result+="秋 ";
+                if(dongcheck.isChecked()) result+="冬";
+
+                TextView seasonText = findViewById(R.id.seasonText);
+                seasonText.setText(result);
+                seasonbottomSheetDialog.cancel();
+            }
+        });
+
+        seasonbottomSheetDialog.setContentView(view);
+        seasonbottomSheetDialog.show();
+    }
+//    @SuppressLint("UseCompatLoadingForDrawables")
+//    private void PlaceBottomSheet() {
+//        //创建布局
+//        View view = LayoutInflater.from(activity).inflate(R.layout.danpin_season, null, false);
+//        seasonbottomSheetDialog = new BottomSheetDialog(activity);
+//        //设置布局
+//        TextView seasonBtn = view.findViewById(R.id.seasonBtn);
+//        CheckBox chuncheck = view.findViewById(R.id.chuncheck);
+//        CheckBox xiacheck = view.findViewById(R.id.xiacheck);
+//        CheckBox qiucheck = view.findViewById(R.id.qiucheck);
+//        CheckBox dongcheck = view.findViewById(R.id.dongcheck);
+//        seasonBtn.setOnClickListener(new View.OnClickListener() {
+//            @SuppressLint("SetTextI18n")
+//            @Override
+//            public void onClick(View view) {
+//                String result="";
+//                if(chuncheck.isChecked()) result+="春 ";
+//                if(xiacheck.isChecked()) result+="夏 ";
+//                if(qiucheck.isChecked()) result+="秋 ";
+//                if(dongcheck.isChecked()) result+="冬";
+//
+//                TextView seasonText = findViewById(R.id.seasonText);
+//                seasonText.setText(result);
+//                seasonbottomSheetDialog.cancel();
+//            }
+//        });
+//
+//        seasonbottomSheetDialog.setContentView(view);
+//        seasonbottomSheetDialog.show();
+//    }
 }

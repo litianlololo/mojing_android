@@ -9,17 +9,38 @@
     android:paddingVertical="10dp">
 
     <com.aigestudio.wheelpicker.WheelPicker
-        android:id="@+id/wp"
-        android:layout_width="match_parent"
+        android:id="@+id/firstLevelPicker"
+        android:layout_width="0dp"
+        android:layout_height="202dp"
+        android:background="#ffffff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/secondLevelPicker"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.5"
+        app:wheel_item_text_size="16sp" />
+
+    <com.aigestudio.wheelpicker.WheelPicker
+        android:id="@+id/secondLevelPicker"
+        android:layout_width="0dp"
         android:layout_height="200dp"
         android:background="#ffffff"
-        app:wheel_item_text_size="16sp"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/firstLevelPicker"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.5"
+        app:wheel_item_text_size="16sp" />
 
-    <Button
-        android:id="@+id/btn"
+    <TextView
+        android:id="@+id/fenleiBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="btn1"
-        android:onClick="onClick"/>
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="确定"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
