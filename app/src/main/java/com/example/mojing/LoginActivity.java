@@ -28,7 +28,8 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class LoginActivity extends AppCompatActivity {
-    public String uu="http://47.103.223.106:5004/api";
+    public String uu = "http://47.102.43.156:8007";
+    //public String uu="http://47.103.223.106:5004/api";
     private int countdownTime = 60; // 倒计时时长，单位：秒
 
     private Handler handler = new Handler(Looper.getMainLooper());
@@ -198,7 +199,7 @@ public class LoginActivity extends AppCompatActivity {
                                 MediaType JSON = MediaType.parse("application/json;charset=utf-8");
                                 JSONObject json = new JSONObject();
                                 try {
-                                    json.put("phone", phone_number);
+                                    json.put("username", phone_number);
                                     json.put("password", password);
                                 } catch (JSONException e) {
                                     throw new RuntimeException(e);
@@ -207,6 +208,7 @@ public class LoginActivity extends AppCompatActivity {
                                 OkHttpClient okHttpClient = new OkHttpClient();
                                 RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
                                 Request request = new Request.Builder()
+                                        //.url(uu+"/auth/login")
                                         .url(uu+"/auth/login")
                                         .post(requestBody)
                                         .build();
@@ -215,22 +217,6 @@ public class LoginActivity extends AppCompatActivity {
                                     Response response = okHttpClient.newCall(request).execute();
                                     // 检查响应是否成功
                                     if (response.isSuccessful()) {
-                                        // 检查响应头部中是否存在 "Set-Cookie" 字段
-                                        Headers headers = response.headers();
-                                        List<String> cookies = headers.values("Set-Cookie");
-                                        String s = cookies.get(0);
-                                        String sessionCookie;
-                                        if (s != null) {
-                                            // 在这里处理获取到的会话信息
-                                            // sessionCookie 变量中存储了服务器返回的会话信息
-                                            // 可以将其存储在本地，后续的请求可以携带这个会话信息
-                                            sessionCookie = s.substring(0, s.indexOf(";"));
-                                            sharedPreferencesManager.setKEY_Session_ID(sessionCookie);
-                                            //showRequestFailedDialog(sessionCookie);
-                                        } else {
-                                            // 服务器没有返回会话信息
-                                            // 可能是未登录状态或者会话已经过期
-                                        }
 
                                         // 获取响应体
                                         ResponseBody responseBody = response.body();
@@ -242,6 +228,22 @@ public class LoginActivity extends AppCompatActivity {
                                         //确定返回状态
                                         switch (code) {
                                             case 200:
+                                                // 检查响应头部中是否存在 "Set-Cookie" 字段
+                                                Headers headers = response.headers();
+                                                List<String> cookies = headers.values("Set-Cookie");
+                                                String s = cookies.get(0);
+                                                String sessionCookie;
+                                                if (s != null) {
+                                                    // 在这里处理获取到的会话信息
+                                                    // sessionCookie 变量中存储了服务器返回的会话信息
+                                                    // 可以将其存储在本地，后续的请求可以携带这个会话信息
+                                                    sessionCookie = s.substring(0, s.indexOf(";"));
+                                                    sharedPreferencesManager.setKEY_Session_ID(sessionCookie);
+                                                    //showRequestFailedDialog(sessionCookie);
+                                                } else {
+                                                    // 服务器没有返回会话信息
+                                                    // 可能是未登录状态或者会话已经过期
+                                                }
                                                 setData(responseJson);
                                                 break;
                                             //登录成功
@@ -264,7 +266,9 @@ public class LoginActivity extends AppCompatActivity {
                                                 break;
                                             //密码错误
                                         }
-                                        //System.out.println("Response: " + responseData);
+                                        System.out.println("username: " + phone_number);
+                                        System.out.println("password: " + password);
+                                        System.out.println("Response: " + responseData);
                                         // 记得关闭响应体
                                         responseBody.close();
                                     } else {
@@ -326,6 +330,22 @@ public class LoginActivity extends AppCompatActivity {
                                         //确定返回状态
                                         switch (code) {
                                             case 200:
+                                                // 检查响应头部中是否存在 "Set-Cookie" 字段
+                                                Headers headers = response.headers();
+                                                List<String> cookies = headers.values("Set-Cookie");
+                                                String s = cookies.get(0);
+                                                String sessionCookie;
+                                                if (s != null) {
+                                                    // 在这里处理获取到的会话信息
+                                                    // sessionCookie 变量中存储了服务器返回的会话信息
+                                                    // 可以将其存储在本地，后续的请求可以携带这个会话信息
+                                                    sessionCookie = s.substring(0, s.indexOf(";"));
+                                                    sharedPreferencesManager.setKEY_Session_ID(sessionCookie);
+                                                    //showRequestFailedDialog(sessionCookie);
+                                                } else {
+                                                    // 服务器没有返回会话信息
+                                                    // 可能是未登录状态或者会话已经过期
+                                                }
                                                 setData(responseJson);
                                                 break;
                                             //登录成功
@@ -504,8 +524,9 @@ public class LoginActivity extends AppCompatActivity {
         sharedPreferencesManager.setFigureXiongwei(dataJson.getString("xiongwei"));
         sharedPreferencesManager.setFigureYaowei(dataJson.getString("yaowei"));
         sharedPreferencesManager.setUserID(dataJson.getString("_id"));
+        sharedPreferencesManager.setUserPhone(dataJson.getString("phone_number"));
         //sharedPreferencesManager.setUserPassword(dataJson.getString("password"));
-        sharedPreferencesManager.setUserPhone(dataJson.getString("phone"));
+        //sharedPreferencesManager.setUserPhone(dataJson.getString("phone"));
         //sharedPreferencesManager.setUserRole(dataJson.getString("role"));
         sharedPreferencesManager.setUsername(dataJson.getString("username"));
         sharedPreferencesManager.setLoggedIn(true);

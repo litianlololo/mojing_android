@@ -75,7 +75,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
     private  BottomSheetDialog bihebottomSheetDialog,xiuchangbottomSheetDialog,mianliaobottomSheetDialog;
     private PersonalItemView fenlei_content, season_content, place_content, lingxing_content, bihe_content, xiuchang_content, mianliao_content, fengge_content;
     private static final int REQUEST_CODE_WRITE_EXTERNAL_STORAGE = 1;
-
+    private SharedPreferencesManager sharedPreferencesManager;
     private String fenleiselect1="";
     private String fenleiselect2="";
     private TextView fenleiBtn;
@@ -108,6 +108,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
         xiuchang_content =findViewById(R.id.xiuchang_content);
         mianliao_content =findViewById(R.id.mianliao_content);
         fengge_content = findViewById(R.id.fengge_content);
+        sharedPreferencesManager = new SharedPreferencesManager(this);
         mianliao_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,7 +160,80 @@ public class Yichu_Add_Activity extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        MediaType JSON = MediaType.parse("application/json;charset=utf-8");
+                        JSONObject json = new JSONObject();
+                        try {
+                            json.put("img_url", danpin.img_url);
+                            json.put("type", danpin.type);
+                            json.put("type2", danpin.type2);
+                            json.put("bihe", danpin.bihe);
+                            json.put("fengge", danpin.fengge);
+                            json.put("lingxing", danpin.lingxing);
+                            json.put("mianliao", danpin.mianliao);
+                            json.put("spring", danpin.season.spring);
+                            json.put("summer", danpin.season.summer);
+                            json.put("autumn", danpin.season.autumn);
+                            json.put("winter", danpin.season.winter);
+                            json.put("xiuchang", danpin.xiuchang);
+
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                        //创建一个OkHttpClient对象
+                        OkHttpClient okHttpClient = new OkHttpClient();
+                        RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
+                        // 创建请求
+                        Request.Builder requestBuilder = new Request.Builder()
+                                .url("http://47.102.43.156:8007/auth/update")
+                                .post(requestBody)
+                                .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID());
+                        // 将会话信息添加到请求头部
+                        if (sharedPreferencesManager.getKEY_Session_ID() != null) {
+                            //showRequestFailedDialog(sharedPreferencesManager.getKEY_Session_ID());
+                        }else{
+                            showRequestFailedDialog("null");
+                        }
+                        // 发送请求并获取响应
+                        try {
+                            Request request = requestBuilder.build();
+                            Response response = okHttpClient.newCall(request).execute();
+                            // 检查响应是否成功
+                            if (response.isSuccessful()) {
+                                // 获取响应体
+                                ResponseBody responseBody = response.body();
+                                // 处理响应数据
+                                String responseData = responseBody.string();
+                                JSONObject responseJson = new JSONObject(responseData);
+                                // 提取键为"code"的值
+                                int code = responseJson.getInt("code");
+                                //确定返回状态
+                                switch (code) {
+                                    case 200:
+                                        showRequestFailedDialog("修改成功");
+                                        break;
+                                    case 1001:
+                                        System.out.println(sharedPreferencesManager.getUsername());
+                                        showRequestFailedDialog("请先登录");
+                                        break;
+                                }
+                                System.out.println("Response: " + responseData);
+                                // 记得关闭响应体
+                                responseBody.close();
+                            } else {
+                                // 请求失败，处理错误
+                                System.out.println("Request failed");
+                                showRequestFailedDialog("修改失败");
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }).start();
             }
         });
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -201,7 +275,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                             @Override
                             public void run() {
                             Glide.with(activity)
-                                    .load(croppedImageUri)
+                                    .load(uuimg+croppedImageUri)
                                             .into(imageButton);
                             }
                         });
@@ -256,7 +330,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                             danpin.img_url = responseJson.getJSONObject("data")
                                     .getString("url");
 
-                            result[0] = Uri.parse(uuimg+danpin.img_url);
+                            result[0] = Uri.parse(danpin.img_url);
                         }
                         System.out.println("Response: " + responseData);
                         System.out.println("img_url: " + result[0]);
