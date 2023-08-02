@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -68,6 +69,8 @@ public class Yichu_Add_Activity extends AppCompatActivity {
     private BottomSheetDialog fenleibottomSheetDialog;
     private BottomSheetDialog seasonbottomSheetDialog;
     private  BottomSheetDialog placebottomSheetDialog;
+    private  BottomSheetDialog lingxingbottomSheetDialog,fenggebottomSheetDialog;
+    private  BottomSheetDialog bihebottomSheetDialog,xiuchangbottomSheetDialog,mianliaobottomSheetDialog;
     private PersonalItemView fenlei_content, season_content, place_content, lingxing_content, bihe_content, xiuchang_content, mianliao_content, fengge_content;
     private static final int REQUEST_CODE_WRITE_EXTERNAL_STORAGE = 1;
 
@@ -98,6 +101,41 @@ public class Yichu_Add_Activity extends AppCompatActivity {
         fengge_content = findViewById(R.id.fengge_content);
         season_content = findViewById(R.id.season_content);
         place_content = findViewById(R.id.place_content);
+        lingxing_content = findViewById(R.id.lingxing_content);
+        bihe_content = findViewById(R.id.bihe_content);
+        xiuchang_content =findViewById(R.id.xiuchang_content);
+        mianliao_content =findViewById(R.id.mianliao_content);
+        fengge_content = findViewById(R.id.fengge_content);
+        mianliao_content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MianliaoBottomSheet();
+            }
+        });
+        fengge_content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FenggeBottomSheet();
+            }
+        });
+        xiuchang_content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                XiuchangBottomSheet();
+            }
+        });
+        bihe_content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BiheBottomSheet();
+            }
+        });
+        lingxing_content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LingxingBottomSheet();
+            }
+        });
         fenlei_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,7 +149,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
         place_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                PlaceBottomSheet();
             }
         });
         danpin = new Danpin();
@@ -423,34 +461,225 @@ public class Yichu_Add_Activity extends AppCompatActivity {
         seasonbottomSheetDialog.setContentView(view);
         seasonbottomSheetDialog.show();
     }
-//    @SuppressLint("UseCompatLoadingForDrawables")
-//    private void PlaceBottomSheet() {
-//        //创建布局
-//        View view = LayoutInflater.from(activity).inflate(R.layout.danpin_season, null, false);
-//        seasonbottomSheetDialog = new BottomSheetDialog(activity);
-//        //设置布局
-//        TextView seasonBtn = view.findViewById(R.id.seasonBtn);
-//        CheckBox chuncheck = view.findViewById(R.id.chuncheck);
-//        CheckBox xiacheck = view.findViewById(R.id.xiacheck);
-//        CheckBox qiucheck = view.findViewById(R.id.qiucheck);
-//        CheckBox dongcheck = view.findViewById(R.id.dongcheck);
-//        seasonBtn.setOnClickListener(new View.OnClickListener() {
-//            @SuppressLint("SetTextI18n")
-//            @Override
-//            public void onClick(View view) {
-//                String result="";
-//                if(chuncheck.isChecked()) result+="春 ";
-//                if(xiacheck.isChecked()) result+="夏 ";
-//                if(qiucheck.isChecked()) result+="秋 ";
-//                if(dongcheck.isChecked()) result+="冬";
-//
-//                TextView seasonText = findViewById(R.id.seasonText);
-//                seasonText.setText(result);
-//                seasonbottomSheetDialog.cancel();
-//            }
-//        });
-//
-//        seasonbottomSheetDialog.setContentView(view);
-//        seasonbottomSheetDialog.show();
-//    }
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private void PlaceBottomSheet() {
+        //创建布局
+        View view = LayoutInflater.from(activity).inflate(R.layout.danpin_place, null, false);
+        placebottomSheetDialog = new BottomSheetDialog(activity);
+        //设置布局
+        TextView placeBtn = view.findViewById(R.id.placeBtn);
+        EditText editText = view.findViewById(R.id.placeText);
+        placeBtn.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View view) {
+                String result="";
+                if (editText != null)
+                    result = editText.getText().toString();
+                else showRequestFailedDialog("null");
+                TextView placeText = findViewById(R.id.placeText);
+                placeText.setText(result);
+                placebottomSheetDialog.cancel();
+            }
+        });
+
+        placebottomSheetDialog.setContentView(view);
+        placebottomSheetDialog.show();
+    }
+    private void LingxingBottomSheet() {
+        //创建布局
+        View view = LayoutInflater.from(activity).inflate(R.layout.danpin_lingxing, null, false);
+        lingxingbottomSheetDialog = new BottomSheetDialog(activity);
+        //设置布局
+        WheelPicker wheelPicker = view.findViewById(R.id.wheelPicker);
+        // 设置数据
+        List<String> dataList = new ArrayList<>();
+        dataList.add("圆领");
+        dataList.add("v领");
+        dataList.add("一字领");
+        dataList.add("立领");
+        dataList.add("堆领");
+        wheelPicker.setData(dataList);
+        TextView lingxingBtn = view.findViewById(R.id.lingxingBtn);
+        TextView lingxingText =findViewById(R.id.lingxingText);
+        lingxingBtn.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View view) {
+                String select = "";
+                int SelectedIndex = wheelPicker.getCurrentItemPosition();
+                select = (String) wheelPicker.getData().get(SelectedIndex);
+                lingxingText.setText(select);
+                lingxingbottomSheetDialog.cancel();
+            }
+        });
+        // 设置是否有卷曲感，不能微调卷曲幅度，默认false
+        wheelPicker.setCurved(true);
+        //设置是否有指示器，设置后选中项的上下会用线框柱
+        wheelPicker.setIndicator(true);
+        wheelPicker.setIndicatorColor(0xFF123456); //16进制
+        wheelPicker.setIndicatorSize(3); //单位是px
+        lingxingbottomSheetDialog.setContentView(view);
+        lingxingbottomSheetDialog.show();
+    }
+    private void BiheBottomSheet() {
+        //创建布局
+        View view = LayoutInflater.from(activity).inflate(R.layout.danpin_bihe, null, false);
+        bihebottomSheetDialog = new BottomSheetDialog(activity);
+        //设置布局
+        WheelPicker wheelPicker = view.findViewById(R.id.wheelPicker);
+        // 设置数据
+        List<String> dataList = new ArrayList<>();
+        dataList.add("单排扣");
+        dataList.add("开衫");
+        dataList.add("套头");
+        dataList.add("纽扣");
+        dataList.add("拉链");
+        dataList.add("双排扣");
+        dataList.add("斜襟");dataList.add("其他");
+        wheelPicker.setData(dataList);
+        TextView biheBtn = view.findViewById(R.id.biheBtn);
+        TextView biheText =findViewById(R.id.biheText);
+        biheBtn.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View view) {
+                String select = "";
+                int SelectedIndex = wheelPicker.getCurrentItemPosition();
+                select = (String) wheelPicker.getData().get(SelectedIndex);
+                biheText.setText(select);
+                bihebottomSheetDialog.cancel();
+            }
+        });
+        // 设置是否有卷曲感，不能微调卷曲幅度，默认false
+        wheelPicker.setCurved(true);
+        //设置是否有指示器，设置后选中项的上下会用线框柱
+        wheelPicker.setIndicator(true);
+        wheelPicker.setIndicatorColor(0xFF123456); //16进制
+        wheelPicker.setIndicatorSize(3); //单位是px
+        bihebottomSheetDialog.setContentView(view);
+        bihebottomSheetDialog.show();
+    }
+    private void XiuchangBottomSheet() {
+        //创建布局
+        View view = LayoutInflater.from(activity).inflate(R.layout.danpin_xiuchang, null, false);
+        xiuchangbottomSheetDialog = new BottomSheetDialog(activity);
+        //设置布局
+        WheelPicker wheelPicker = view.findViewById(R.id.wheelPicker);
+        // 设置数据
+        List<String> dataList = new ArrayList<>();
+        dataList.add("短袖");
+        dataList.add("无袖");
+        dataList.add("长袖");
+        wheelPicker.setData(dataList);
+        TextView xiuchangBtn = view.findViewById(R.id.xiuchangBtn);
+        TextView xiuchangText =findViewById(R.id.xiuchangText);
+        xiuchangBtn.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View view) {
+                String select = "";
+                int SelectedIndex = wheelPicker.getCurrentItemPosition();
+                select = (String) wheelPicker.getData().get(SelectedIndex);
+                xiuchangText.setText(select);
+                xiuchangbottomSheetDialog.cancel();
+            }
+        });
+        // 设置是否有卷曲感，不能微调卷曲幅度，默认false
+        wheelPicker.setCurved(true);
+        //设置是否有指示器，设置后选中项的上下会用线框柱
+        wheelPicker.setIndicator(true);
+        wheelPicker.setIndicatorColor(0xFF123456); //16进制
+        wheelPicker.setIndicatorSize(3); //单位是px
+        xiuchangbottomSheetDialog.setContentView(view);
+        xiuchangbottomSheetDialog.show();
+    }
+    private void MianliaoBottomSheet() {
+        //创建布局
+        View view = LayoutInflater.from(activity).inflate(R.layout.danpin_xiuchang, null, false);
+        mianliaobottomSheetDialog = new BottomSheetDialog(activity);
+        //设置布局
+        WheelPicker wheelPicker = view.findViewById(R.id.wheelPicker);
+        // 设置数据
+        List<String> dataList = new ArrayList<>();
+        dataList.add("丝质");
+        dataList.add("绸缎");
+        dataList.add("涤纶");
+        dataList.add("纱质/雪纺");
+        dataList.add("针织");
+        dataList.add("蕾丝");
+        dataList.add("牛仔");
+        dataList.add("皮草");
+        dataList.add("金属光泽");
+        dataList.add("西装面料");
+        dataList.add("羊毛");
+        dataList.add("棉");
+        dataList.add("麻");
+        dataList.add("毛妮");
+        dataList.add("其他");
+        wheelPicker.setData(dataList);
+        TextView xiuchangBtn = view.findViewById(R.id.xiuchangBtn);
+        TextView mianliaoText =findViewById(R.id.mianliaoText);
+        xiuchangBtn.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View view) {
+                String select = "";
+                int SelectedIndex = wheelPicker.getCurrentItemPosition();
+                select = (String) wheelPicker.getData().get(SelectedIndex);
+                mianliaoText.setText(select);
+                mianliaobottomSheetDialog.cancel();
+            }
+        });
+        // 设置是否有卷曲感，不能微调卷曲幅度，默认false
+        wheelPicker.setCurved(true);
+        //设置是否有指示器，设置后选中项的上下会用线框柱
+        wheelPicker.setIndicator(true);
+        wheelPicker.setIndicatorColor(0xFF123456); //16进制
+        wheelPicker.setIndicatorSize(3); //单位是px
+        mianliaobottomSheetDialog.setContentView(view);
+        mianliaobottomSheetDialog.show();
+    }
+    private void FenggeBottomSheet() {
+        //创建布局
+        View view = LayoutInflater.from(activity).inflate(R.layout.danpin_xiuchang, null, false);
+        fenggebottomSheetDialog = new BottomSheetDialog(activity);
+        //设置布局
+        WheelPicker wheelPicker = view.findViewById(R.id.wheelPicker);
+        // 设置数据
+        List<String> dataList = new ArrayList<>();
+        dataList.add("运动风");
+        dataList.add("甜美可爱风");
+        dataList.add("基本款百搭");
+        dataList.add("度假风");
+        dataList.add("男友风");
+        dataList.add("时髦风");
+        dataList.add("经典风");
+        dataList.add("商务风");
+        dataList.add("浪漫风");
+        dataList.add("复古风");
+        dataList.add("派对风");
+        wheelPicker.setData(dataList);
+        TextView xiuchangBtn = view.findViewById(R.id.xiuchangBtn);
+        TextView fenggeText =findViewById(R.id.fenggeText);
+        xiuchangBtn.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View view) {
+                String select = "";
+                int SelectedIndex = wheelPicker.getCurrentItemPosition();
+                select = (String) wheelPicker.getData().get(SelectedIndex);
+                fenggeText.setText(select);
+                fenggebottomSheetDialog.cancel();
+            }
+        });
+        // 设置是否有卷曲感，不能微调卷曲幅度，默认false
+        wheelPicker.setCurved(true);
+        //设置是否有指示器，设置后选中项的上下会用线框柱
+        wheelPicker.setIndicator(true);
+        wheelPicker.setIndicatorColor(0xFF123456); //16进制
+        wheelPicker.setIndicatorSize(3); //单位是px
+        fenggebottomSheetDialog.setContentView(view);
+        fenggebottomSheetDialog.show();
+    }
 }
