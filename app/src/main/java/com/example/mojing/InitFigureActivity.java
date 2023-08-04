@@ -44,8 +44,8 @@ public class InitFigureActivity extends AppCompatActivity {
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sharedPreferencesManager.setFigureShengao(Integer.toString(shengao));
-                sharedPreferencesManager.setFigureTizhong(Integer.toString(tizhong));
+                sharedPreferencesManager.setFigureShengao((shengao));
+                sharedPreferencesManager.setFigureTizhong((tizhong));
 
                 Intent tmp = new Intent(InitFigureActivity.this, InitSanweiActivity.class);
                 startActivity(tmp);

@@ -48,9 +48,9 @@ public class InitSanweiActivity extends AppCompatActivity {
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sharedPreferencesManager.setFigureXiongwei(Integer.toString(xiongwei));
-                sharedPreferencesManager.setFigureYaowei(Integer.toString(yaowei));
-                sharedPreferencesManager.setFigureTunwei(Integer.toString(tunwei));
+                sharedPreferencesManager.setFigureXiongwei((xiongwei));
+                sharedPreferencesManager.setFigureYaowei((yaowei));
+                sharedPreferencesManager.setFigureTunwei((tunwei));
 
                 Intent tmp = new Intent(InitSanweiActivity.this, MainActivity.class);
                 startActivity(tmp);

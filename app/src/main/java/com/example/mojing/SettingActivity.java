@@ -89,11 +89,11 @@ public class SettingActivity extends AppCompatActivity {
         sharedPreferencesManager.setLoggedIn(false);
         sharedPreferencesManager.setUsername("Username");
         sharedPreferencesManager.setUserPassword("user_password");
-        sharedPreferencesManager.setFigureYaowei("yaowei");
-        sharedPreferencesManager.setFigureXiongwei("xiongwei");
-        sharedPreferencesManager.setFigureTizhong("tizhong");
-        sharedPreferencesManager.setFigureTunwei("tunwei");
-        sharedPreferencesManager.setFigureShengao("shengao");
+        sharedPreferencesManager.setFigureYaowei(0);
+        sharedPreferencesManager.setFigureXiongwei(0);
+        sharedPreferencesManager.setFigureTizhong(0);
+        sharedPreferencesManager.setFigureTunwei(0);
+        sharedPreferencesManager.setFigureShengao(0);
         sharedPreferencesManager.setUserRole("userRole");
         sharedPreferencesManager.setUserID("userID");
         sharedPreferencesManager.setUserPhone("userPhone");

@@ -166,6 +166,14 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                         MediaType JSON = MediaType.parse("application/json;charset=utf-8");
                         JSONObject json = new JSONObject();
                         try {
+                            json.put("name","");
+                            json.put("version","");
+                            json.put("pattern",null);
+                            json.put("scene",null);
+                            json.put("fabric",null);
+                            json.put("temperature",null);
+                            json.put("highlights",null);
+                            json.put("user_id",sharedPreferencesManager.getUserID());
                             json.put("img_url", danpin.img_url);
                             json.put("type", danpin.type);
                             json.put("type2", danpin.type2);
@@ -187,7 +195,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                         RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
                         // 创建请求
                         Request.Builder requestBuilder = new Request.Builder()
-                                .url("http://47.102.43.156:8007/auth/update")
+                                .url("http://47.102.43.156:8007/cloth/add")
                                 .post(requestBody)
                                 .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID());
                         // 将会话信息添加到请求头部
@@ -212,11 +220,17 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                                 //确定返回状态
                                 switch (code) {
                                     case 200:
-                                        showRequestFailedDialog("修改成功");
+                                        showRequestFailedDialog("添加成功");
+                                        JSONObject dataJson = responseJson.getJSONObject("data");
+                                        System.out.println(dataJson);
+                                        danpin._id = dataJson.getString("_id");
                                         break;
                                     case 1001:
                                         System.out.println(sharedPreferencesManager.getUsername());
                                         showRequestFailedDialog("请先登录");
+                                        break;
+                                    default:
+                                        showRequestFailedDialog("添加失败");
                                         break;
                                 }
                                 System.out.println("Response: " + responseData);
@@ -225,7 +239,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                             } else {
                                 // 请求失败，处理错误
                                 System.out.println("Request failed");
-                                showRequestFailedDialog("修改失败");
+                                showRequestFailedDialog("网络错误，添加失败");
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -447,7 +461,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
 
         // 初始化第二级数据（假设第一级选择"Option 1"时，第二级可选项为："Sub-option 1"、"Sub-option 2"、"Sub-option 3"）
         List<String> secondLevelData = new ArrayList<>();
-        secondLevelData.add("上衣");
+        secondLevelData.add("T恤");
         secondLevelData.add("大衣");
         secondLevelData.add("衬衫");
         secondLevelData.add("西装");
@@ -458,7 +472,6 @@ public class Yichu_Add_Activity extends AppCompatActivity {
         secondLevelData.add("斗篷/披风");
         secondLevelData.add("毛衣针织");
         secondLevelData.add("背心/吊带");
-        secondLevelData.add("T恤");
         secondLevelData.add("皮衣/皮革");
         secondLevelData.add("羽绒服");
         secondLevelData.add("棉衣/羊羔绒");
@@ -477,7 +490,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                 // 在这里根据第一级选择的值，动态更新第二级数据
                 if (position == 0) { // 如果第一级选择了"Option 1"
                     List<String> subOptionData = new ArrayList<>();
-                    subOptionData.add("上衣");
+                    subOptionData.add("T恤");
                     subOptionData.add("大衣");
                     subOptionData.add("衬衫");
                     subOptionData.add("西装");
@@ -488,7 +501,6 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                     subOptionData.add("斗篷/披风");
                     subOptionData.add("毛衣针织");
                     subOptionData.add("背心/吊带");
-                    subOptionData.add("T恤");
                     subOptionData.add("皮衣/皮革");
                     subOptionData.add("羽绒服");
                     subOptionData.add("棉衣/羊羔绒");

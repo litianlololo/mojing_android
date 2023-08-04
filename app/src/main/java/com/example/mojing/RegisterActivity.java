@@ -3,6 +3,7 @@ package com.example.mojing;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,7 +17,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.List;
 
+import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -118,93 +121,112 @@ public class RegisterActivity extends AppCompatActivity {
                 String code = verificationCodeEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
                 String username = userNameEditText.getText().toString();
-//                if (phone_number.equals("") || code.equals("")) {
-//                    return;
-//                };
+                if (phone_number.equals("") || code.equals("")) {
+                    return;
+                };
 
-                //默认成功
-                sharedPreferencesManager.setUserPhone(phone_number);
-                sharedPreferencesManager.setUserPassword(password);
-                sharedPreferencesManager.setUsername(username);
-                sharedPreferencesManager.setLoggedIn(true);
-                Intent tmp = new Intent(RegisterActivity.this, InitFigureActivity.class);
-                startActivity(tmp);
-                finish(); // 结束当前的LoginActivity
+//                //默认成功
+//                sharedPreferencesManager.setUserPhone(phone_number);
+//                sharedPreferencesManager.setUserPassword(password);
+//                sharedPreferencesManager.setUsername(username);
+//                sharedPreferencesManager.setLoggedIn(true);
+//                Intent tmp = new Intent(RegisterActivity.this, InitFigureActivity.class);
+//                startActivity(tmp);
+//                finish(); // 结束当前的LoginActivity
 
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        MediaType JSON = MediaType.parse("application/json;charset=utf-8");
-//                        JSONObject json = new JSONObject();
-//                        try {
-//                            json.put("phone_number", phone_number);
-//                            json.put("code", code);
-//                        } catch (JSONException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//                        //创建一个OkHttpClient对象
-//                        OkHttpClient okHttpClient = new OkHttpClient();
-//                        RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
-//                        Request request = new Request.Builder()
-//                                .url("http://47.102.43.156:8007/auth/register")
-//                                .post(requestBody)
-//                                .build();
-//                        // 发送请求并获取响应
-//                        try {
-//                            Response response = okHttpClient.newCall(request).execute();
-//                            // 检查响应是否成功
-//                            if (response.isSuccessful()) {
-//                                // 获取响应体
-//                                ResponseBody responseBody = response.body();
-//                                // 处理响应数据
-//                                String responseData = responseBody.string();
-//                                JSONObject responseJson = new JSONObject(responseData);
-//                                // 提取键为"code"的值
-//                                int code = responseJson.getInt("code");
-//                                //确定返回状态
-//                                switch (code) {
-//                                    case 200:
-//                                        setData(responseJson);
-//                                        break;
-//                                    //账号已注册
-//                                    case 4002:
-//                                        runOnUiThread(new Runnable() {
-//                                            @Override
-//                                            public void run() {
-//                                                showRequestFailedDialog("账号已存在");
-//                                            }
-//                                        });
-//                                        break;
-//                                    //验证码错误
-//                                    case 1002:
-//                                        runOnUiThread(new Runnable() {
-//                                            @Override
-//                                            public void run() {
-//                                                showRequestFailedDialog("验证码错误");
-//                                            }
-//                                        });
-//                                        break;
-//                                }
-//                                System.out.println("Response: " + responseData);
-//                                // 记得关闭响应体
-//                                responseBody.close();
-//                            } else {
-//                                // 请求失败，处理错误
-//                                System.out.println("Request failed");
-//                            }
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        } catch (JSONException e) {
-//                            throw new RuntimeException(e);
-//                        }
-//                    }
-//                }).start();
-//                 登录成功，改变登录状态
-//                if (sharedPreferencesManager.isLoggedIn()) {
-//                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-//                    startActivity(intent);
-//                    finish(); // 结束当前的LoginActivity
-//                }
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        MediaType JSON = MediaType.parse("application/json;charset=utf-8");
+                        JSONObject json = new JSONObject();
+                        try {
+                            json.put("phone_number", phone_number);
+                            json.put("code", code);
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                        //创建一个OkHttpClient对象
+                        OkHttpClient okHttpClient = new OkHttpClient();
+                        RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
+                        Request request = new Request.Builder()
+                                .url("http://47.102.43.156:8007/auth/register")
+                                .post(requestBody)
+                                .build();
+                        // 发送请求并获取响应
+                        try {
+                            Response response = okHttpClient.newCall(request).execute();
+                            // 检查响应是否成功
+                            if (response.isSuccessful()) {
+                                // 获取响应体
+                                ResponseBody responseBody = response.body();
+                                // 处理响应数据
+                                String responseData = responseBody.string();
+                                JSONObject responseJson = new JSONObject(responseData);
+                                // 提取键为"code"的值
+                                int code = responseJson.getInt("code");
+                                //确定返回状态
+                                switch (code) {
+                                    case 200:
+                                        // 检查响应头部中是否存在 "Set-Cookie" 字段
+                                        Headers headers = response.headers();
+                                        List<String> cookies = headers.values("Set-Cookie");
+                                        String s = cookies.get(0);
+                                        String sessionCookie;
+                                        if (s != null) {
+                                            // 在这里处理获取到的会话信息
+                                            // sessionCookie 变量中存储了服务器返回的会话信息
+                                            // 可以将其存储在本地，后续的请求可以携带这个会话信息
+                                            sessionCookie = s.substring(0, s.indexOf(";"));
+                                            sharedPreferencesManager.setKEY_Session_ID(sessionCookie);
+                                            //showRequestFailedDialog(sessionCookie);
+                                        } else {
+                                            // 服务器没有返回会话信息
+                                            // 可能是未登录状态或者会话已经过期
+                                        }
+                                        sharedPreferencesManager.setUserPhone(phone_number);
+                                        sharedPreferencesManager.setLoggedIn(true);
+                                        //setData(responseJson);
+                                        break;
+                                    //账号已注册
+                                    case 4002:
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                showRequestFailedDialog("账号已存在");
+                                            }
+                                        });
+                                        break;
+                                    //验证码错误
+                                    case 1002:
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                showRequestFailedDialog("验证码错误");
+                                            }
+                                        });
+                                        break;
+                                }
+                                System.out.println("Response: " + responseData);
+                                // 记得关闭响应体
+                                responseBody.close();
+                            } else {
+                                // 请求失败，处理错误
+                                System.out.println("Request failed");
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }).start();
+                 //登录成功，改变登录状态
+                if (sharedPreferencesManager.isLoggedIn()) {
+                    //默认成功
+                    Intent tmp = new Intent(RegisterActivity.this, InitFigureActivity.class);
+                    startActivity(tmp);
+                    finish(); // 结束当前的LoginActivity
+                }
             }
         });
     }
@@ -247,16 +269,45 @@ public class RegisterActivity extends AppCompatActivity {
     private void setData(JSONObject responseJson) throws JSONException {
         // 提取键为"data"的值
         JSONObject dataJson = responseJson.getJSONObject("data");
-        sharedPreferencesManager.setFigureShengao(dataJson.getString("shengao"));
-        sharedPreferencesManager.setFigureTizhong(dataJson.getString("tizhong"));
-        sharedPreferencesManager.setFigureTunwei(dataJson.getString("tunwei"));
-        sharedPreferencesManager.setFigureXiongwei(dataJson.getString("xiongwei"));
-        sharedPreferencesManager.setFigureYaowei(dataJson.getString("yaowei"));
-        sharedPreferencesManager.setUserID(dataJson.getString("_id"));
-        sharedPreferencesManager.setUserPassword(dataJson.getString("password"));
-        sharedPreferencesManager.setUserPhone(dataJson.getString("phone_number"));
-        sharedPreferencesManager.setUserRole(dataJson.getString("role"));
-        sharedPreferencesManager.setUsername(dataJson.getString("username"));
+        System.out.println(dataJson);
+        Integer shengao = dataJson.optInt("shengao", 0);
+        Integer tizhong = dataJson.optInt("tizhong", 0);
+        Integer tunwei = dataJson.optInt("tunwei", 0);
+        Integer xiongwei = dataJson.optInt("xiongwei", 0);
+        Integer yaowei = dataJson.optInt("yaowei", 0);
+        String userID = dataJson.optString("_id", "");
+        String userPhone = dataJson.optString("phone_number", "");
+        String userRole = dataJson.optString("role", "");
+        String username = dataJson.optString("username", "");
+
+        sharedPreferencesManager.setFigureShengao(shengao);
+        sharedPreferencesManager.setFigureTizhong(tizhong);
+        sharedPreferencesManager.setFigureTunwei(tunwei);
+        sharedPreferencesManager.setFigureXiongwei(xiongwei);
+        sharedPreferencesManager.setFigureYaowei(yaowei);
+        sharedPreferencesManager.setUserID(userID);
+        sharedPreferencesManager.setUserPhone(userPhone);
+        sharedPreferencesManager.setUserRole(userRole);
+        sharedPreferencesManager.setUsername(username);
         sharedPreferencesManager.setLoggedIn(true);
+
+        sharedPreferencesManager.setLoggedIn(true);
+    }
+    // 注册成功后弹出提醒
+    private void showSuccessDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("注册成功")
+                .setMessage("恭喜您，注册成功！")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 在点击确定按钮后执行跳转到目标 Activity
+                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish(); // 可选：如果希望在跳转到目标 Activity 后关闭当前注册 Activity，则调用 finish()。
+                    }
+                })
+                .setCancelable(false) // 设置为 false，确保用户只能点击确定按钮关闭弹窗。
+                .show();
     }
 }
