@@ -63,6 +63,8 @@ import okhttp3.ResponseBody;
 public class Yichu_Add_Activity extends AppCompatActivity {
     public String uu="http://47.103.223.106:5004/api";
     public String uuimg="http://47.103.223.106:5004";
+//    public String uu="http://47.102.43.156:8007/api";
+//    public String uuimg="http://47.102.43.156:8007";
     private ImageView imageButton;
     private TextView addBtn;
     public Activity activity = this;
@@ -186,7 +188,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                             json.put("autumn", danpin.season.autumn);
                             json.put("winter", danpin.season.winter);
                             json.put("xiuchang", danpin.xiuchang);
-
+                            json.put("storeplace", danpin.storeplace);
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
@@ -195,7 +197,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                         RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
                         // 创建请求
                         Request.Builder requestBuilder = new Request.Builder()
-                                .url("http://47.102.43.156:8007/cloth/add")
+                                .url(uu+"/cloth/add")
                                 .post(requestBody)
                                 .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID());
                         // 将会话信息添加到请求头部
@@ -242,6 +244,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                                 showRequestFailedDialog("网络错误，添加失败");
                             }
                         } catch (IOException e) {
+                            showRequestFailedDialog("网络错误，添加失败");
                             e.printStackTrace();
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
@@ -300,6 +303,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                     }
                 });
             } catch (URISyntaxException e) {
+                showRequestFailedDialog("网络请求失败，请检查网络或稍后再试");
                 throw new RuntimeException(e);
             }
 
@@ -354,8 +358,10 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                     } else {
                         // 请求失败，处理错误
                         System.out.println("Request failed");
+                        showRequestFailedDialog("网络请求失败");
                     }
                 } catch (IOException e) {
+                    showRequestFailedDialog("网络请求失败");
                     e.printStackTrace();
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -454,7 +460,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
         });
         // 设置第一级数据
         List<String> firstLevelData = new ArrayList<>();
-        firstLevelData.add("上衣");
+        firstLevelData.add("上装");
         firstLevelData.add("下装");
         firstLevelData.add("连体装");
         firstLevelPicker.setData(firstLevelData);

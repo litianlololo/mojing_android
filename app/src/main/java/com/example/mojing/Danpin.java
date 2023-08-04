@@ -8,10 +8,10 @@ public class Danpin {
     public String type2;
     public Season season= new Season();
     public class Season{
-        boolean spring=false;
-        boolean summer=false;
-        boolean autumn=false;
-        boolean winter =false;
+        public boolean spring=false;
+        public boolean summer=false;
+        public boolean autumn=false;
+        public boolean winter =false;
     }
     public String storeplace;
     public String lingxing;

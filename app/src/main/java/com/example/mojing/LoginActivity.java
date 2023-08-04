@@ -29,8 +29,8 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class LoginActivity extends AppCompatActivity {
-    public String uu = "http://47.102.43.156:8007";
-    //public String uu="http://47.103.223.106:5004/api";
+    //public String uu = "http://47.102.43.156:8007/api";
+    public String uu="http://47.103.223.106:5004/api";
     private int countdownTime = 60; // 倒计时时长，单位：秒
 
     private Handler handler = new Handler(Looper.getMainLooper());
@@ -200,7 +200,8 @@ public class LoginActivity extends AppCompatActivity {
                                 MediaType JSON = MediaType.parse("application/json;charset=utf-8");
                                 JSONObject json = new JSONObject();
                                 try {
-                                    json.put("username", phone_number);
+                                    json.put("phone", phone_number);
+//                                    json.put("username", phone_number);
 //                                    json.put("username", );
                                     json.put("password", password);
                                 } catch (JSONException e) {
@@ -279,6 +280,7 @@ public class LoginActivity extends AppCompatActivity {
                                         System.out.println("Request failed");
                                     }
                                 } catch (IOException e) {
+                                    showRequestFailedDialog("网络请求失败");
                                     e.printStackTrace();
                                 } catch (JSONException e) {
                                     throw new RuntimeException(e);
@@ -386,6 +388,7 @@ public class LoginActivity extends AppCompatActivity {
                                         System.out.println("Request failed");
                                     }
                                 } catch (IOException e) {
+                                    showRequestFailedDialog("网络请求失败");
                                     e.printStackTrace();
                                 } catch (JSONException e) {
                                     throw new RuntimeException(e);

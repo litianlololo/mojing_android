@@ -26,7 +26,7 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class Me_Figure_Activity extends AppCompatActivity {
-    public String uu="http://47.103.223.106:5004/api";
+    public String uu="http://47.102.43.156:8007/api";
     private TextView tv_shengao;
     private TextView tv_tizhong;
     private TextView tv_xiongwei;
@@ -152,7 +152,7 @@ public class Me_Figure_Activity extends AppCompatActivity {
                             RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
                             // 创建请求
                             Request.Builder requestBuilder = new Request.Builder()
-                                    .url("http://47.102.43.156:8007/auth/update")
+                                    .url(uu+"/auth/update")
                                     .post(requestBody)
                                     .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID());
                             // 将会话信息添加到请求头部

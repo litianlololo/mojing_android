@@ -29,7 +29,8 @@ import okhttp3.ResponseBody;
 
 public class RegisterActivity extends AppCompatActivity {
     private int countdownTime = 60; // 倒计时时长，单位：秒
-
+    private String uu="http://47.102.43.156:8007";
+    //private String uu="http://47.103.223.106:5004/api";
     private Handler handler = new Handler(Looper.getMainLooper());
     private Runnable countdownRunnable;
     private SharedPreferencesManager sharedPreferencesManager;
@@ -82,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
                         OkHttpClient okHttpClient = new OkHttpClient();
                         RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
                         Request request = new Request.Builder()
-                                .url("http://47.102.43.156:8007/auth/code")
+                                .url(uu+"/auth/code")
                                 .post(requestBody)
                                 .build();
                         // 发送请求并获取响应
@@ -149,7 +150,7 @@ public class RegisterActivity extends AppCompatActivity {
                         OkHttpClient okHttpClient = new OkHttpClient();
                         RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
                         Request request = new Request.Builder()
-                                .url("http://47.102.43.156:8007/auth/register")
+                                .url(uu+"/auth/register")
                                 .post(requestBody)
                                 .build();
                         // 发送请求并获取响应
@@ -214,6 +215,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 System.out.println("Request failed");
                             }
                         } catch (IOException e) {
+                            showRequestFailedDialog("网络请求失败");
                             e.printStackTrace();
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
