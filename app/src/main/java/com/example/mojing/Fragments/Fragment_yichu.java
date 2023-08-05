@@ -22,6 +22,7 @@ import com.example.mojing.MainActivity;
 import com.example.mojing.SharedPreferencesManager;
 import com.example.mojing.Yichu_Add_Activity;
 import com.example.mojing.R;
+import com.example.mojing.Yichu_Single_Activity;
 
 
 import android.widget.ImageView;
@@ -397,6 +398,17 @@ public class Fragment_yichu extends Fragment {
             imageParams1.setMarginEnd(5); // 设置图片与第二列图片的间隔
             imageView1.setLayoutParams(imageParams1);
             imageView1.setBackgroundResource(R.drawable.yichu_img_border);
+            imageView1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // 创建Intent，将id传递给Yichu_Single_Activity
+                    Intent intent = new Intent(activity, Yichu_Single_Activity.class);
+                    intent.putExtra("_id", urls.get(finalI)._id); // 传递id变量
+
+                    // 启动Yichu_Single_Activity
+                    activity.startActivity(intent);
+                }
+            });
             // 第二列图片
             if (i + 1 < urls.size()) {
                 ImageView imageView2 = new ImageView(activity);
@@ -415,6 +427,17 @@ public class Fragment_yichu extends Fragment {
                 );
                 imageView2.setLayoutParams(imageParams2);
                 imageView2.setBackgroundResource(R.drawable.yichu_img_border);
+                imageView2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // 创建Intent，将id传递给Yichu_Single_Activity
+                        Intent intent = new Intent(activity, Yichu_Single_Activity.class);
+                        intent.putExtra("_id", urls.get(finalI+1)._id); // 传递id变量
+
+                        // 启动Yichu_Single_Activity
+                        activity.startActivity(intent);
+                    }
+                });
                 // 将两列图片添加到行布局中
                 rowLayout.addView(imageView1);
                 rowLayout.addView(imageView2);

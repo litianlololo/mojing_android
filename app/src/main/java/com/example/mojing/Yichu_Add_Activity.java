@@ -222,7 +222,12 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                                 //确定返回状态
                                 switch (code) {
                                     case 200:
-                                        showRequestFailedDialog("添加成功");
+                                        activity.runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                ShowAndDrop("添加成功");
+                                            }
+                                        });
                                         JSONObject dataJson = responseJson.getJSONObject("data");
                                         System.out.println(dataJson);
                                         danpin._id = dataJson.getString("_id");
@@ -810,5 +815,21 @@ public class Yichu_Add_Activity extends AppCompatActivity {
         wheelPicker.setIndicatorSize(3); //单位是px
         fenggebottomSheetDialog.setContentView(view);
         fenggebottomSheetDialog.show();
+    }
+    private void ShowAndDrop(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("提示");
+        builder.setMessage(message);
+        builder.setPositiveButton("前往单品详情页", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // 点击确定后执行页面跳转和关闭当前Activity
+                Intent intent = new Intent(Yichu_Add_Activity.this, Yichu_Single_Activity.class);
+                intent.putExtra("_id", danpin._id); // 传递id变量
+                startActivity(intent);
+                finish(); // 结束当前的Yichu_Single_Activity
+            }
+        });
+        builder.show();
     }
 }

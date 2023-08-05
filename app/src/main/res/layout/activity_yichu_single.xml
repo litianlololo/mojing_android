@@ -29,7 +29,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView19"
+        android:id="@+id/deleteBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -281,6 +281,9 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/radius_border1"
         android:backgroundTint="#000000"
+        android:gravity="center"
+        android:text="更新单品"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
