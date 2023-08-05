@@ -33,7 +33,7 @@ public class SharedPreferencesManager {
     }
     public void setIsYouke(boolean isyouke) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(KEY_IS_LOGGED_IN, isyouke);
+        editor.putBoolean(KEY_IS_Youke, isyouke);
         editor.apply();
     }
 

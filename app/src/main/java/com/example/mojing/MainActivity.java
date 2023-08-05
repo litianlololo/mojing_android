@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         }).attach();
 
         // 如果用户未登录并且不是游客模式，则打开登录页面
-        if (!isLoggedIn && !sharedPreferencesManager.isYouke()) {
+        if (!sharedPreferencesManager.isLoggedIn() && !sharedPreferencesManager.isYouke()) {
             Intent loginIntent = new Intent(this, StartActivity.class);
             this.startActivity(loginIntent);
             finish();

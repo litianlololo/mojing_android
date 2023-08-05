@@ -67,7 +67,7 @@ public class Fragment_yichu extends Fragment {
 
     private ScrollView ImgScroll;
 //    private List<String> selectedURL = new ArrayList<>();
-    private Danpin[] danpins;
+    private Danpin[] danpins = new Danpin[1];
     private List<Danpin> selectedDanpin = new ArrayList<>();
     private static int MAX_YICHU = 999;
     public Fragment_yichu() {
@@ -158,22 +158,25 @@ public class Fragment_yichu extends Fragment {
         //默认type1 type2
         type1="上装";
         type2="全部";
-        //初始化我的衣装
-        loadAll(new AddDanpinCallback() {
-            @Override
-            public void onAddDanpin() {
-                //初始化为 上装 全部
-                loadingImg(type1,type2);
+        System.out.println(sharedPreferencesManager.isLoggedIn());
+        if(sharedPreferencesManager.isLoggedIn()) {
+            //初始化我的衣装
+            loadAll(new AddDanpinCallback() {
+                @Override
+                public void onAddDanpin() {
+                    //初始化为 上装 全部
+                    loadingImg(type1, type2);
 //                System.out.println(selectedURL);
-            }
-        }, new ImageLoadingCallback() {
-            @Override
-            public void onImagesLoaded(List<Danpin> urls) {
-                // 当图片加载完成时，这个方法会被调用
-                // 使用加载完的'urls'生成图片布局
-                generateImageLayout(urls);
-            }
-        });
+                }
+            }, new ImageLoadingCallback() {
+                @Override
+                public void onImagesLoaded(List<Danpin> urls) {
+                    // 当图片加载完成时，这个方法会被调用
+                    // 使用加载完的'urls'生成图片布局
+                    generateImageLayout(urls);
+                }
+            });
+        }
         ImageView add_icon =getActivity().findViewById(R.id.add_icon);
         add_icon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,6 +202,8 @@ public class Fragment_yichu extends Fragment {
                     AddShangzhuangTextView();
                     type2 = "全部";
                     //重新加载图片
+                    if(!sharedPreferencesManager.isLoggedIn())
+                        return;
                     loadingImg(type1,type2);
                     generateImageLayout(selectedDanpin);
                 }
@@ -211,6 +216,7 @@ public class Fragment_yichu extends Fragment {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view) {
+
                 if(type1!="下装"){
                     type1="下装";
                     XImg.setImageResource(R.drawable.navbar_icon_home_press_1);
@@ -224,6 +230,8 @@ public class Fragment_yichu extends Fragment {
                     AddTextView(xiazhuang);
                     type2 = "全部";
                     //重新加载图片
+                    if(!sharedPreferencesManager.isLoggedIn())
+                        return;
                     loadingImg(type1,type2);
                     generateImageLayout(selectedDanpin);
                 }
@@ -249,6 +257,8 @@ public class Fragment_yichu extends Fragment {
                     AddTextView(lianshenzhuang);
                     type2 = "全部";
                     //重新加载图片
+                    if(!sharedPreferencesManager.isLoggedIn())
+                        return;
                     loadingImg(type1,type2);
                     generateImageLayout(selectedDanpin);
                 }
@@ -259,6 +269,7 @@ public class Fragment_yichu extends Fragment {
     }
     public void AddShangzhuangTextView()
     {
+
         Btnlayout.removeAllViews();
         List<TextView> textViews = new ArrayList<>();
         // 使用foreach循环遍历shangzhuang列表
@@ -296,6 +307,8 @@ public class Fragment_yichu extends Fragment {
                         }
                     }
                     //重新加载图片
+                    if(!sharedPreferencesManager.isLoggedIn())
+                        return;
                     loadingImg(type1,type2);
                     generateImageLayout(selectedDanpin);
                 }
@@ -352,7 +365,8 @@ public class Fragment_yichu extends Fragment {
         textViews.get(0).setBackgroundResource(android.R.color.white);
     }
     private void generateImageLayout(List<Danpin> urls) {
-
+        if(!sharedPreferencesManager.isLoggedIn())
+            return;
         // 创建一个垂直线性布局用于放置两列图片的容器
         LinearLayout containerLayout = new LinearLayout(activity);
         containerLayout.setOrientation(LinearLayout.VERTICAL);
@@ -461,6 +475,8 @@ public class Fragment_yichu extends Fragment {
     //加载我的衣装
     private void loadAll(AddDanpinCallback addDanpincallback, ImageLoadingCallback imageLoadingCallback)
     {
+        if(!sharedPreferencesManager.isLoggedIn())
+            return;
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -599,6 +615,8 @@ public class Fragment_yichu extends Fragment {
     }
     private void loadingImg(String type1,String type2)
     {
+        if(!sharedPreferencesManager.isLoggedIn())
+            return;
 //        selectedURL = new ArrayList<>();
         selectedDanpin = new ArrayList<>();
         System.out.println(danpins.length);
