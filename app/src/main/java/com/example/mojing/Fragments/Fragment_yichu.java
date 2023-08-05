@@ -65,8 +65,9 @@ public class Fragment_yichu extends Fragment {
     private LinearLayout Btnlayout;
 
     private ScrollView ImgScroll;
-    private List<String> selectedURL = new ArrayList<>();
+//    private List<String> selectedURL = new ArrayList<>();
     private Danpin[] danpins;
+    private List<Danpin> selectedDanpin = new ArrayList<>();
     private static int MAX_YICHU = 999;
     public Fragment_yichu() {
         // Required empty public constructor
@@ -162,11 +163,11 @@ public class Fragment_yichu extends Fragment {
             public void onAddDanpin() {
                 //初始化为 上装 全部
                 loadingImg(type1,type2);
-                System.out.println(selectedURL);
+//                System.out.println(selectedURL);
             }
         }, new ImageLoadingCallback() {
             @Override
-            public void onImagesLoaded(List<String> urls) {
+            public void onImagesLoaded(List<Danpin> urls) {
                 // 当图片加载完成时，这个方法会被调用
                 // 使用加载完的'urls'生成图片布局
                 generateImageLayout(urls);
@@ -195,6 +196,10 @@ public class Fragment_yichu extends Fragment {
                     //LText.setTextColor(R.color.defaultText);
 
                     AddShangzhuangTextView();
+                    type2 = "全部";
+                    //重新加载图片
+                    loadingImg(type1,type2);
+                    generateImageLayout(selectedDanpin);
                 }
             }
         };
@@ -216,6 +221,10 @@ public class Fragment_yichu extends Fragment {
                     //LText.setTextColor(R.color.defaultText);
 
                     AddTextView(xiazhuang);
+                    type2 = "全部";
+                    //重新加载图片
+                    loadingImg(type1,type2);
+                    generateImageLayout(selectedDanpin);
                 }
             }
         };
@@ -237,6 +246,10 @@ public class Fragment_yichu extends Fragment {
                     //XText.setTextColor(R.color.defaultText);
 
                     AddTextView(lianshenzhuang);
+                    type2 = "全部";
+                    //重新加载图片
+                    loadingImg(type1,type2);
+                    generateImageLayout(selectedDanpin);
                 }
             }
         };
@@ -281,6 +294,9 @@ public class Fragment_yichu extends Fragment {
                             tv.setBackgroundResource(R.drawable.textview_background);
                         }
                     }
+                    //重新加载图片
+                    loadingImg(type1,type2);
+                    generateImageLayout(selectedDanpin);
                 }
             });
             // 将TextView添加到Btnlayout中
@@ -324,6 +340,9 @@ public class Fragment_yichu extends Fragment {
                             tv.setBackgroundResource(R.drawable.textview_background);
                         }
                     }
+                    //重新加载图片
+                    loadingImg(type1,type2);
+                    generateImageLayout(selectedDanpin);
                 }
             });
             // 将TextView添加到Btnlayout中
@@ -331,8 +350,8 @@ public class Fragment_yichu extends Fragment {
         }
         textViews.get(0).setBackgroundResource(android.R.color.white);
     }
-    private void generateImageLayout(List<String> urls) {
-        System.out.println(1);
+    private void generateImageLayout(List<Danpin> urls) {
+
         // 创建一个垂直线性布局用于放置两列图片的容器
         LinearLayout containerLayout = new LinearLayout(activity);
         containerLayout.setOrientation(LinearLayout.VERTICAL);
@@ -362,18 +381,22 @@ public class Fragment_yichu extends Fragment {
                 @Override
                 public void run() {
                     Glide.with(activity)
-                            .load(uuimg + urls.get(finalI)) // 这里假设获取的图片URL在集合的第一个位置
+                            .load(uuimg + urls.get(finalI).img_url) // 这里假设获取的图片URL在集合的第一个位置
                             .into(imageView1);
                 }
             });
+//            LinearLayout.LayoutParams imageParams1 = new LinearLayout.LayoutParams(
+//                    0,
+//                    LinearLayout.LayoutParams.WRAP_CONTENT,
+//                    1
+//            );
             LinearLayout.LayoutParams imageParams1 = new LinearLayout.LayoutParams(
-                    0,
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    1
+                    dpToPx(140), // 设置图片宽度为200dp
+                    dpToPx(140)  // 设置图片高度为200dp
             );
             imageParams1.setMarginEnd(5); // 设置图片与第二列图片的间隔
             imageView1.setLayoutParams(imageParams1);
-
+            imageView1.setBackgroundResource(R.drawable.yichu_img_border);
             // 第二列图片
             if (i + 1 < urls.size()) {
                 ImageView imageView2 = new ImageView(activity);
@@ -382,17 +405,16 @@ public class Fragment_yichu extends Fragment {
                     @Override
                     public void run() {
                         Glide.with(activity)
-                                .load(uuimg + urls.get(finalI1 + 1)) // 这里假设获取的图片URL在集合的第一个位置
+                                .load(uuimg + urls.get(finalI1 + 1).img_url) // 这里假设获取的图片URL在集合的第一个位置
                                 .into(imageView2);
                     }
                 });
                 LinearLayout.LayoutParams imageParams2 = new LinearLayout.LayoutParams(
-                        0,
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        1
+                        dpToPx(140), // 设置图片宽度为100dp
+                        dpToPx(140)  // 设置图片高度为100dp
                 );
                 imageView2.setLayoutParams(imageParams2);
-
+                imageView2.setBackgroundResource(R.drawable.yichu_img_border);
                 // 将两列图片添加到行布局中
                 rowLayout.addView(imageView1);
                 rowLayout.addView(imageView2);
@@ -400,7 +422,6 @@ public class Fragment_yichu extends Fragment {
                 // 如果剩余图片不足两张，则只添加第一列图片
                 rowLayout.addView(imageView1);
             }
-
             // 将行布局添加到容器中
             containerLayout.addView(rowLayout);
         }
@@ -408,6 +429,11 @@ public class Fragment_yichu extends Fragment {
         // 将容器布局添加到 ScrollView 中
         ImgScroll.removeAllViews();
         ImgScroll.addView(containerLayout);
+    }
+    // 像素转换工具方法：dp 转 px
+    private int dpToPx(int dp) {
+        float density = activity.getResources().getDisplayMetrics().density;
+        return Math.round(dp * density);
     }
     //加载我的衣装
     private void loadAll(AddDanpinCallback addDanpincallback, ImageLoadingCallback imageLoadingCallback)
@@ -440,7 +466,7 @@ public class Fragment_yichu extends Fragment {
                             case 200:
                                 JSONObject dataJson = responseJson.getJSONObject("data");
                                 AddDanpin(dataJson);
-                                showRequestFailedDialog("加载成功");
+                                //showRequestFailedDialog("加载成功");
                                 addDanpincallback.onAddDanpin();
                                 //System.out.println(dataJson);
                                 break;
@@ -466,10 +492,16 @@ public class Fragment_yichu extends Fragment {
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }
-
+                // 确保在 UI 线程中调用 imageLoadingCallback.onImagesLoaded(selectedURL)
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        imageLoadingCallback.onImagesLoaded(selectedDanpin);
+                    }
+                });
             }
         }).start();
-        imageLoadingCallback.onImagesLoaded(selectedURL);
+//        imageLoadingCallback.onImagesLoaded(selectedURL);
     }
     private void AddDanpin(JSONObject dataJson) throws JSONException {
 
@@ -544,19 +576,22 @@ public class Fragment_yichu extends Fragment {
     }
     private void loadingImg(String type1,String type2)
     {
-        selectedURL = new ArrayList<>();
+//        selectedURL = new ArrayList<>();
+        selectedDanpin = new ArrayList<>();
         System.out.println(danpins.length);
         for(Danpin tmp:danpins){
             if(!type2.equals("全部")){
                 //筛选类型
                 if(tmp.type.equals(type1) && tmp.type2.equals(type2)){
-                    selectedURL.add(tmp.img_url);
+//                    selectedURL.add(tmp.img_url);
+                    selectedDanpin.add(tmp);
                 }
             }else{
                 //筛选类型
                 System.out.println("tmp.type "+ tmp.type + "  type1 "+ type1 +" equals "+tmp.type.equals(type1));
                 if(tmp.type.equals(type1)){
-                    selectedURL.add(tmp.img_url);
+//                    selectedURL.add(tmp.img_url);
+                    selectedDanpin.add(tmp);
                 }
             }
         }
@@ -567,7 +602,7 @@ public class Fragment_yichu extends Fragment {
     }
     // 图片加载完成的回调接口
     private interface ImageLoadingCallback {
-        void onImagesLoaded(List<String> urls);
+        void onImagesLoaded(List<Danpin> urls);
     }
 
 }
