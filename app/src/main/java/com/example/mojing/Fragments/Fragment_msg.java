@@ -45,7 +45,7 @@ public class Fragment_msg extends Fragment {
 
         // 创建ViewPager的适配器并设置给它
         MsgFragmentAdapter fragmentAdapter = new MsgFragmentAdapter(getChildFragmentManager(), getLifecycle());
-        fragmentAdapter.addFragment(new MsgOrderItemFragment(), "订单");
+        fragmentAdapter.addFragment(new MsgOrderFragment(), "订单");
         fragmentAdapter.addFragment(new MsgChatItemFragment(), "消息");
         viewPager.setAdapter(fragmentAdapter);
 

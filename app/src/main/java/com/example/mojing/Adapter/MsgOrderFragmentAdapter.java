@@ -9,21 +9,21 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MsgFragmentAdapter extends FragmentStateAdapter {
+public class MsgOrderFragmentAdapter extends FragmentStateAdapter {
     private final List<Fragment> fragments = new ArrayList<>();
-    private final List<String> fragmentTitles = new ArrayList<>();
+    private final List<String> titles = new ArrayList<>();
 
-    public MsgFragmentAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+    public MsgOrderFragmentAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);
     }
 
     public void addFragment(Fragment fragment, String title) {
         fragments.add(fragment);
-        fragmentTitles.add(title);
+        titles.add(title);
     }
 
     public String getFragmentTitle(int position) {
-        return fragmentTitles.get(position);
+        return titles.get(position);
     }
 
     @NonNull
