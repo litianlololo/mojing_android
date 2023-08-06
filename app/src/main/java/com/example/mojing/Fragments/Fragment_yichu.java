@@ -191,7 +191,7 @@ public class Fragment_yichu extends Fragment {
                 public void onImagesLoaded(List<Danpin> urls) {
                     // 当图片加载完成时，这个方法会被调用
                     // 使用加载完的'urls'生成图片布局
-                    generateImageLayout(urls);
+                    //generateImageLayout(urls);
                 }
             });
         }
@@ -587,7 +587,8 @@ public class Fragment_yichu extends Fragment {
 //        imageLoadingCallback.onImagesLoaded(selectedURL);
     }
     private void AddDanpin(JSONObject dataJson) throws JSONException {
-
+        if(!sharedPreferencesManager.isLoggedIn())
+            return;
         JSONArray myClothesArray = dataJson.getJSONArray("my_clothes");
         danpins= new Danpin[myClothesArray.length()];
         for (int i = 0; i < myClothesArray.length(); i++) {

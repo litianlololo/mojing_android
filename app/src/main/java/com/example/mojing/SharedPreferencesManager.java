@@ -7,7 +7,7 @@ import androidx.preference.PreferenceManager;
 
 
 public class SharedPreferencesManager {
-    private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
+    private static final String KEY_IS_LOGGED_IN = "false";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_USER_Password = "userPassword";
     private static final String KEY_USER_Phone = "userPhone";
