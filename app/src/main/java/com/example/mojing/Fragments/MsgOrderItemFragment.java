@@ -12,14 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.mojing.Adapter.MsgOrderItemRecyclerViewAdapter;
-import com.example.mojing.R;
+import com.example.mojing.Adapter.MsgChatItemRecyclerViewAdapter;
 import com.example.mojing.Fragments.placeholder.PlaceholderContent;
+import com.example.mojing.R;
 
 /**
  * A fragment representing a list of Items.
  */
-public class MsgOrderItemFragment extends Fragment {
+class MsgOrderItemFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -66,7 +66,10 @@ public class MsgOrderItemFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MsgOrderItemRecyclerViewAdapter(PlaceholderContent.ITEMS));
+            recyclerView.setAdapter(new MsgChatItemRecyclerViewAdapter(PlaceholderContent.ITEMS));
         }
-        return view;    }
+
+        return view;
+    }
+
 }
