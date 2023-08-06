@@ -11,6 +11,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,7 +65,7 @@ public class Fragment_yichu extends Fragment {
     private List<String> xiazhuang = new ArrayList<>();
     private List<String> lianshenzhuang = new ArrayList<>();
     private LinearLayout Btnlayout;
-
+    private int desiredWidth;
     private ScrollView ImgScroll;
 //    private List<String> selectedURL = new ArrayList<>();
     private Danpin[] danpins = new Danpin[1];
@@ -98,6 +99,23 @@ public class Fragment_yichu extends Fragment {
         activity = (MainActivity) getActivity();
         assert activity != null;
         sharedPreferencesManager = activity.getSharedPreferencesManager();
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int screenWidth = displayMetrics.widthPixels;
+
+        // Step 2: Get the width of scrollView3
+        Btnlayout = activity.findViewById(R.id.Btnlayout);
+        int BtnlayoutWidth = Btnlayout.getWidth();
+
+        // Step 3: Calculate the desired width for ImgScroll
+        desiredWidth = screenWidth - dpToPx(95);
+        System.out.println("BtnlayoutWidth: "+BtnlayoutWidth);
+        // Step 4: Set the calculated width to ImgScroll
+        ImgScroll = activity.findViewById(R.id.ImgScroll);
+        ViewGroup.LayoutParams layoutParams = ImgScroll.getLayoutParams();
+        layoutParams.width = desiredWidth;
+        ImgScroll.setLayoutParams(layoutParams);
 
         SImg = getActivity().findViewById(R.id.SImg);
         XImg = getActivity().findViewById(R.id.XImg);
@@ -281,10 +299,15 @@ public class Fragment_yichu extends Fragment {
             // 设置文本居中
             textView.setGravity(Gravity.CENTER);
             // 设置布局参数
+//            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+//                    LinearLayout.LayoutParams.MATCH_PARENT,
+//                    0,
+//                    1
+//            );
+            // 设置布局参数
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
-                    0,
-                    1
+                    200
             );
             textView.setLayoutParams(layoutParams);
             // 设置背景选择器
@@ -396,19 +419,21 @@ public class Fragment_yichu extends Fragment {
                 @Override
                 public void run() {
                     Glide.with(activity)
-                            .load(uuimg + urls.get(finalI).img_url) // 这里假设获取的图片URL在集合的第一个位置
+                            .load(uuimg + urls.get(finalI).img_url)
+                            //.placeholder(R.drawable.placeholder_image) // Placeholder image (optional)
+                            //.error(R.drawable.error) // Error image (optional)
                             .into(imageView1);
                 }
             });
-//            LinearLayout.LayoutParams imageParams1 = new LinearLayout.LayoutParams(
-//                    0,
-//                    LinearLayout.LayoutParams.WRAP_CONTENT,
-//                    1
-//            );
             LinearLayout.LayoutParams imageParams1 = new LinearLayout.LayoutParams(
-                    dpToPx(140), // 设置图片宽度为200dp
-                    dpToPx(140)  // 设置图片高度为200dp
+                    0,
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    1
             );
+//            LinearLayout.LayoutParams imageParams1 = new LinearLayout.LayoutParams(
+//                    dpToPx(140), // 设置图片宽度为200dp
+//                    dpToPx(140)  // 设置图片高度为200dp
+//            );
             imageParams1.setMarginEnd(5); // 设置图片与第二列图片的间隔
             imageView1.setLayoutParams(imageParams1);
             imageView1.setBackgroundResource(R.drawable.yichu_img_border);
@@ -436,9 +461,14 @@ public class Fragment_yichu extends Fragment {
                     }
                 });
                 LinearLayout.LayoutParams imageParams2 = new LinearLayout.LayoutParams(
-                        dpToPx(140), // 设置图片宽度为100dp
-                        dpToPx(140)  // 设置图片高度为100dp
+                        0,
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        1
                 );
+//                LinearLayout.LayoutParams imageParams2 = new LinearLayout.LayoutParams(
+//                        dpToPx(140), // 设置图片宽度为100dp
+//                        dpToPx(140)  // 设置图片高度为100dp
+//                );
                 imageView2.setLayoutParams(imageParams2);
                 imageView2.setBackgroundResource(R.drawable.yichu_img_border);
                 imageView2.setOnClickListener(new View.OnClickListener() {
@@ -457,7 +487,21 @@ public class Fragment_yichu extends Fragment {
                 rowLayout.addView(imageView2);
             } else {
                 // 如果剩余图片不足两张，则只添加第一列图片
+                // 将第一列图片的宽度设置为占据一半的屏幕宽度
+                imageParams1.width = desiredWidth / 2; // Set width to half of the screen width
+                imageView1.setLayoutParams(imageParams1);
+
+                // Add an empty view to fill the second column's space
+                View emptyView = new View(activity);
+                LinearLayout.LayoutParams emptyParams = new LinearLayout.LayoutParams(
+                        desiredWidth / 2,
+                        0
+                );
+                emptyView.setLayoutParams(emptyParams);
+
+                // 将第一列图片和空的View添加到行布局中
                 rowLayout.addView(imageView1);
+                rowLayout.addView(emptyView);
             }
             // 将行布局添加到容器中
             containerLayout.addView(rowLayout);
@@ -560,6 +604,7 @@ public class Fragment_yichu extends Fragment {
             String mianliao = clothObject.has("mianliao") ? clothObject.getString("mianliao") : "";
             String xiuchang = clothObject.has("xiuchang") ? clothObject.getString("xiuchang") : "";
             String storeplace = clothObject.has("storeplace") ? clothObject.getString("storeplace") : "";
+            String shenchang = clothObject.has("shenchang") ? clothObject.getString("shenchang") : "";
             boolean spring = clothObject.optBoolean("spring", false);
             boolean summer = clothObject.optBoolean("summer", false);
             boolean autumn = clothObject.optBoolean("autumn", false);
@@ -580,6 +625,8 @@ public class Fragment_yichu extends Fragment {
             tmp.mianliao=mianliao;
             tmp.xiuchang=xiuchang;
             tmp.storeplace=storeplace;
+            tmp.shenchang = shenchang;
+            System.out.println(img_url);
             //System.out.println("unicode:   "+ tmp.type.equals(type));
             danpins[i]=tmp;
         }
@@ -619,7 +666,7 @@ public class Fragment_yichu extends Fragment {
             return;
 //        selectedURL = new ArrayList<>();
         selectedDanpin = new ArrayList<>();
-        System.out.println(danpins.length);
+        System.out.println("衣装总数： "+danpins.length);
         for(Danpin tmp:danpins){
             if(!type2.equals("全部")){
                 //筛选类型
@@ -629,7 +676,6 @@ public class Fragment_yichu extends Fragment {
                 }
             }else{
                 //筛选类型
-                System.out.println("tmp.type "+ tmp.type + "  type1 "+ type1 +" equals "+tmp.type.equals(type1));
                 if(tmp.type.equals(type1)){
 //                    selectedURL.add(tmp.img_url);
                     selectedDanpin.add(tmp);
@@ -645,5 +691,4 @@ public class Fragment_yichu extends Fragment {
     private interface ImageLoadingCallback {
         void onImagesLoaded(List<Danpin> urls);
     }
-
 }

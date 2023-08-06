@@ -19,6 +19,7 @@ public class Danpin {
     public String xiuchang;
     public String mianliao;
     public String fengge;
+    public String shenchang;
 
     public String version;
     public String pattern;

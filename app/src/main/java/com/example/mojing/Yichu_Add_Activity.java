@@ -15,13 +15,17 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,8 +78,8 @@ public class Yichu_Add_Activity extends AppCompatActivity {
     private BottomSheetDialog seasonbottomSheetDialog;
     private  BottomSheetDialog placebottomSheetDialog;
     private  BottomSheetDialog lingxingbottomSheetDialog,fenggebottomSheetDialog;
-    private  BottomSheetDialog bihebottomSheetDialog,xiuchangbottomSheetDialog,mianliaobottomSheetDialog;
-    private PersonalItemView fenlei_content, season_content, place_content, lingxing_content, bihe_content, xiuchang_content, mianliao_content, fengge_content;
+    private  BottomSheetDialog bihebottomSheetDialog,xiuchangbottomSheetDialog,mianliaobottomSheetDialog,shenchangbottomSheetDialog;
+    private PersonalItemView fenlei_content, season_content, place_content, shenchang_content,lingxing_content, bihe_content, xiuchang_content, mianliao_content, fengge_content;
     private static final int REQUEST_CODE_WRITE_EXTERNAL_STORAGE = 1;
     private SharedPreferencesManager sharedPreferencesManager;
     private String fenleiselect1="";
@@ -93,6 +97,9 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                 finish(); // 返回上一个Activity
             }
         });
+
+
+
         imageButton = findViewById(R.id.clothBtn);
         addBtn = findViewById(R.id.Btn);
         fenlei_content = findViewById(R.id.fenlei_content);
@@ -110,6 +117,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
         xiuchang_content =findViewById(R.id.xiuchang_content);
         mianliao_content =findViewById(R.id.mianliao_content);
         fengge_content = findViewById(R.id.fengge_content);
+        shenchang_content = findViewById(R.id.shenchang_content);
         sharedPreferencesManager = new SharedPreferencesManager(this);
         mianliao_content.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,6 +129,12 @@ public class Yichu_Add_Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FenggeBottomSheet();
+            }
+        });
+        shenchang_content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ShenchangBottomSheet();
             }
         });
         xiuchang_content.setOnClickListener(new View.OnClickListener() {
@@ -162,6 +176,14 @@ public class Yichu_Add_Activity extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(danpin.img_url == null){
+                    showRequestFailedDialog("请先添加图片");
+                    return;
+                }
+                if(danpin.type == null){
+                    showRequestFailedDialog("请先完善衣装信息");
+                    return;
+                }
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -189,6 +211,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                             json.put("winter", danpin.season.winter);
                             json.put("xiuchang", danpin.xiuchang);
                             json.put("storeplace", danpin.storeplace);
+                            json.put("shenchang",danpin.shenchang);
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
@@ -519,6 +542,9 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                     subOptionData.add("POLO衫");
                     subOptionData.add("牛仔外套");
                     secondLevelPicker.setData(subOptionData);
+                    lingxing_content.setVisibility(View.VISIBLE);
+                    bihe_content.setVisibility(View.VISIBLE);
+                    shenchang_content.setVisibility(View.GONE);
                 } else if (position == 1) { // 如果第一级选择了"Option 2"
                     List<String> subOptionData = new ArrayList<>();
                     subOptionData.add("打底裤");
@@ -528,11 +554,18 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                     subOptionData.add("半身裙");
                     subOptionData.add("其他裤子");
                     secondLevelPicker.setData(subOptionData);
+                    xiuchang_content.setVisibility(View.GONE);
+                    lingxing_content.setVisibility(View.GONE);
+                    bihe_content.setVisibility(View.GONE);
+                    shenchang_content.setVisibility(View.VISIBLE);
                 } else if (position == 2) { // 如果第一级选择了"Option 3"
                     List<String> subOptionData = new ArrayList<>();
                     subOptionData.add("连衣裙");
                     subOptionData.add("连身裤");
                     secondLevelPicker.setData(subOptionData);
+                    xiuchang_content.setVisibility(View.GONE);
+                    lingxing_content.setVisibility(View.GONE);
+                    bihe_content.setVisibility(View.GONE);
                 }
             }
             @Override
@@ -815,6 +848,43 @@ public class Yichu_Add_Activity extends AppCompatActivity {
         wheelPicker.setIndicatorSize(3); //单位是px
         fenggebottomSheetDialog.setContentView(view);
         fenggebottomSheetDialog.show();
+    }
+    private void ShenchangBottomSheet() {
+        //创建布局
+        View view = LayoutInflater.from(activity).inflate(R.layout.danpin_xiuchang, null, false);
+        shenchangbottomSheetDialog = new BottomSheetDialog(activity);
+        //设置布局
+        WheelPicker wheelPicker = view.findViewById(R.id.wheelPicker);
+        // 设置数据
+        List<String> dataList = new ArrayList<>();
+        dataList.add("七分裤");
+        dataList.add("长裤");
+        dataList.add("短裤");
+        dataList.add("热裤");
+        dataList.add("其他");
+        wheelPicker.setData(dataList);
+        TextView xiuchangBtn = view.findViewById(R.id.xiuchangBtn);
+        TextView shenchangText =findViewById(R.id.shenchangText);
+        xiuchangBtn.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View view) {
+                String select = "";
+                int SelectedIndex = wheelPicker.getCurrentItemPosition();
+                select = (String) wheelPicker.getData().get(SelectedIndex);
+                danpin.shenchang = select;
+                shenchangText.setText(select);
+                shenchangbottomSheetDialog.cancel();
+            }
+        });
+        // 设置是否有卷曲感，不能微调卷曲幅度，默认false
+        wheelPicker.setCurved(true);
+        //设置是否有指示器，设置后选中项的上下会用线框柱
+        wheelPicker.setIndicator(true);
+        wheelPicker.setIndicatorColor(0xFF123456); //16进制
+        wheelPicker.setIndicatorSize(3); //单位是px
+        shenchangbottomSheetDialog.setContentView(view);
+        shenchangbottomSheetDialog.show();
     }
     private void ShowAndDrop(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

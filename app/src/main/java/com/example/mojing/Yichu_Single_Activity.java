@@ -53,6 +53,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -76,8 +77,8 @@ public class Yichu_Single_Activity extends AppCompatActivity {
     private BottomSheetDialog seasonbottomSheetDialog;
     private BottomSheetDialog placebottomSheetDialog;
     private BottomSheetDialog lingxingbottomSheetDialog, fenggebottomSheetDialog;
-    private BottomSheetDialog bihebottomSheetDialog, xiuchangbottomSheetDialog, mianliaobottomSheetDialog;
-    private PersonalItemView fenlei_content, season_content, place_content, lingxing_content, bihe_content, xiuchang_content, mianliao_content, fengge_content;
+    private BottomSheetDialog bihebottomSheetDialog, xiuchangbottomSheetDialog, mianliaobottomSheetDialog,shenchangbottomSheetDialog;
+    private PersonalItemView fenlei_content, season_content, shenchang_content,place_content, lingxing_content, bihe_content, xiuchang_content, mianliao_content, fengge_content;
     private static final int REQUEST_CODE_WRITE_EXTERNAL_STORAGE = 1;
     private SharedPreferencesManager sharedPreferencesManager;
     private String fenleiselect1 = "";
@@ -119,6 +120,7 @@ public class Yichu_Single_Activity extends AppCompatActivity {
         xiuchang_content = findViewById(R.id.xiuchang_content);
         mianliao_content = findViewById(R.id.mianliao_content);
         fengge_content = findViewById(R.id.fengge_content);
+        shenchang_content = findViewById(R.id.shenchang_content);
         deleteBtn = findViewById(R.id.deleteBtn);
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -220,6 +222,12 @@ public class Yichu_Single_Activity extends AppCompatActivity {
                 FenggeBottomSheet();
             }
         });
+        shenchang_content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ShenchangBottomSheet();
+            }
+        });
         xiuchang_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -272,6 +280,24 @@ public class Yichu_Single_Activity extends AppCompatActivity {
                                 .into(imageButton);
                     }
                 });
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        System.out.println(danpin.type);
+                        if (Objects.equals(danpin.type, "连身装")) {
+                            xiuchang_content.setVisibility(View.GONE);
+                            lingxing_content.setVisibility(View.GONE);
+                            bihe_content.setVisibility(View.GONE);
+                        } else if (Objects.equals(danpin.type, "下装")) {
+                            xiuchang_content.setVisibility(View.GONE);
+                            lingxing_content.setVisibility(View.GONE);
+                            bihe_content.setVisibility(View.GONE);
+                            shenchang_content.setVisibility(View.VISIBLE);
+                        } else {
+                            shenchang_content.setVisibility(View.GONE);
+                        }
+                    }
+                });
                 //初始化内容
                 TextView fenleiText = findViewById(R.id.fenleiText);
                 fenleiText.setText(danpin.type + " " + danpin.type2);
@@ -294,6 +320,9 @@ public class Yichu_Single_Activity extends AppCompatActivity {
                 mianliaoText.setText(danpin.mianliao);
                 TextView fenggeText = findViewById(R.id.fenggeText);
                 fenggeText.setText(danpin.fengge);
+                TextView shenchangText =findViewById(R.id.shenchangText);
+                System.out.println(danpin.shenchang);
+                shenchangText.setText(danpin.shenchang);
 
 //              System.out.println(selectedURL);
             }
@@ -330,6 +359,7 @@ public class Yichu_Single_Activity extends AppCompatActivity {
                             json.put("winter", danpin.season.winter);
                             json.put("xiuchang", danpin.xiuchang);
                             json.put("storeplace", danpin.storeplace);
+                            json.put("shenchang", danpin.shenchang);
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
@@ -670,6 +700,9 @@ public class Yichu_Single_Activity extends AppCompatActivity {
                     subOptionData.add("POLO衫");
                     subOptionData.add("牛仔外套");
                     secondLevelPicker.setData(subOptionData);
+                    lingxing_content.setVisibility(View.VISIBLE);
+                    bihe_content.setVisibility(View.VISIBLE);
+                    shenchang_content.setVisibility(View.GONE);
                 } else if (position == 1) { // 如果第一级选择了"Option 2"
                     List<String> subOptionData = new ArrayList<>();
                     subOptionData.add("打底裤");
@@ -679,11 +712,18 @@ public class Yichu_Single_Activity extends AppCompatActivity {
                     subOptionData.add("半身裙");
                     subOptionData.add("其他裤子");
                     secondLevelPicker.setData(subOptionData);
+                    xiuchang_content.setVisibility(View.GONE);
+                    lingxing_content.setVisibility(View.GONE);
+                    bihe_content.setVisibility(View.GONE);
+                    shenchang_content.setVisibility(View.VISIBLE);
                 } else if (position == 2) { // 如果第一级选择了"Option 3"
                     List<String> subOptionData = new ArrayList<>();
                     subOptionData.add("连衣裙");
                     subOptionData.add("连身裤");
                     secondLevelPicker.setData(subOptionData);
+                    xiuchang_content.setVisibility(View.GONE);
+                    lingxing_content.setVisibility(View.GONE);
+                    bihe_content.setVisibility(View.GONE);
                 }
             }
 
@@ -989,7 +1029,43 @@ public class Yichu_Single_Activity extends AppCompatActivity {
         fenggebottomSheetDialog.setContentView(view);
         fenggebottomSheetDialog.show();
     }
-
+    private void ShenchangBottomSheet() {
+        //创建布局
+        View view = LayoutInflater.from(activity).inflate(R.layout.danpin_xiuchang, null, false);
+        shenchangbottomSheetDialog = new BottomSheetDialog(activity);
+        //设置布局
+        WheelPicker wheelPicker = view.findViewById(R.id.wheelPicker);
+        // 设置数据
+        List<String> dataList = new ArrayList<>();
+        dataList.add("七分裤");
+        dataList.add("长裤");
+        dataList.add("短裤");
+        dataList.add("热裤");
+        dataList.add("其他");
+        wheelPicker.setData(dataList);
+        TextView xiuchangBtn = view.findViewById(R.id.xiuchangBtn);
+        TextView shenchangText =findViewById(R.id.shenchangText);
+        xiuchangBtn.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View view) {
+                String select = "";
+                int SelectedIndex = wheelPicker.getCurrentItemPosition();
+                select = (String) wheelPicker.getData().get(SelectedIndex);
+                danpin.fengge = select;
+                shenchangText.setText(select);
+                shenchangbottomSheetDialog.cancel();
+            }
+        });
+        // 设置是否有卷曲感，不能微调卷曲幅度，默认false
+        wheelPicker.setCurved(true);
+        //设置是否有指示器，设置后选中项的上下会用线框柱
+        wheelPicker.setIndicator(true);
+        wheelPicker.setIndicatorColor(0xFF123456); //16进制
+        wheelPicker.setIndicatorSize(3); //单位是px
+        shenchangbottomSheetDialog.setContentView(view);
+        shenchangbottomSheetDialog.show();
+    }
     private void loadDanpin(Fragment_yichu.AddDanpinCallback addDanpincallback) {
         new Thread(new Runnable() {
             @Override
@@ -1071,6 +1147,7 @@ public class Yichu_Single_Activity extends AppCompatActivity {
         String mianliao = dataJson.has("mianliao") ? dataJson.getString("mianliao") : "";
         String xiuchang = dataJson.has("xiuchang") ? dataJson.getString("xiuchang") : "";
         String storeplace = dataJson.has("storeplace") ? dataJson.getString("storeplace") : "";
+        String shenchang = dataJson.has("shenchang") ? dataJson.getString("shenchang") : "";
         boolean spring = dataJson.optBoolean("spring", false);
         boolean summer = dataJson.optBoolean("summer", false);
         boolean autumn = dataJson.optBoolean("autumn", false);
@@ -1091,6 +1168,7 @@ public class Yichu_Single_Activity extends AppCompatActivity {
         tmp.mianliao = mianliao;
         tmp.xiuchang = xiuchang;
         tmp.storeplace = storeplace;
+        tmp.shenchang=shenchang;
         //System.out.println("unicode:   "+ tmp.type.equals(type));
         danpin = tmp;
     }
