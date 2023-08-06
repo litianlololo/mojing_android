@@ -32,8 +32,10 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sharedPreferencesManager.setIsYouke(true);
+                sharedPreferencesManager.setLoggedIn(false);
                 Intent loginIntent = new Intent(StartActivity.this, MainActivity.class);
-                StartActivity.this.startActivity(loginIntent);finish();
+                StartActivity.this.startActivity(loginIntent);
+                finish();
             }
         });
         LoginBtn.setOnClickListener(new View.OnClickListener() {

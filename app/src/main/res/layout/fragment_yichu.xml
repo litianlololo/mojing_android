@@ -1,159 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragments.Fragment_yichu">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <!-- 第一排文本 -->
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="上衣" />
-        <!-- 第二排布局 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:orientation="horizontal">
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/scrollView3"
+            android:layout_width="95dp"
+            android:layout_height="570dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+            app:layout_constraintVertical_bias="0.0">
 
             <LinearLayout
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
+                android:id="@+id/Btnlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- 添加上衣按钮 -->
-                <Button
-                    android:id="@+id/addTop"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="添加上衣" />
-
-                <!-- 所有上衣按钮 -->
-                <Button
-                    android:id="@+id/allTop"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="所有上衣" />
-
             </LinearLayout>
+        </ScrollView>
 
-            <GridLayout
-                android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="0dp"
+            android:layout_height="61dp"
+            android:background="@drawable/background_textview"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="17dp"
                 android:layout_height="match_parent"
-                android:rowCount="2"
-                android:columnCount="2">
+                android:layout_weight="1" />
 
-                <ImageButton
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:src="@drawable/dapei_vest_24" />
+            <ImageView
+                android:id="@+id/SImg"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/navbar_icon_home_press" />
 
-                <ImageButton
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:src="@drawable/dapei_vest_24" />
+            <TextView
+                android:id="@+id/SText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="上装"
+                android:textSize="16sp" />
 
-                <ImageButton
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:src="@drawable/dapei_vest_24" />
+            <View
+                android:id="@+id/view8"
+                android:layout_width="17dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
-                <ImageButton
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:src="@drawable/dapei_vest_24" />
+            <ImageView
+                android:id="@+id/XImg"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/navbar_icon_home_default_1" />
 
-            </GridLayout>
+            <TextView
+                android:id="@+id/XText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="下装"
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/view7"
+                android:layout_width="17dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/LImg"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/navbar_icon_home_default_2" />
+
+            <TextView
+                android:id="@+id/LText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="连身装"
+                android:textSize="16sp" />
+
+            <View
+                android:id="@+id/view5"
+                android:layout_width="17dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
         </LinearLayout>
-        <!-- 第三排文本 -->
+
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="下装" />
-        <!-- 第四排布局 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:orientation="horizontal">
+            android:layout_width="124dp"
+            android:layout_height="51dp"
+            android:gravity="center"
+            android:text="我的衣橱"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:id="@+id/ImgScroll"
+            android:layout_width="310dp"
+            android:layout_height="561dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/scrollView3"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+            app:layout_constraintVertical_bias="0.155">
 
             <LinearLayout
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <!-- 添加下装按钮 -->
-                <Button
-                    android:id="@+id/addBottom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="添加下装" />
-
-                <!-- 所有下装按钮 -->
-                <Button
-                    android:id="@+id/allBottom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="所有下装" />
-
-            </LinearLayout>
-
-            <GridLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:rowCount="2"
-                android:columnCount="2">
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
 
-                <ImageButton
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:src="@drawable/dapei_vest_24" />
+        <ImageView
+            android:id="@+id/add_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="36dp"
+            android:src="@drawable/add_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-                <ImageButton
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:src="@drawable/dapei_vest_24" />
-
-                <ImageButton
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:src="@drawable/dapei_vest_24" />
-
-                <ImageButton
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:src="@drawable/dapei_vest_24" />
-
-            </GridLayout>
-
-        </LinearLayout>
-
-
-
-    </LinearLayout>
-
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -76,7 +76,7 @@ public class Fragment_dapei extends Fragment {
     private boolean Automode;
     private TextView AutoBtn,PerBtn;
     private ColorStateList backgroundColor;
-    private ImageView reefreshBtn;
+    private ImageView refreshBtn;
     public Fragment_dapei() {
         // Required empty public constructor
     }

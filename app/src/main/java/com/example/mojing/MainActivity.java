@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,13 +35,24 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class MainActivity extends AppCompatActivity {
     //sharedPreferences 用于存储用户基础信息
     public SharedPreferencesManager sharedPreferencesManager;
-
     private TabLayout myTab;
     private ViewPager2 myPager2;
 
@@ -85,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), getLifecycle(), fragments);
         myPager2.setAdapter(sectionsPagerAdapter);
 
+
         new TabLayoutMediator(myTab, myPager2, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
@@ -94,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         }).attach();
 
         // 如果用户未登录并且不是游客模式，则打开登录页面
-        if (!isLoggedIn && !sharedPreferencesManager.isYouke()) {
+        if (!sharedPreferencesManager.isLoggedIn() && !sharedPreferencesManager.isYouke()) {
             Intent loginIntent = new Intent(this, StartActivity.class);
             this.startActivity(loginIntent);
             finish();
@@ -128,15 +141,4 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         Permission.checkPermission(this);
     }
-
-
-//    public static class MyBottomSheetDialogFragment extends BottomSheetDialogFragment {
-//
-//        @Nullable
-//        @Override
-//        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//            return inflater.inflate(R.layout.fragment_bottom_sheet, container, false);
-//        }
-//    }
-
 }

@@ -7,7 +7,7 @@ import androidx.preference.PreferenceManager;
 
 
 public class SharedPreferencesManager {
-    private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
+    private static final String KEY_IS_LOGGED_IN = "false";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_USER_Password = "userPassword";
     private static final String KEY_USER_Phone = "userPhone";
@@ -33,7 +33,7 @@ public class SharedPreferencesManager {
     }
     public void setIsYouke(boolean isyouke) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(KEY_IS_LOGGED_IN, isyouke);
+        editor.putBoolean(KEY_IS_Youke, isyouke);
         editor.apply();
     }
 
@@ -115,44 +115,44 @@ public class SharedPreferencesManager {
         editor.apply();
     }
 
-    public String getFigureShengao() {
-        return sharedPreferences.getString(KEY_Figure_Shengao, "");
+    public int getFigureShengao() {
+        return sharedPreferences.getInt(KEY_Figure_Shengao, 0);
     }
-    public void setFigureShengao(String FigureShengao) {
+    public void setFigureShengao(int FigureShengao) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(KEY_Figure_Shengao, FigureShengao);
+        editor.putInt(KEY_Figure_Shengao, FigureShengao);
         editor.apply();
     }
 
-    public String getFigureTizhong() {
-        return sharedPreferences.getString(KEY_Figure_Tizhong, "");
+    public int getFigureTizhong() {
+        return sharedPreferences.getInt(KEY_Figure_Tizhong, 0);
     }
-    public void setFigureTizhong(String FigureTizhong) {
+    public void setFigureTizhong(int FigureTizhong) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(KEY_Figure_Tizhong, FigureTizhong);
+        editor.putInt(KEY_Figure_Tizhong, FigureTizhong);
         editor.apply();
     }
 
-    public String getFigureYaowei() {
-        return sharedPreferences.getString(KEY_Figure_Yaowei, "");
+    public int getFigureYaowei() {
+        return sharedPreferences.getInt(KEY_Figure_Yaowei, 0);
     }
-    public void setFigureYaowei(String FigureYaowei) {
+    public void setFigureYaowei(int FigureYaowei) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(KEY_Figure_Yaowei, FigureYaowei);
+        editor.putInt(KEY_Figure_Yaowei, FigureYaowei);
         editor.apply();
     }
 
-    public String getFigureXiongwei() {return sharedPreferences.getString(KEY_Figure_Xiongwei, "");}
-    public void setFigureXiongwei(String FigureXiongwei) {
+    public int getFigureXiongwei() {return sharedPreferences.getInt(KEY_Figure_Xiongwei, 0);}
+    public void setFigureXiongwei(int FigureXiongwei) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(KEY_Figure_Xiongwei, FigureXiongwei);
+        editor.putInt(KEY_Figure_Xiongwei, FigureXiongwei);
         editor.apply();
     }
 
-    public String getFigureTunwei() {return sharedPreferences.getString(KEY_Figure_Tunwei, "");}
-    public void setFigureTunwei(String FigureTunwei) {
+    public int getFigureTunwei() {return sharedPreferences.getInt(KEY_Figure_Tunwei, 0);}
+    public void setFigureTunwei(int FigureTunwei) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(KEY_Figure_Tunwei, FigureTunwei);
+        editor.putInt(KEY_Figure_Tunwei, FigureTunwei);
         editor.apply();
     }
 }
