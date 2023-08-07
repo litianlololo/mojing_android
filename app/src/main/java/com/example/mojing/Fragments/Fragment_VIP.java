@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.mojing.Adapter.VipListAdapter;
 import com.example.mojing.R;
-import com.example.mojing.VIP_Designer_InfoType;
+import com.example.mojing.Fragments.placeholder.VIPDesignerInfoType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,10 +44,10 @@ public class Fragment_VIP extends Fragment {
         RecyclerView recyclerView = rootView.findViewById(R.id.vipRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        List<VIP_Designer_InfoType> vip_designer_infoList = new ArrayList<>();
-        vip_designer_infoList.add(new VIP_Designer_InfoType("User 1","bagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabaga", R.drawable.yichu_24,12));
-        vip_designer_infoList.add(new VIP_Designer_InfoType("User 2","baga", R.drawable.dapei_24,34));
-        vip_designer_infoList.add(new VIP_Designer_InfoType("User 3","baga", R.drawable.yichu_24,56));
+        List<VIPDesignerInfoType> vip_designer_infoList = new ArrayList<>();
+        vip_designer_infoList.add(new VIPDesignerInfoType("User 1","bagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabagabaga", R.drawable.yichu_24,12));
+        vip_designer_infoList.add(new VIPDesignerInfoType("User 2","baga", R.drawable.dapei_24,34));
+        vip_designer_infoList.add(new VIPDesignerInfoType("User 3","baga", R.drawable.yichu_24,56));
 
         // 实例化适配器对象
         VipListAdapter vipListAdapter = new VipListAdapter(getActivity(), vip_designer_infoList);

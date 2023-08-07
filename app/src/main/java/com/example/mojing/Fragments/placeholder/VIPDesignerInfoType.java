@@ -1,13 +1,13 @@
-package com.example.mojing;
+package com.example.mojing.Fragments.placeholder;
 
-public class VIP_Designer_InfoType {
+public class VIPDesignerInfoType {
     private String name;
     private String introduction;
     private int avatarResId; // 头像资源 ID
 
     private int numberOfOrder;
 
-    public VIP_Designer_InfoType(String name, String introduction, int avatarResId, int numberOfOrder) {
+    public VIPDesignerInfoType(String name, String introduction, int avatarResId, int numberOfOrder) {
         this.name = name;
         this.introduction = introduction;
         this.avatarResId = avatarResId;
