@@ -95,7 +95,9 @@ public class Yichu_Single_Activity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish(); // 返回上一个Activity
+                Intent intent = new Intent(Yichu_Single_Activity.this, MainActivity.class);
+                startActivity(intent);
+                finish(); // 结束当前的Yichu_Single_Activity
             }
         });
         // 获取传递的Intent对象
@@ -609,7 +611,7 @@ public class Yichu_Single_Activity extends AppCompatActivity {
                 // 点击确定后执行页面跳转和关闭当前Activity
                 Intent intent = new Intent(Yichu_Single_Activity.this, MainActivity.class);
                 startActivity(intent);
-                finish(); // 结束当前的Yichu_Single_Activity
+                finish(); // 结束当前的Yichu_Single_ActivityF
             }
         });
         builder.show();

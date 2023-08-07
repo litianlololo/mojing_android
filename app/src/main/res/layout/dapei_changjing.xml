@@ -80,7 +80,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView23"
-        app:srcCompat="@drawable/picture_24" />
+        app:srcCompat="@drawable/changjing3" />
 
     <ImageView
         android:id="@+id/imageView14"
@@ -90,7 +90,7 @@
         app:layout_constraintEnd_toEndOf="@+id/leisureView"
         app:layout_constraintStart_toStartOf="@+id/leisureView"
         app:layout_constraintTop_toBottomOf="@+id/textView23"
-        app:srcCompat="@drawable/picture_24" />
+        app:srcCompat="@drawable/changjing2" />
 
     <ImageView
         android:id="@+id/imageView15"
@@ -100,7 +100,7 @@
         app:layout_constraintEnd_toEndOf="@+id/workView"
         app:layout_constraintStart_toStartOf="@+id/workView"
         app:layout_constraintTop_toBottomOf="@+id/textView23"
-        app:srcCompat="@drawable/picture_24" />
+        app:srcCompat="@drawable/changjing1" />
 
     <ImageView
         android:id="@+id/imageView16"
@@ -110,7 +110,7 @@
         app:layout_constraintEnd_toEndOf="@+id/travelView"
         app:layout_constraintStart_toStartOf="@+id/travelView"
         app:layout_constraintTop_toBottomOf="@+id/textView23"
-        app:srcCompat="@drawable/picture_24" />
+        app:srcCompat="@drawable/changjing4" />
 
     <ImageView
         android:id="@+id/imageView17"
@@ -120,7 +120,7 @@
         app:layout_constraintEnd_toEndOf="@+id/dateView"
         app:layout_constraintStart_toStartOf="@+id/dateView"
         app:layout_constraintTop_toBottomOf="@+id/textView23"
-        app:srcCompat="@drawable/picture_24" />
+        app:srcCompat="@drawable/changjing5" />
 
     <TextView
         android:id="@+id/textView28"
@@ -176,6 +176,28 @@
         app:layout_constraintEnd_toEndOf="@+id/dateView"
         app:layout_constraintStart_toStartOf="@+id/dateView"
         app:layout_constraintTop_toBottomOf="@+id/imageView15" />
+
+    <TextView
+        android:id="@+id/enterBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:text="确定"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/dateView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/cancleBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:visibility="invisible"
+        android:text="取消"
+        app:layout_constraintStart_toStartOf="@+id/workView"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

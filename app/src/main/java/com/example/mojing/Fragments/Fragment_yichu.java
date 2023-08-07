@@ -70,7 +70,6 @@ public class Fragment_yichu extends Fragment {
 //    private List<String> selectedURL = new ArrayList<>();
     private Danpin[] danpins = new Danpin[1];
     private List<Danpin> selectedDanpin = new ArrayList<>();
-    private static int MAX_YICHU = 999;
     public Fragment_yichu() {
         // Required empty public constructor
     }
@@ -191,7 +190,7 @@ public class Fragment_yichu extends Fragment {
                 public void onImagesLoaded(List<Danpin> urls) {
                     // 当图片加载完成时，这个方法会被调用
                     // 使用加载完的'urls'生成图片布局
-                    //generateImageLayout(urls);
+                    generateImageLayout(urls);
                 }
             });
         }
@@ -201,6 +200,7 @@ public class Fragment_yichu extends Fragment {
             public void onClick(View view) {
                 Intent tmp = new Intent(getActivity(), Yichu_Add_Activity.class);
                 startActivity(tmp);
+                activity.finish();
             }
         });
         View.OnClickListener SClick = new View.OnClickListener() {
@@ -477,7 +477,6 @@ public class Fragment_yichu extends Fragment {
                         // 创建Intent，将id传递给Yichu_Single_Activity
                         Intent intent = new Intent(activity, Yichu_Single_Activity.class);
                         intent.putExtra("_id", urls.get(finalI+1)._id); // 传递id变量
-
                         // 启动Yichu_Single_Activity
                         activity.startActivity(intent);
                     }
@@ -689,7 +688,7 @@ public class Fragment_yichu extends Fragment {
         void onAddDanpin();
     }
     // 图片加载完成的回调接口
-    private interface ImageLoadingCallback {
+    public interface ImageLoadingCallback {
         void onImagesLoaded(List<Danpin> urls);
     }
 }

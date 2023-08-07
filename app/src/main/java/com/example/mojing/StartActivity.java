@@ -62,6 +62,12 @@ public class StartActivity extends AppCompatActivity {
                 }
             }
         });
+        // 如果用户未登录并且不是游客模式，则打开登录页面
+        if (sharedPreferencesManager.isLoggedIn() || sharedPreferencesManager.isYouke()) {
+            Intent loginIntent = new Intent(this, MainActivity.class);
+            this.startActivity(loginIntent);
+            finish();
+        }
     }
 
     public static void showToast(Context context, String message) {
