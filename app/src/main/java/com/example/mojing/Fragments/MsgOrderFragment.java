@@ -1,66 +1,105 @@
 package com.example.mojing.Fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.LinearLayout;
+import android.widget.SearchView;
 
 import com.example.mojing.R;
+import com.google.android.material.tabs.TabLayout;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MsgOrderFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
 public class MsgOrderFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private View contextView;// 总视图
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    ArrayList fragmentList = new ArrayList<Fragment>();
+    String[] temp = {"4\n已完成","8\n待发货","\n待收货"};
 
     public MsgOrderFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MsgOrderFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MsgOrderFragment newInstance(String param1, String param2) {
-        MsgOrderFragment fragment = new MsgOrderFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        contextView = inflater.inflate(R.layout.fragment_msg_order, container, false);
+        tabLayout = contextView.findViewById(R.id.tab_layout);
+        viewPager = contextView.findViewById(R.id.view_pager);
+
+
+        //todo:这个为什么按那个放大镜图标才会显示搜索框，按放大镜后面的部分就没有反应？这个searchview的宽是parent的，我想按到这个控件的任何一处都可以输入文字
+//        LinearLayout searchContainer = contextView.findViewById(R.id.searchContainer);
+        SearchView searchView = contextView.findViewById(R.id.searchView);
+
+//        searchContainer.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                searchView.requestFocus();
+//                // 显示键盘（可选）
+//                InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+//                imm.showSoftInput(searchView, InputMethodManager.SHOW_IMPLICIT);
+//            }
+//        });
+
+        return contextView;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        // fragment中嵌套fragment, Manager需要用(getChildFragmentManager())
+        MsgOrderFragment.MPagerAdapter mPagerAdapter = new MsgOrderFragment.MPagerAdapter(getChildFragmentManager());
+        initFragment();
+        tabLayout.setupWithViewPager(viewPager);
+        viewPager.setAdapter(mPagerAdapter);
+    }
+
+    private void initFragment() {
+        fragmentList.add(new MsgOrderFinishedFragment());
+        fragmentList.add(new MsgOrderWtfDeliveryFragment());
+        fragmentList.add(new MsgOrderWtfReceivingFragment());
+    }
+
+    class MPagerAdapter extends FragmentPagerAdapter {
+
+
+        public MPagerAdapter(FragmentManager fm) {
+            super(fm);
         }
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_msg_order, container, false);
+        @Override
+        public Fragment getItem(int position) {
+            return (Fragment) fragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragmentList.size();
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            return super.instantiateItem(container, position);
+        }
+
+        //返回tablayout的标题文字;
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return temp[position];
+        }
     }
 }

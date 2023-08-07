@@ -14,27 +14,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mojing.R;
-import com.example.mojing.VIP_Designer_InfoType;
+import com.example.mojing.Fragments.placeholder.VIPDesignerInfoType;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.example.mojing.VipChatActivity;
 import com.example.mojing.VipOrderBottomSheetDialog;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class VipListAdapter extends RecyclerView.Adapter<VipListAdapter.MyViewHolder> {
 
-    private List<VIP_Designer_InfoType> vip_designer_infoList;
+    private List<VIPDesignerInfoType> vip_designer_infoList;
     private Context context;
 
-
-
-    private BottomSheetDialog bottomSheetDialog;
-
-
-
-    public VipListAdapter(Context context, List<VIP_Designer_InfoType> data) {
+    public VipListAdapter(Context context, List<VIPDesignerInfoType> data) {
         this.context = context;
         this.vip_designer_infoList = data;
     }
@@ -65,7 +57,7 @@ public class VipListAdapter extends RecyclerView.Adapter<VipListAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final VIP_Designer_InfoType userInfo = vip_designer_infoList.get(position);
+        final VIPDesignerInfoType userInfo = vip_designer_infoList.get(position);
 
         // 设置用户头像、名字等数据
         holder.nameText.setText(userInfo.getName());
