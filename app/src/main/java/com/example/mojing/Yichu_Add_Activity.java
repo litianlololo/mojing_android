@@ -94,7 +94,9 @@ public class Yichu_Add_Activity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish(); // 返回上一个Activity
+                Intent intent = new Intent(Yichu_Add_Activity.this, MainActivity.class);
+                startActivity(intent);
+                finish(); // 结束当前的Yichu_Single_Activity
             }
         });
 
@@ -490,7 +492,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
         List<String> firstLevelData = new ArrayList<>();
         firstLevelData.add("上装");
         firstLevelData.add("下装");
-        firstLevelData.add("连体装");
+        firstLevelData.add("连身装");
         firstLevelPicker.setData(firstLevelData);
 
         // 初始化第二级数据（假设第一级选择"Option 1"时，第二级可选项为："Sub-option 1"、"Sub-option 2"、"Sub-option 3"）

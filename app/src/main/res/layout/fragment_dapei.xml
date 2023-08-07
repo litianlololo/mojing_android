@@ -45,7 +45,7 @@
             android:background="@drawable/radius_border1"
             android:backgroundTint="#FFFFFF"
             android:scaleType="fitCenter"
-            android:src="@drawable/navbar_icon_home_default"
+            android:src="@drawable/image_jacket"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +59,7 @@
             android:background="@drawable/radius_border1"
             android:backgroundTint="#FFFFFF"
             android:scaleType="fitCenter"
-            android:src="@drawable/navbar_icon_home_default_1"
+            android:src="@drawable/image_trousers"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +75,7 @@
             android:gravity="center"
             android:text="评分"
             app:layout_constraintBottom_toTopOf="@+id/ImgBtn_1"
-            app:layout_constraintStart_toEndOf="@+id/textView11"
+            app:layout_constraintStart_toEndOf="@+id/scoreText"
             app:layout_constraintTop_toTopOf="@+id/view2"
             app:layout_constraintVertical_bias="0.428" />
 
@@ -87,12 +87,12 @@
             android:gravity="center"
             android:text="分"
             app:layout_constraintBottom_toTopOf="@+id/ImgBtn_1"
-            app:layout_constraintStart_toEndOf="@+id/textView11"
+            app:layout_constraintStart_toEndOf="@+id/scoreText"
             app:layout_constraintTop_toBottomOf="@+id/textView5"
             app:layout_constraintVertical_bias="0.526" />
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/scoreText"
             android:layout_width="142dp"
             android:layout_height="77dp"
             android:gravity="right"
@@ -180,7 +180,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView20" />
 
         <ImageView
-            android:id="@+id/imageView22"
+            android:id="@+id/refreshBtn"
             android:layout_width="40dp"
             android:layout_height="49dp"
             android:layout_marginStart="24dp"
