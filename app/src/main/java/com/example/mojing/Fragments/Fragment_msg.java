@@ -2,59 +2,79 @@ package com.example.mojing.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager2.widget.ViewPager2;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.mojing.Adapter.MsgFragmentAdapter;
 import com.example.mojing.R;
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.util.ArrayList;
 
 public class Fragment_msg extends Fragment {
+
+    private View contextView;// 总视图
     private TabLayout tabLayout;
-    private ViewPager2 viewPager;
+    private ViewPager viewPager;
+    ArrayList fragmentList = new ArrayList<Fragment>();
+    String[] temp = {"订单","消息"};
 
-    public Fragment_msg() {
-        // Required empty public constructor
-    }
-
-    public static Fragment_msg newInstance(String param1, String param2) {
-        Fragment_msg fragment = new Fragment_msg();
-        return fragment;
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        contextView = inflater.inflate(R.layout.fragment_msg, container, false);
+        tabLayout = contextView.findViewById(R.id.tab_layout);
+        viewPager = contextView.findViewById(R.id.view_pager);
+        return contextView;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        // fragment中嵌套fragment, Manager需要用(getChildFragmentManager())
+        MPagerAdapter mPagerAdapter = new MPagerAdapter(getChildFragmentManager());
+        initFragment();
+        tabLayout.setupWithViewPager(viewPager);
+        viewPager.setAdapter(mPagerAdapter);
+    }
 
+    private void initFragment() {
+        fragmentList.add(new MsgOrderFragment());
+        fragmentList.add(new MsgChatFragment());
+    }
+
+    class MPagerAdapter extends FragmentPagerAdapter {
+
+
+        public MPagerAdapter(FragmentManager fm) {
+            super(fm);
         }
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_msg, container, false);
+        @Override
+        public Fragment getItem(int position) {
+            return (Fragment) fragmentList.get(position);
+        }
 
-        tabLayout = view.findViewById(R.id.tab_layout);
-        viewPager = view.findViewById(R.id.view_pager);
+        @Override
+        public int getCount() {
+            return fragmentList.size();
+        }
 
-        // 创建ViewPager的适配器并设置给它
-        MsgFragmentAdapter fragmentAdapter = new MsgFragmentAdapter(getChildFragmentManager(), getLifecycle());
-        fragmentAdapter.addFragment(new MsgOrderFragment(), "订单");
-        fragmentAdapter.addFragment(new MsgChatItemFragment(), "消息");
-        viewPager.setAdapter(fragmentAdapter);
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            return super.instantiateItem(container, position);
+        }
 
-        // 将TabLayout和ViewPager关联起来
-        TabLayoutMediator tabLayoutMediator = new TabLayoutMediator(tabLayout, viewPager,
-                (tab, position) -> tab.setText(fragmentAdapter.getFragmentTitle(position))
-        );
-        tabLayoutMediator.attach();
-
-        return view;
+        //返回tablayout的标题文字;
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return temp[position];
+        }
     }
 }
