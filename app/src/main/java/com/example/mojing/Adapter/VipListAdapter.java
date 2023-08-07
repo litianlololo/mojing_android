@@ -10,20 +10,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mojing.R;
 import com.example.mojing.VIP_Designer_InfoType;
 
+import java.util.Arrays;
 import java.util.List;
-import com.example.mojing.Fragments.Fragment_VIP;
+
 import com.example.mojing.VipChatActivity;
-import com.example.mojing.VipOrderActivity;
+import com.example.mojing.VipOrderBottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 public class VipListAdapter extends RecyclerView.Adapter<VipListAdapter.MyViewHolder> {
 
     private List<VIP_Designer_InfoType> vip_designer_infoList;
     private Context context;
+
+
+
+    private BottomSheetDialog bottomSheetDialog;
+
 
 
     public VipListAdapter(Context context, List<VIP_Designer_InfoType> data) {
@@ -72,8 +80,8 @@ public class VipListAdapter extends RecyclerView.Adapter<VipListAdapter.MyViewHo
                 // 处理点击聊天按钮的逻辑，跳转到聊天页面
                 // 这里可以根据需要进行具体的跳转操作，例如使用 Intent 跳转到聊天页面
                 Intent chatIntent = new Intent(context, VipChatActivity.class);
-                chatIntent.putExtra("avatar_res_id", R.id.avatarImage);
-                chatIntent.putExtra("number_of_order", R.id.numberOfOrderText);
+                chatIntent.putExtra("avatar_res_id", userInfo.getAvatarResId());
+                chatIntent.putExtra("name_text", userInfo.getName());
                 context.startActivity(chatIntent);
             }
         });
@@ -82,10 +90,8 @@ public class VipListAdapter extends RecyclerView.Adapter<VipListAdapter.MyViewHo
         holder.orderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 处理点击下单按钮的逻辑，跳转到下单页面
-                // 这里可以根据需要进行具体的跳转操作，例如使用 Intent 跳转到下单页面
-                Intent orderIntent = new Intent(context, VipOrderActivity.class);
-                context.startActivity(orderIntent);
+                VipOrderBottomSheetDialog dialog = new VipOrderBottomSheetDialog();
+                dialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "tag");
             }
         });
     }
