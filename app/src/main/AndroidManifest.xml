@@ -23,7 +23,7 @@
             android:name=".VipChatActivity"
             android:exported="false" />
         <activity
-            android:name=".VipOrderActivity"
+            android:name=".VipOrderBottomSheetDialog"
             android:exported="false" />
         <activity
             android:name=".SettingActivity"
