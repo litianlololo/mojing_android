@@ -54,10 +54,12 @@ import java.util.Arrays;
  * create an instance of this fragment.
  */
 public class Fragment_dapei extends Fragment {
+    public String uu="http://47.103.223.106:5004/api";
+    public String uuimg="http://47.103.223.106:5004";
     private ImageButton ImgBtn_1;
     private ImageButton ImgBtn_2;
     private ImageButton imageButton;
-    private ImageButton downloadBtn;
+    private ImageView downloadBtn;
     private Button shareBtn;
     private Bitmap combinedBitmap;
     private Boolean iscombined = false;
@@ -195,6 +197,10 @@ public class Fragment_dapei extends Fragment {
                         showRequestFailedDialog("保存成功，已同时保存到手机相册");
                 }
         });
+        if(Automode){
+            ImgBtn_1.setClickable(false);
+            ImgBtn_2.setClickable(false);
+        }
     }
 
     private void openGallery(ImageButton imageButton) {

@@ -20,7 +20,7 @@
             android:layout_height="562dp"
             android:layout_marginTop="104dp"
             android:background="@drawable/radius_border1"
-            android:backgroundTint="#36BFBEBE"
+            android:backgroundTint="@color/bgcolorgray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -32,8 +32,8 @@
             android:layout_marginTop="28dp"
             android:layout_marginEnd="24dp"
             android:background="@drawable/radius_border1"
-            android:backgroundTint="#787878"
-            android:src="@drawable/button_icon_detail_default"
+            android:backgroundTint="@color/bgcolorgray"
+            android:src="@drawable/dapei_album"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -112,7 +112,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/radius_border1"
-            android:backgroundTint="#36BFBEBE"
+            android:backgroundTint="@color/bgcolorgray"
             android:gravity="center"
             android:text="场景"
             app:layout_constraintStart_toStartOf="parent"
@@ -160,29 +160,34 @@
             app:layout_constraintStart_toStartOf="@+id/textView18"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/download"
-            android:layout_width="67dp"
-            android:layout_height="71dp"
-            android:layout_marginStart="220dp"
-            android:layout_marginTop="488dp"
-            android:background="@drawable/circle_style1"
-            android:backgroundTint="#F86A6868"
-            android:src="@drawable/folder_download_24"
-            app:layout_constraintStart_toStartOf="@+id/ImgBtn_2"
-            app:layout_constraintTop_toTopOf="@+id/view2" />
-
         <ImageView
-            android:id="@+id/refreshBtn"
+            android:id="@+id/imageView20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="12dp"
-            android:background="@drawable/circle_image_black"
-            android:src="@drawable/dapei_24"
-            app:layout_constraintEnd_toEndOf="@+id/view2"
-            app:layout_constraintTop_toTopOf="@+id/view2"
-            tools:srcCompat="@drawable/refresh" />
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="116dp"
+            android:src="@drawable/icon_share"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:src="@drawable/icon_download"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView20" />
+
+        <ImageView
+            android:id="@+id/imageView22"
+            android:layout_width="40dp"
+            android:layout_height="49dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/icon_refresh"
+            app:layout_constraintStart_toEndOf="@+id/textView5"
+            app:layout_constraintTop_toTopOf="@+id/view2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
