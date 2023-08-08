@@ -9,6 +9,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,9 +100,14 @@ public class MsgOrderFragment extends Fragment {
         }
 
         //返回tablayout的标题文字;
+
+        private final int TAB_FONT_SIZE = 20; // 设置 Tab 字体大小
         @Override
         public CharSequence getPageTitle(int position) {
-            return temp[position];
+            SpannableString spannableString = new SpannableString(temp[position]);
+            spannableString.setSpan(new AbsoluteSizeSpan(TAB_FONT_SIZE, true), 0,
+                    spannableString.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return spannableString;
         }
     }
 }
