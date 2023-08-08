@@ -76,9 +76,8 @@ public class Dapei_ChoseDown_Activity extends AppCompatActivity {
                     resultIntent.putExtra("_id", SelectedDanpin._id); // 传递id
                     resultIntent.putExtra("img_url", SelectedDanpin.img_url); // 传递url
                 }
-                setResult(Activity.RESULT_OK, resultIntent);
+                setResult(2, resultIntent);
                 finish();
-
             }
         });
     }

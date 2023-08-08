@@ -118,6 +118,7 @@ public class Fragment_me extends Fragment {
         ModifyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                System.out.println(sharedPreferencesManager.getKEY_Session_ID());
                 Intent tmp = new Intent(getActivity(), ModifyAccountActivity.class);
                 startActivity(tmp);
             }

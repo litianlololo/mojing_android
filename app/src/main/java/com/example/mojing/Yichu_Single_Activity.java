@@ -95,8 +95,8 @@ public class Yichu_Single_Activity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Yichu_Single_Activity.this, MainActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(Yichu_Single_Activity.this, MainActivity.class);
+                //startActivity(intent);
                 finish(); // 结束当前的Yichu_Single_Activity
             }
         });

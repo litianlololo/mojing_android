@@ -51,7 +51,7 @@ public class Dapei_ChoseUp_Activity extends AppCompatActivity {
         activity= this;
 
         //默认type1 type2
-        String type1="上装";
+        String type1="上衣";
         String type2="全部";
         System.out.println(sharedPreferencesManager.isLoggedIn());
         if(sharedPreferencesManager.isLoggedIn()) {
@@ -59,7 +59,7 @@ public class Dapei_ChoseUp_Activity extends AppCompatActivity {
             loadAll(new Fragment_yichu.AddDanpinCallback() {
                 @Override
                 public void onAddDanpin() {
-                    //初始化为 上装 全部
+                    //初始化为 上衣 全部
                     loadingImg(type1, type2);
 //                System.out.println(selectedURL);
                 }
@@ -80,7 +80,7 @@ public class Dapei_ChoseUp_Activity extends AppCompatActivity {
                     resultIntent.putExtra("_id", SelectedDanpin._id); // 传递id
                     resultIntent.putExtra("img_url", SelectedDanpin.img_url); // 传递url
                 }
-                setResult(Activity.RESULT_OK, resultIntent);
+                setResult(1, resultIntent);
                 finish();
 
             }

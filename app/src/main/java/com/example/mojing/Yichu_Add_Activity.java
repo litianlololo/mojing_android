@@ -415,7 +415,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
         options.setStatusBarColor(ContextCompat.getColor(activity, R.color.colorPrimaryDark));
         UCrop.of(selectedImageUri, Uri.fromFile(new File(activity.getCacheDir(), "cropped_image.jpg")))
                 .withAspectRatio(1, 1) // 设置裁剪框的宽高比为1:1
-                .withMaxResultSize(imageButton.getWidth(), imageButton.getHeight()) // 设置裁剪后图片的最大尺寸为200x200像素
+                //.withMaxResultSize(imageButton.getWidth(), imageButton.getHeight()) // 设置裁剪后图片的最大尺寸为 x200像素
                 .withOptions(options)
                 .start(activity); // 传入当前的 Activity 和 Fragment 实例，以便接收裁剪后的结果
     }
@@ -490,7 +490,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
         });
         // 设置第一级数据
         List<String> firstLevelData = new ArrayList<>();
-        firstLevelData.add("上装");
+        firstLevelData.add("上衣");
         firstLevelData.add("下装");
         firstLevelData.add("连身装");
         firstLevelPicker.setData(firstLevelData);

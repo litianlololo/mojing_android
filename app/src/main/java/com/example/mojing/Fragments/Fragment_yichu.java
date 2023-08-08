@@ -173,7 +173,7 @@ public class Fragment_yichu extends Fragment {
 //
 //
         //默认type1 type2
-        type1="上装";
+        type1="上衣";
         type2="全部";
         System.out.println(sharedPreferencesManager.isLoggedIn());
         if(sharedPreferencesManager.isLoggedIn()) {
@@ -181,7 +181,7 @@ public class Fragment_yichu extends Fragment {
             loadAll(new AddDanpinCallback() {
                 @Override
                 public void onAddDanpin() {
-                    //初始化为 上装 全部
+                    //初始化为 上衣 全部
                     loadingImg(type1, type2);
 //                System.out.println(selectedURL);
                 }
@@ -200,15 +200,14 @@ public class Fragment_yichu extends Fragment {
             public void onClick(View view) {
                 Intent tmp = new Intent(getActivity(), Yichu_Add_Activity.class);
                 startActivity(tmp);
-                activity.finish();
             }
         });
         View.OnClickListener SClick = new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view) {
-                if(type1!="上装"){
-                    type1="上装";
+                if(!type1.equals("上衣")){
+                    type1="上衣";
                     SImg.setImageResource(R.drawable.navbar_icon_home_press);
                     //SText.setTextColor(R.color.black);
 
@@ -235,7 +234,7 @@ public class Fragment_yichu extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if(type1!="下装"){
+                if(!type1.equals("下装")){
                     type1="下装";
                     XImg.setImageResource(R.drawable.navbar_icon_home_press_1);
                     //XText.setTextColor(R.color.black);
@@ -262,7 +261,7 @@ public class Fragment_yichu extends Fragment {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view) {
-                if(type1!="连身装"){
+                if(!type1.equals("连身装")){
                     type1="连身装";
                     LImg.setImageResource(R.drawable.navbar_icon_home_press_2);
                     //LText.setTextColor(R.color.black);
@@ -420,6 +419,7 @@ public class Fragment_yichu extends Fragment {
                 public void run() {
                     Glide.with(activity)
                             .load(uuimg + urls.get(finalI).img_url)
+                            //s.override(imageView1.getWidth(),imageView1.getHeight())
                             //.placeholder(R.drawable.placeholder_image) // Placeholder image (optional)
                             //.error(R.drawable.error) // Error image (optional)
                             .into(imageView1);
@@ -626,7 +626,7 @@ public class Fragment_yichu extends Fragment {
             tmp.xiuchang=xiuchang;
             tmp.storeplace=storeplace;
             tmp.shenchang = shenchang;
-            System.out.println(img_url);
+            System.out.println(type+"  "+_id);
             //System.out.println("unicode:   "+ tmp.type.equals(type));
             danpins[i]=tmp;
         }
@@ -690,5 +690,27 @@ public class Fragment_yichu extends Fragment {
     // 图片加载完成的回调接口
     public interface ImageLoadingCallback {
         void onImagesLoaded(List<Danpin> urls);
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(sharedPreferencesManager.isLoggedIn()) {
+            //初始化我的衣装
+            loadAll(new AddDanpinCallback() {
+                @Override
+                public void onAddDanpin() {
+                    //初始化为 上衣 全部
+                    loadingImg(type1, type2);
+//                System.out.println(selectedURL);
+                }
+            }, new ImageLoadingCallback() {
+                @Override
+                public void onImagesLoaded(List<Danpin> urls) {
+                    // 当图片加载完成时，这个方法会被调用
+                    // 使用加载完的'urls'生成图片布局
+                    generateImageLayout(urls);
+                }
+            });
+        }
     }
 }
