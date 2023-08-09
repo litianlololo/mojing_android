@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:background="@null"
         android:padding="8dp"
-        android:src="@drawable/dapei_back"
+        android:src="@drawable/back_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <TextView
@@ -43,11 +43,11 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="328dp"
-        android:layout_height="519dp"
+        android:id="@+id/ImgScroll"
+        android:layout_width="369dp"
+        android:layout_height="517dp"
         android:layout_gravity="center_vertical"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/view6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -108,15 +108,15 @@
         app:layout_constraintTop_toTopOf="@+id/view6" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imgself"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginTop="8dp"
-        android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="@+id/Pview"
         app:layout_constraintStart_toStartOf="@+id/Pview"
         app:layout_constraintTop_toTopOf="@+id/Pview"
-        tools:srcCompat="@drawable/user_24" />
+        app:srcCompat="@drawable/dapei_album_self2"
+        tools:srcCompat="@drawable/dapei_album_self2" />
 
     <TextView
         android:id="@+id/textView8"
@@ -129,7 +129,7 @@
         app:layout_constraintStart_toStartOf="@+id/Pview" />
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/imgai"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginTop="8dp"
@@ -137,7 +137,7 @@
         app:layout_constraintEnd_toEndOf="@+id/AIview"
         app:layout_constraintStart_toStartOf="@+id/AIview"
         app:layout_constraintTop_toTopOf="@+id/AIview"
-        tools:srcCompat="@drawable/user_24" />
+        app:srcCompat="@drawable/dapei_album_ai1" />
 
     <TextView
         android:id="@+id/textView16"
@@ -150,7 +150,7 @@
         app:layout_constraintStart_toStartOf="@+id/AIview" />
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/imgdesigner"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginTop="8dp"
@@ -158,7 +158,7 @@
         app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="@+id/DView"
         app:layout_constraintTop_toTopOf="@+id/DView"
-        tools:srcCompat="@drawable/user_24" />
+        app:srcCompat="@drawable/dapei_album_designer1" />
 
     <TextView
         android:id="@+id/textView20"

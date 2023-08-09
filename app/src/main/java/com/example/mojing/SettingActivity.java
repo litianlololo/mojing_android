@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -19,10 +20,25 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
         sharedPreferencesManager = new SharedPreferencesManager(this);
         exitBtn= findViewById(R.id.exitButton);
+        if(!sharedPreferencesManager.isLoggedIn()) exitBtn.setText("点击登录");
         exitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!sharedPreferencesManager.isLoggedIn())
                     showConfirmationDialog();
+                else{
+                    Intent intent = new Intent(SettingActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish(); // 结束当前
+                }
+            }
+        });
+        //返回按钮
+        ImageButton btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish(); // 返回上一个Activity
             }
         });
     }

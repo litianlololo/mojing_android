@@ -95,8 +95,8 @@ public class Yichu_Single_Activity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Yichu_Single_Activity.this, MainActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(Yichu_Single_Activity.this, MainActivity.class);
+                //startActivity(intent);
                 finish(); // 结束当前的Yichu_Single_Activity
             }
         });
@@ -190,10 +190,10 @@ public class Yichu_Single_Activity extends AppCompatActivity {
                                     } else {
                                         // 请求失败，处理错误
                                         System.out.println("Request failed");
-                                        showRequestFailedDialog("网络错误，添加失败");
+                                        showRequestFailedDialog("网络错误，删除失败");
                                     }
                                 } catch (IOException e) {
-                                    showRequestFailedDialog("网络错误，添加失败");
+                                    showRequestFailedDialog("网络错误，删除失败");
                                     e.printStackTrace();
                                 } catch (JSONException e) {
                                     throw new RuntimeException(e);

@@ -17,11 +17,11 @@
             android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:background="@null"
             android:padding="8dp"
-            android:src="@drawable/dapei_back" />
+            android:src="@drawable/back_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </LinearLayout>
 
