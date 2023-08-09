@@ -99,13 +99,7 @@ public class Fragment_me extends Fragment {
         settingBtn = activity.findViewById(R.id.settingBtn);
         changjingBtn = activity.findViewById(R.id.changjingBtn);
         signatureText.setText(sharedPreferencesManager.getUserSignature());
-
-//        changjingBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                showBottomSheetDialog();
-//            }
-//        });
+        View view = activity.findViewById(R.id.view);
         //没有登录
         if (!activity.sharedPreferencesManager.isLoggedIn()) {
             //
@@ -144,6 +138,7 @@ public class Fragment_me extends Fragment {
         xiongwei_content.setOnClickListener(clickListener);
         yaowei_content.setOnClickListener(clickListener);
         tunwei_content.setOnClickListener(clickListener);
+        view.setOnClickListener(clickListener);
     }
 //    public void showBottomSheetDialog() {
 //        MainActivity.MyBottomSheetDialogFragment bottomSheetDialogFragment = new MainActivity.MyBottomSheetDialogFragment();

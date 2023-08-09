@@ -29,6 +29,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -248,7 +249,16 @@ public class Dapei_Album_Activity extends AppCompatActivity {
                     imageView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-
+                            // 创建Intent，将id传递给Yichu_Single_Activity
+                            Intent intent = new Intent(activity, Dapei_Info_Activity.class);
+                            //intent.putExtra("_id", urls.get(finalPosition+1)._id); // 传递id变量
+                            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                            urls.get(finalPosition).combin_img.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                            byte[] byteArray = stream.toByteArray();
+                            intent.putExtra("bitmap", byteArray);
+//                            intent.putExtra("share_score", urls.get(finalPosition).share_score);
+//                            intent.putExtra("designer_score", urls.get(finalPosition).designer_score);
+                            activity.startActivity(intent);
                         }
                     });
                     rowLayout.addView(imageView);
