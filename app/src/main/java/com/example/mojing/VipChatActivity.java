@@ -26,6 +26,7 @@ public class VipChatActivity extends AppCompatActivity {
     private TextView textViewDesignerName;
     private EditText editTextToDesigner;
     private CheckBox checkBoxToCheckWardrobe;
+    private Button buttonOK;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,8 +154,6 @@ public class VipChatActivity extends AppCompatActivity {
             }
         });
 
-
-
         // 请求焦点
         editTextToDesigner.requestFocus();
 
@@ -163,5 +162,13 @@ public class VipChatActivity extends AppCompatActivity {
         if (inputMethodManager != null) {
             inputMethodManager.showSoftInput(editTextToDesigner, InputMethodManager.SHOW_IMPLICIT);
         }
+
+        buttonOK = findViewById(R.id.buttonOK);
+        buttonOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //todo:接后端
+            }
+        });
     }
 }

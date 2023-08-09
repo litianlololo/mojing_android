@@ -37,7 +37,7 @@
             android:id="@+id/nameText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="27sp"
+            android:textSize="28sp"
             tools:text="@tools:sample/lorem[1]" />
 
 
@@ -46,14 +46,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:orientation="horizontal"
-            android:padding="5dp">
+            android:paddingBottom="3dp">
 
           <TextView
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_gravity="center"
               android:text=" 最大接单量 "
-              android:drawableLeft="@drawable/dapei_24"/>
+              android:drawableLeft="@drawable/max_order_number"/>
 
           <TextView
               android:id="@+id/numberOfOrderText"

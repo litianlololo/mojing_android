@@ -1,32 +1,32 @@
 package com.example.mojing.Fragments.placeholder;
 
 public class VIPDesignerInfoType {
+
+    private String id;
     private String name;
     private String introduction;
-    private int avatarResId; // 头像资源 ID
-
+    private String avatar;
     private int numberOfOrder;
 
-    public VIPDesignerInfoType(String name, String introduction, int avatarResId, int numberOfOrder) {
+    public VIPDesignerInfoType(String id, String name, String avatar, String introduction, int numberOfOrder) {
+        this.id = id;
         this.name = name;
         this.introduction = introduction;
-        this.avatarResId = avatarResId;
+        this.avatar = avatar;
         this.numberOfOrder = numberOfOrder;
     }
 
     public String getName() {
         return name;
     }
-
+    public String getId() {
+        return id;
+    }
     public String getIntroduction() {
         return introduction;
     }
-
     public String getNumberOfOrderText() {
         return String.valueOf(numberOfOrder);
     }
-
-    public int getAvatarResId() {
-        return avatarResId;
-    }
+    public String getAvatar() { return avatar; }
 }
