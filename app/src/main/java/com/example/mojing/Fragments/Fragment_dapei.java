@@ -68,8 +68,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
@@ -92,8 +94,6 @@ public class Fragment_dapei extends Fragment {
     private TextView changjingText;
     private String fileName;
     private SharedPreferencesManager sharedPreferencesManager;
-    private Uri croppedImageUri_1; // 保存裁剪后的图片的 URI1
-    private Uri croppedImageUri_2; // 保存裁剪后的图片的 URI2
     private BottomSheetDialog bottomSheetDialog;
     private Boolean[] isView;
     private View[] changjingView;
@@ -105,7 +105,8 @@ public class Fragment_dapei extends Fragment {
     private ColorStateList backgroundColor;
     private ImageView refreshBtn;
     private Danpin up,down;
-    private Dapei dapei;
+    private Dapei dapei= new Dapei();
+    private String origin;
     private boolean[] changjingChosed = new boolean[5];
     private boolean changed1,changed2;
     public Fragment_dapei() {
@@ -185,6 +186,7 @@ public class Fragment_dapei extends Fragment {
                                         //.placeholder(R.drawable.placeholder_image) // Placeholder image (optional)
                                         .error(R.drawable.error) // Error image (optional)
                                         .into(ImgBtn_2);
+
                             }
                         });
                     }
@@ -208,6 +210,7 @@ public class Fragment_dapei extends Fragment {
                     ImgBtn_2.setClickable(false);
                     ImgBtn_1.setImageResource(R.drawable.image_jacket);
                     ImgBtn_2.setImageResource(R.drawable.image_trousers);
+                    dapei = new Dapei();
                     refreshBtn.setVisibility(View.VISIBLE);
                     Automode=true;
                 }
@@ -231,6 +234,7 @@ public class Fragment_dapei extends Fragment {
                     ImgBtn_1.setImageResource(R.drawable.image_jacket);
                     ImgBtn_2.setImageResource(R.drawable.image_trousers);
                     refreshBtn.setVisibility(View.GONE);
+                    dapei = new Dapei();
                     TextView scoreText = activity.findViewById(R.id.scoreText);
                     scoreText.setText("-");
                     Automode=false;
@@ -261,12 +265,113 @@ public class Fragment_dapei extends Fragment {
         downloadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                if( !(changed1 && changed2)){
+//                    showRequestFailedDialog("请先完善搭配信息");
+//                    return;
+//                }
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        MediaType JSON = MediaType.parse("application/json;charset=utf-8");
+                        JSONObject json = new JSONObject();
+                        try {
+                            json.put("up_cloth",up._id);
+                            json.put("down_cloth",down._id);
+                            System.out.println("up_cloth "+up._id);
+                            System.out.println("down_cloth "+down._id);
+                            if(Automode) origin="ai"; else origin="self";
+                            json.put("origin",origin);
+                            JSONArray sketchArray = new JSONArray();
+                            sketchArray.put(up.img_url);
+                            sketchArray.put(down.img_url);
+                            json.put("sketch",sketchArray);
+                            JSONArray sceneArray = new JSONArray(); int i=0;
+                            if(changjingChosed[i++]) sceneArray.put("工作");
+                            if(changjingChosed[i++]) sceneArray.put("休闲");
+                            if(changjingChosed[i++]) sceneArray.put("运动");
+                            if(changjingChosed[i++]) sceneArray.put("旅行");
+                            if(changjingChosed[i++]) sceneArray.put("约会");
 
+                            json.put("scene",sceneArray);
+                            json.put("temperature",null);
+                            json.put("user_id",sharedPreferencesManager.getUserID());
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                        //创建一个OkHttpClient对象
+                        OkHttpClient okHttpClient = new OkHttpClient();
+                        RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
+                        // 创建请求
+                        Request.Builder requestBuilder = new Request.Builder()
+                                .url(uu+"/cloth/add-match")
+                                .post(requestBody)
+                                .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID());
+                        // 将会话信息添加到请求头部
+                        if (sharedPreferencesManager.getKEY_Session_ID() != null) {
+                            //showRequestFailedDialog(sharedPreferencesManager.getKEY_Session_ID());
+                        }else{
+                            showRequestFailedDialog("null");
+                        }
+                        // 发送请求并获取响应
+                        try {
+                            Request request = requestBuilder.build();
+                            Response response = okHttpClient.newCall(request).execute();
+                            // 检查响应是否成功
+                            if (response.isSuccessful()) {
+                                // 获取响应体
+                                ResponseBody responseBody = response.body();
+                                // 处理响应数据
+                                String responseData = responseBody.string();
+                                JSONObject responseJson = new JSONObject(responseData);
+                                // 提取键为"code"的值
+                                int code = responseJson.getInt("code");
+                                System.out.println(responseData);
+                                //确定返回状态
+                                switch (code) {
+                                    case 200:
+                                        activity.runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                showRequestFailedDialog("添加搭配成功");
+                                            }
+                                        });
+                                        JSONObject dataJson = responseJson.getJSONObject("data");
+                                        System.out.println(dataJson);
+                                        dapei._id = dataJson.getString("_id");
+                                        break;
+                                    case 1001:
+                                        System.out.println(sharedPreferencesManager.getUsername());
+                                        showRequestFailedDialog("请先登录");
+                                        break;
+                                    case 2002:
+                                        System.out.println(sharedPreferencesManager.getUsername());
+                                        showRequestFailedDialog("搭配衣装不存在");
+                                        break;
+                                    default:
+                                        showRequestFailedDialog("添加搭配失败");
+                                        break;
+                                }
+                                System.out.println("Response: " + responseData);
+                                // 记得关闭响应体
+                                responseBody.close();
+                            } else {
+                                // 请求失败，处理错误
+                                System.out.println("Request failed");
+                                showRequestFailedDialog("网络错误，添加失败");
+                            }
+                        } catch (IOException e) {
+                            showRequestFailedDialog("网络错误，添加失败");
+                            e.printStackTrace();
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }).start();
                         // Assuming both images have the same width
-                        combinedBitmap = combineImagesVertically(((BitmapDrawable) ImgBtn_1.getDrawable()).getBitmap(), ((BitmapDrawable) ImgBtn_2.getDrawable()).getBitmap());
-                        saveImageToGallery(combinedBitmap);
-                        iscombined = true;
-                        showRequestFailedDialog("保存成功，已同时保存到手机相册");
+                        //combinedBitmap = combineImagesVertically(((BitmapDrawable) ImgBtn_1.getDrawable()).getBitmap(), ((BitmapDrawable) ImgBtn_2.getDrawable()).getBitmap());
+                        //saveImageToGallery(combinedBitmap);
+                        //iscombined = true;
+                        //showRequestFailedDialog("保存成功，已同时保存到手机相册");
                 }
         });
         ImgBtn_1.setClickable(false);
@@ -275,10 +380,12 @@ public class Fragment_dapei extends Fragment {
     private ActivityResultLauncher<Intent> activityLauncher_up = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
-                if (result.getResultCode() == Activity.RESULT_OK) {
+                if (result.getResultCode() == 1) {
                     Intent data = result.getData();
-                    if (data != null && data.hasExtra("_id"))
+                    if (data != null && data.hasExtra("_id")){
                         up._id=data.getStringExtra("_id");
+                    }
+                    System.out.println("up._id= "+up._id);
                     if (data != null && data.hasExtra("img_url")) {
                         up.img_url = data.getStringExtra("img_url");
                         // 在这里处理收到的数据
@@ -299,18 +406,19 @@ public class Fragment_dapei extends Fragment {
     private ActivityResultLauncher<Intent> activityLauncher_down = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
-                if (result.getResultCode() == Activity.RESULT_OK) {
+                if (result.getResultCode() == 2) {
                     Intent data = result.getData();
-                    if (data != null && data.hasExtra("_id"))
-                        up._id=data.getStringExtra("_id");
+                    if (data != null && data.hasExtra("_id")){
+                        down._id=data.getStringExtra("_id");
+                }
                     if (data != null && data.hasExtra("img_url")) {
-                        up.img_url = data.getStringExtra("img_url");
+                        down.img_url = data.getStringExtra("img_url");
                         // 在这里处理收到的数据
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 Glide.with(activity)
-                                        .load(uuimg + up.img_url)
+                                        .load(uuimg + down.img_url)
                                         //.placeholder(R.drawable.placeholder_image) // Placeholder image (optional)
                                         .error(R.drawable.error) // Error image (optional)
                                         .into(ImgBtn_2);
@@ -405,8 +513,25 @@ public class Fragment_dapei extends Fragment {
         changjingView[4]=view.findViewById(R.id.sportsView);
         radius_border1 = getResources().getDrawable(R.drawable.radius_border1,null);
         radius_chosed = getResources().getDrawable(R.drawable.radius_border_chosed,null);
-        TextView cancleBtn = view.findViewById(R.id.cancleBtn);
-        TextView enterBtn = view.findViewById(R.id.enterBtn);
+        for(String str:dapei.scene){
+            switch (str){
+                case "工作":
+                    changjingChosed[0]=true;
+                    break;
+                case "休闲":
+                    changjingChosed[1]=true;
+                    break;
+                case "运动":
+                    changjingChosed[2]=true;
+                    break;
+                case "旅行":
+                    changjingChosed[3]=true;
+                    break;
+                case "约会":
+                    changjingChosed[4]=true;
+                    break;
+            }
+        }
         for (int tmp = 0; tmp < changjingCNT; tmp++) {
             int finalTmp = tmp;
             if(changjingChosed[finalTmp])
@@ -456,13 +581,14 @@ public class Fragment_dapei extends Fragment {
                         JSONObject responseJson = new JSONObject(responseData);
                         // 提取键为"code"的值
                         int code = responseJson.getInt("code");
+                        System.out.println("responseJson : "+responseJson);
                         //确定返回状态
                         switch (code) {
                             case 200:
                                 JSONArray dataJson = responseJson.getJSONArray("data");
                                 deal_AI_match(dataJson);
                                 deal_ai_matchCallback.deal_AI_match();
-                                System.out.println(dataJson);
+                                System.out.println("dataJson : "+dataJson);
                                 break;
                             case 4001:
                                 System.out.println(sharedPreferencesManager.getUsername());
@@ -503,6 +629,7 @@ public class Fragment_dapei extends Fragment {
         up = new Danpin();
         down = new Danpin();
         dapei = new Dapei();
+        if (dataJson.length() == 0) return;
         JSONObject clothObject = dataJson.getJSONObject(0).getJSONObject("up");
         // Now you can access the properties of each cloth object
         String _id = clothObject.has("_id") ? clothObject.getString("_id") : "";
@@ -574,7 +701,7 @@ public class Fragment_dapei extends Fragment {
         // 将"scene"数组中的值添加到List<String>中
         List<String> sceneList = new ArrayList<>();
         for (int i = 0; i < sceneArray.length(); i++) {
-            sceneList.add(sceneArray.getString(i));
+            sceneList.add(convertUnicodeToChinese(sceneArray.getString(i)));
         }
         dapei.up =up;
         dapei.down = down;

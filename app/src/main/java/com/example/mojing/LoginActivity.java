@@ -249,6 +249,18 @@ public class LoginActivity extends AppCompatActivity {
                                                     // 可能是未登录状态或者会话已经过期
                                                 }
                                                 setData(responseJson);
+                                                // 登录成功，改变登录状态
+                                                if (sharedPreferencesManager.isLoggedIn()) {
+                                                    if(!needSet) {
+                                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                                        startActivity(intent);
+                                                        finish(); // 结束当前的LoginActivity
+                                                    }else{
+                                                        Intent intent = new Intent(LoginActivity.this, InitFigureActivity.class);
+                                                        startActivity(intent);
+                                                        finish(); // 结束当前的LoginActivity
+                                                    }
+                                                }
                                                 break;
                                             //登录成功
                                             case 2002:
@@ -359,6 +371,18 @@ public class LoginActivity extends AppCompatActivity {
                                                     // 可能是未登录状态或者会话已经过期
                                                 }
                                                 setData(responseJson);
+                                                // 登录成功，改变登录状态
+                                                if (sharedPreferencesManager.isLoggedIn()) {
+                                                    if(!needSet) {
+                                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                                        startActivity(intent);
+                                                        finish(); // 结束当前的LoginActivity
+                                                    }else{
+                                                        Intent intent = new Intent(LoginActivity.this, InitFigureActivity.class);
+                                                        startActivity(intent);
+                                                        finish(); // 结束当前的LoginActivity
+                                                    }
+                                                }
                                                 break;
                                             //登录成功
                                             case 2002:
@@ -395,18 +419,6 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         }).start();
-                        // 登录成功，改变登录状态
-                        if (sharedPreferencesManager.isLoggedIn()) {
-                            if(!needSet) {
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                startActivity(intent);
-                                finish(); // 结束当前的LoginActivity
-                            }else{
-                                Intent intent = new Intent(LoginActivity.this, InitFigureActivity.class);
-                                startActivity(intent);
-                                finish(); // 结束当前的LoginActivity
-                            }
-                        }
                     }
                 }
         }

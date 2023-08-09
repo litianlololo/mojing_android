@@ -415,7 +415,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
         options.setStatusBarColor(ContextCompat.getColor(activity, R.color.colorPrimaryDark));
         UCrop.of(selectedImageUri, Uri.fromFile(new File(activity.getCacheDir(), "cropped_image.jpg")))
                 .withAspectRatio(1, 1) // 设置裁剪框的宽高比为1:1
-                .withMaxResultSize(imageButton.getWidth(), imageButton.getHeight()) // 设置裁剪后图片的最大尺寸为200x200像素
+                //.withMaxResultSize(imageButton.getWidth(), imageButton.getHeight()) // 设置裁剪后图片的最大尺寸为 x200像素
                 .withOptions(options)
                 .start(activity); // 传入当前的 Activity 和 Fragment 实例，以便接收裁剪后的结果
     }
@@ -490,7 +490,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
         });
         // 设置第一级数据
         List<String> firstLevelData = new ArrayList<>();
-        firstLevelData.add("上装");
+        firstLevelData.add("上衣");
         firstLevelData.add("下装");
         firstLevelData.add("连身装");
         firstLevelPicker.setData(firstLevelData);
@@ -582,8 +582,8 @@ public class Yichu_Add_Activity extends AppCompatActivity {
             }
         });
         // 设置是否有卷曲感，不能微调卷曲幅度，默认false
-        firstLevelPicker.setCurved(true);
-        secondLevelPicker.setCurved(true);
+        firstLevelPicker.setCurved(false);
+        secondLevelPicker.setCurved(false);
         //设置是否有指示器，设置后选中项的上下会用线框柱
         firstLevelPicker.setIndicator(true);
         firstLevelPicker.setIndicatorColor(0xFF123456); //16进制
@@ -679,7 +679,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
             }
         });
         // 设置是否有卷曲感，不能微调卷曲幅度，默认false
-        wheelPicker.setCurved(true);
+        wheelPicker.setCurved(false);
         //设置是否有指示器，设置后选中项的上下会用线框柱
         wheelPicker.setIndicator(true);
         wheelPicker.setIndicatorColor(0xFF123456); //16进制
@@ -718,7 +718,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
             }
         });
         // 设置是否有卷曲感，不能微调卷曲幅度，默认false
-        wheelPicker.setCurved(true);
+        wheelPicker.setCurved(false);
         //设置是否有指示器，设置后选中项的上下会用线框柱
         wheelPicker.setIndicator(true);
         wheelPicker.setIndicatorColor(0xFF123456); //16进制
@@ -753,7 +753,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
             }
         });
         // 设置是否有卷曲感，不能微调卷曲幅度，默认false
-        wheelPicker.setCurved(true);
+        wheelPicker.setCurved(false);
         //设置是否有指示器，设置后选中项的上下会用线框柱
         wheelPicker.setIndicator(true);
         wheelPicker.setIndicatorColor(0xFF123456); //16进制
@@ -800,7 +800,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
             }
         });
         // 设置是否有卷曲感，不能微调卷曲幅度，默认false
-        wheelPicker.setCurved(true);
+        wheelPicker.setCurved(false);
         //设置是否有指示器，设置后选中项的上下会用线框柱
         wheelPicker.setIndicator(true);
         wheelPicker.setIndicatorColor(0xFF123456); //16进制
@@ -843,7 +843,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
             }
         });
         // 设置是否有卷曲感，不能微调卷曲幅度，默认false
-        wheelPicker.setCurved(true);
+        wheelPicker.setCurved(false);
         //设置是否有指示器，设置后选中项的上下会用线框柱
         wheelPicker.setIndicator(true);
         wheelPicker.setIndicatorColor(0xFF123456); //16进制
@@ -880,7 +880,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
             }
         });
         // 设置是否有卷曲感，不能微调卷曲幅度，默认false
-        wheelPicker.setCurved(true);
+        wheelPicker.setCurved(false);
         //设置是否有指示器，设置后选中项的上下会用线框柱
         wheelPicker.setIndicator(true);
         wheelPicker.setIndicatorColor(0xFF123456); //16进制

@@ -247,7 +247,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView19"
             app:name="胸围"
             app:show_line="true"
-            app:show_more="true">
+            app:show_more="false">
 
             <TextView
                 android:id="@+id/xiongweiText"
@@ -274,7 +274,7 @@
             app:layout_constraintTop_toBottomOf="@+id/xiongwei_content"
             app:name="腰围"
             app:show_line="true"
-            app:show_more="true">
+            app:show_more="false">
 
             <TextView
                 android:id="@+id/yaoweiText"
@@ -301,7 +301,7 @@
             app:layout_constraintTop_toBottomOf="@+id/yaowei_content"
             app:name="臀围"
             app:show_line="true"
-            app:show_more="true">
+            app:show_more="false">
 
             <TextView
                 android:id="@+id/tunweiText"
