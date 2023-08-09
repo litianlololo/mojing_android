@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -50,6 +51,13 @@ public class Dapei_ChoseUp_Activity extends AppCompatActivity {
         choseBtn = findViewById(R.id.choseBtn);
         activity= this;
 
+        ImageButton btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         //默认type1 type2
         String type1="上衣";
         String type2="全部";

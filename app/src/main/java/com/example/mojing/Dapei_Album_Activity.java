@@ -251,7 +251,7 @@ public class Dapei_Album_Activity extends AppCompatActivity {
                         public void onClick(View view) {
                             // 创建Intent，将id传递给Yichu_Single_Activity
                             Intent intent = new Intent(activity, Dapei_Info_Activity.class);
-                            //intent.putExtra("_id", urls.get(finalPosition+1)._id); // 传递id变量
+                            intent.putExtra("_id", urls.get(finalPosition)._id); // 传递id变量
                             ByteArrayOutputStream stream = new ByteArrayOutputStream();
                             urls.get(finalPosition).combin_img.compress(Bitmap.CompressFormat.PNG, 100, stream);
                             byte[] byteArray = stream.toByteArray();

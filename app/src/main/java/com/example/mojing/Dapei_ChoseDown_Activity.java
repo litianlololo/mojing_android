@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -50,6 +51,15 @@ public class Dapei_ChoseDown_Activity extends AppCompatActivity {
         choseBtn = findViewById(R.id.choseBtn);
         activity= this;
 
+        ImageButton btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Intent intent = new Intent(Yichu_Single_Activity.this, MainActivity.class);
+                //startActivity(intent);
+                finish(); // 结束当前的Yichu_Single_Activity
+            }
+        });
         System.out.println(sharedPreferencesManager.isLoggedIn());
         if(sharedPreferencesManager.isLoggedIn()) {
             //初始化我的衣装
