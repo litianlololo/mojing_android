@@ -582,8 +582,8 @@ public class Yichu_Add_Activity extends AppCompatActivity {
             }
         });
         // 设置是否有卷曲感，不能微调卷曲幅度，默认false
-        firstLevelPicker.setCurved(true);
-        secondLevelPicker.setCurved(true);
+        firstLevelPicker.setCurved(false);
+        secondLevelPicker.setCurved(false);
         //设置是否有指示器，设置后选中项的上下会用线框柱
         firstLevelPicker.setIndicator(true);
         firstLevelPicker.setIndicatorColor(0xFF123456); //16进制
@@ -679,7 +679,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
             }
         });
         // 设置是否有卷曲感，不能微调卷曲幅度，默认false
-        wheelPicker.setCurved(true);
+        wheelPicker.setCurved(false);
         //设置是否有指示器，设置后选中项的上下会用线框柱
         wheelPicker.setIndicator(true);
         wheelPicker.setIndicatorColor(0xFF123456); //16进制
@@ -718,7 +718,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
             }
         });
         // 设置是否有卷曲感，不能微调卷曲幅度，默认false
-        wheelPicker.setCurved(true);
+        wheelPicker.setCurved(false);
         //设置是否有指示器，设置后选中项的上下会用线框柱
         wheelPicker.setIndicator(true);
         wheelPicker.setIndicatorColor(0xFF123456); //16进制
@@ -753,7 +753,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
             }
         });
         // 设置是否有卷曲感，不能微调卷曲幅度，默认false
-        wheelPicker.setCurved(true);
+        wheelPicker.setCurved(false);
         //设置是否有指示器，设置后选中项的上下会用线框柱
         wheelPicker.setIndicator(true);
         wheelPicker.setIndicatorColor(0xFF123456); //16进制
@@ -800,7 +800,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
             }
         });
         // 设置是否有卷曲感，不能微调卷曲幅度，默认false
-        wheelPicker.setCurved(true);
+        wheelPicker.setCurved(false);
         //设置是否有指示器，设置后选中项的上下会用线框柱
         wheelPicker.setIndicator(true);
         wheelPicker.setIndicatorColor(0xFF123456); //16进制
@@ -843,7 +843,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
             }
         });
         // 设置是否有卷曲感，不能微调卷曲幅度，默认false
-        wheelPicker.setCurved(true);
+        wheelPicker.setCurved(false);
         //设置是否有指示器，设置后选中项的上下会用线框柱
         wheelPicker.setIndicator(true);
         wheelPicker.setIndicatorColor(0xFF123456); //16进制
@@ -880,7 +880,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
             }
         });
         // 设置是否有卷曲感，不能微调卷曲幅度，默认false
-        wheelPicker.setCurved(true);
+        wheelPicker.setCurved(false);
         //设置是否有指示器，设置后选中项的上下会用线框柱
         wheelPicker.setIndicator(true);
         wheelPicker.setIndicatorColor(0xFF123456); //16进制

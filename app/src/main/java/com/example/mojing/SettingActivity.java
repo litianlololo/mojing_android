@@ -20,10 +20,17 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
         sharedPreferencesManager = new SharedPreferencesManager(this);
         exitBtn= findViewById(R.id.exitButton);
+        if(!sharedPreferencesManager.isLoggedIn()) exitBtn.setText("点击登录");
         exitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!sharedPreferencesManager.isLoggedIn())
                     showConfirmationDialog();
+                else{
+                    Intent intent = new Intent(SettingActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish(); // 结束当前
+                }
             }
         });
         //返回按钮
