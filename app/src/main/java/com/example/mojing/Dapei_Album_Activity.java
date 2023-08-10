@@ -543,7 +543,7 @@ public class Dapei_Album_Activity extends AppCompatActivity {
             }
         }
     }
-    private Bitmap combineImages(Bitmap topImage, Bitmap bottomImage) {
+    public Bitmap combineImages(Bitmap topImage, Bitmap bottomImage) {
         int imageSizeInDp = 100;
         int marginInDp = 5;
 

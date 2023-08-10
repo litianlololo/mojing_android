@@ -21,6 +21,7 @@ import com.bumptech.glide.request.target.CustomTarget;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 
@@ -39,6 +40,7 @@ public class Dapei_Info_Activity extends AppCompatActivity {
     private Activity activity=this;
     private ImageView Img;
     private TextView AvgScoreText,AIScoreText;
+    private TextView calendarBtn;
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,8 @@ public class Dapei_Info_Activity extends AppCompatActivity {
         AvgScoreText = findViewById(R.id.AvgScoreText);
         AIScoreText = findViewById(R.id.AIScoreText);
         deleteBtn = findViewById(R.id.deleteBtn);
+        calendarBtn = findViewById(R.id.calendarBtn);
+
         //返回按钮
         ImageButton btnBack = findViewById(R.id.btn_back);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +73,18 @@ public class Dapei_Info_Activity extends AppCompatActivity {
         getAIScore(_id);
 //        String share_score=intent.getStringExtra("share_score");
 //        String designer_score = intent.getStringExtra("designer_score");
-
+        calendarBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 创建一个 Intent 并添加数据
+                Intent intent = new Intent(activity, Dapei_Calendar_Activity.class);
+                intent.putExtra("match_id", _id);
+                intent.putExtra("comb_img", receivedBitmap);
+                // 启动新活动
+                startActivity(intent);
+                finish();
+            }
+        });
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
