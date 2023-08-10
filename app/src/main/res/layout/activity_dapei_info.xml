@@ -20,12 +20,12 @@
 
     <TextView
         android:id="@+id/AvgScoreText"
-        android:layout_width="56dp"
-        android:layout_height="35dp"
+        android:layout_width="54dp"
+        android:layout_height="43dp"
         android:layout_marginStart="48dp"
         android:layout_marginTop="44dp"
-        android:gravity="right"
-        android:text="92"
+        android:gravity="center"
+        android:text="100"
         android:textColor="#000000"
         android:textSize="28sp"
         app:layout_constraintStart_toStartOf="@+id/imageView12"
@@ -46,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="104dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="56dp"
         android:text="分"
         app:layout_constraintStart_toStartOf="@+id/imageView12"
         app:layout_constraintTop_toBottomOf="@+id/Img" />
@@ -110,11 +110,11 @@
     <TextView
         android:id="@+id/AIScoreText"
         android:layout_width="56dp"
-        android:layout_height="35dp"
+        android:layout_height="40dp"
         android:layout_marginStart="48dp"
         android:layout_marginTop="48dp"
-        android:gravity="right"
-        android:text="92"
+        android:gravity="center"
+        android:text="100"
         android:textColor="#000000"
         android:textSize="28sp"
         app:layout_constraintStart_toStartOf="@+id/imageView11"
@@ -149,6 +149,22 @@
         app:layout_constraintBottom_toTopOf="@+id/Img"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/navbar_icon_detail_cancel" />
+
+    <TextView
+        android:id="@+id/calendarBtn"
+        android:layout_width="216dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/radius_border1"
+        android:backgroundTint="#000000"
+        android:gravity="center"
+        android:text="加入日程安排"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView11" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
