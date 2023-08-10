@@ -30,7 +30,8 @@ public class MsgOrderFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     ArrayList fragmentList = new ArrayList<Fragment>();
-    String[] temp = {"4\n已完成","8\n待发货","\n待收货"};
+    String[] temp = {"\n已完成","\n待发货","\n待收货"};
+    int[] statusNumber=new int[5]; //
 
     public MsgOrderFragment() {
         // Required empty public constructor
@@ -44,7 +45,7 @@ public class MsgOrderFragment extends Fragment {
         viewPager = contextView.findViewById(R.id.view_pager);
 
 
-        //todo:这个为什么按那个放大镜图标才会显示搜索框，按放大镜后面的部分就没有反应？这个searchview的宽是parent的，我想按到这个控件的任何一处都可以输入文字
+        //todo:AKS这个为什么按那个放大镜图标才会显示搜索框，按放大镜后面的部分就没有反应？这个searchview的宽是parent的，我想按到这个控件的任何一处都可以输入文字
 //        LinearLayout searchContainer = contextView.findViewById(R.id.searchContainer);
         SearchView searchView = contextView.findViewById(R.id.searchView);
 
@@ -57,6 +58,8 @@ public class MsgOrderFragment extends Fragment {
 //                imm.showSoftInput(searchView, InputMethodManager.SHOW_IMPLICIT);
 //            }
 //        });
+
+
 
         return contextView;
     }
@@ -101,7 +104,7 @@ public class MsgOrderFragment extends Fragment {
 
         //返回tablayout的标题文字;
 
-        private final int TAB_FONT_SIZE = 20; // 设置 Tab 字体大小
+        private final int TAB_FONT_SIZE = 19; // 设置 Tab 字体大小
         @Override
         public CharSequence getPageTitle(int position) {
             SpannableString spannableString = new SpannableString(temp[position]);

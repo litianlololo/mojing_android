@@ -37,7 +37,7 @@ public class VipListAdapter extends RecyclerView.Adapter<VipListAdapter.MyViewHo
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
-                    System.out.println("111");
+//                    System.out.println("111");
                     Bitmap bmp=(Bitmap)msg.obj;
                     avatarImage.setImageBitmap(bmp);
                     break;
