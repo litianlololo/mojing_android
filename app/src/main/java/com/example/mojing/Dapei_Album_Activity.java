@@ -71,6 +71,15 @@ public class Dapei_Album_Activity extends AppCompatActivity {
         sharedPreferencesManager = new SharedPreferencesManager(this);
         Drawable radius_border1 = getResources().getDrawable(R.drawable.radius_border1,null);
         Drawable radius_chosed = getResources().getDrawable(R.drawable.radius_border_chosed,null);
+
+        ImageView calendarImg = findViewById(R.id.calendar);
+        calendarImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent tmp = new Intent(activity, Dapei_Calendar_Activity.class);
+                startActivity(tmp);
+            }
+        });
         PBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -249,15 +258,20 @@ public class Dapei_Album_Activity extends AppCompatActivity {
                     imageView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            // 创建Intent，将id传递给Yichu_Single_Activity
                             Intent intent = new Intent(activity, Dapei_Info_Activity.class);
                             intent.putExtra("_id", urls.get(finalPosition)._id); // 传递id变量
                             ByteArrayOutputStream stream = new ByteArrayOutputStream();
                             urls.get(finalPosition).combin_img.compress(Bitmap.CompressFormat.PNG, 100, stream);
                             byte[] byteArray = stream.toByteArray();
                             intent.putExtra("bitmap", byteArray);
-//                            intent.putExtra("share_score", urls.get(finalPosition).share_score);
-//                            intent.putExtra("designer_score", urls.get(finalPosition).designer_score);
+                            //计算平均分
+                            int totalScore = 0;
+                            for (int score : urls.get(finalPosition).share_score) {totalScore += score;}
+                            int avg_score = 0;
+                            if(urls.get(finalPosition).share_score.length!=0)
+                                avg_score=totalScore / urls.get(finalPosition).share_score.length;
+                            intent.putExtra("avg_score", avg_score);
+//                          intent.putExtra("designer_score", urls.get(finalPosition).designer_score);
                             activity.startActivity(intent);
                         }
                     });
