@@ -19,8 +19,11 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".Dapei_Calendar_Activity"
-            android:exported="false" />
+        android:name=".Dapei_Calendar_Activity"
+        android:exported="false" />
+        <activity
+        android:name=".MsgChatDetailsActivity"
+        android:exported="false" />
         <activity
             android:name=".Dapei_ChoseDown_Activity"
             android:exported="false" />

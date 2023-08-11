@@ -1,18 +1,28 @@
 package com.example.mojing.Adapter;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mojing.Fragments.placeholder.MsgChatInfoType;
+import com.example.mojing.MsgChatDetailsActivity;
 import com.example.mojing.R;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -21,14 +31,27 @@ import java.util.concurrent.TimeUnit;
 
 public class MsgChatAdapter extends RecyclerView.Adapter<MsgChatAdapter.ViewHolder> {
 
-    private final List<MsgChatInfoType> mValues;
+    static ImageView avatarImage;
+    private List<MsgChatInfoType> mValues;
     private Context context;
+    private Handler handle = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+//                    System.out.println("111");
+                    Bitmap bmp=(Bitmap)msg.obj;
+                    avatarImage.setImageBitmap(bmp);
+                    break;
+            }
+        };
+    };
 
     public MsgChatAdapter(Context context, List<MsgChatInfoType> items) {
         this.context = context;
         mValues = items;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -38,17 +61,49 @@ public class MsgChatAdapter extends RecyclerView.Adapter<MsgChatAdapter.ViewHold
 
     }
 
+    //加载图片
+    public Bitmap getURLimage(String url) {
+        Bitmap bmp = null;
+        try {
+            URL myurl = new URL(url);
+            // 获得连接
+            HttpURLConnection conn = (HttpURLConnection) myurl.openConnection();
+            conn.setConnectTimeout(6000);//设置超时
+            conn.setDoInput(true);
+            conn.setUseCaches(false);//不缓存
+            conn.connect();
+            InputStream is = conn.getInputStream();//获得图片的数据流
+            bmp = BitmapFactory.decodeStream(is);
+            is.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bmp;
+    }
+
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final MsgChatInfoType userInfo = mValues.get(position);
 
         // 设置用户头像、名字等数据
         holder.nameText.setText(userInfo.getName());
-        holder.avatarImage.setImageResource(userInfo.getAvatarResId());
         String msg =userInfo.getMsg();
         if(msg.length()>19) msg=msg.substring(0, 19)+"...";
         holder.msgText.setText(msg);
 
+        //新建线程加载图片信息，发送到消息队列中
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                Bitmap bmp = getURLimage(userInfo.getAvatarUrl());
+                Message msg = new Message();
+                msg.what = 0;
+                msg.obj = bmp;
+                System.out.println("000");
+                handle.sendMessage(msg);
+            }
+        }).start();
 
         Date currentDate = new Date();
         Date messageDate = userInfo.getTime();
@@ -71,7 +126,16 @@ public class MsgChatAdapter extends RecyclerView.Adapter<MsgChatAdapter.ViewHold
 
 // 将时间显示到 TextView 中
         holder.timeText.setText(formattedTime);
+        holder.chatLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 创建 Intent 对象，指定要启动的目标 Activity
+                Intent intent = new Intent(context, MsgChatDetailsActivity.class);
 
+                // 启动目标 Activity
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -80,8 +144,9 @@ public class MsgChatAdapter extends RecyclerView.Adapter<MsgChatAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView avatarImage;
         TextView nameText, timeText, msgText;
+
+        LinearLayout chatLinear;
 
         public ViewHolder(View view) {
             super(view);
@@ -89,6 +154,7 @@ public class MsgChatAdapter extends RecyclerView.Adapter<MsgChatAdapter.ViewHold
             nameText = view.findViewById(R.id.nameText);
             timeText = view.findViewById(R.id.timeText);
             msgText = view.findViewById(R.id.msgText);
+            chatLinear = view.findViewById(R.id.chatLinear);
         }
     }
 }
