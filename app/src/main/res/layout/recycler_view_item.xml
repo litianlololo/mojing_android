@@ -79,17 +79,23 @@
 
       <Button
           android:id="@+id/chatButton"
-          android:layout_width="match_parent"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_weight="1"
-          android:text="留言" />
+          android:backgroundTint="@color/white"
+          android:drawableLeft="@drawable/icon_message"
+          android:text="留言"
+          android:textColor="#000" />
 
       <Button
           android:id="@+id/orderButton"
-          android:layout_width="match_parent"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_weight="1"
-          android:text="购买" />
+          android:backgroundTint="@color/white"
+          android:drawableLeft="@drawable/icon_buy"
+          android:text="购买"
+          android:textColor="#000" />
 
     </LinearLayout>
   </LinearLayout>

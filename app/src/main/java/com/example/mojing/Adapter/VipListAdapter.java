@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mojing.R;
 import com.example.mojing.Fragments.placeholder.VIPDesignerInfoType;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -33,12 +34,13 @@ public class VipListAdapter extends RecyclerView.Adapter<VipListAdapter.MyViewHo
     private List<VIPDesignerInfoType> vip_designer_infoList;
     private Context context;
     static ImageView avatarImage;
+    Bitmap bmp;
     private Handler handle = new Handler() {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 0:
 //                    System.out.println("111");
-                    Bitmap bmp=(Bitmap)msg.obj;
+                    bmp=(Bitmap)msg.obj;
                     avatarImage.setImageBitmap(bmp);
                     break;
             }
@@ -104,7 +106,11 @@ public class VipListAdapter extends RecyclerView.Adapter<VipListAdapter.MyViewHo
                 // 这里可以根据需要进行具体的跳转操作，例如使用 Intent 跳转到聊天页面
                 Intent chatIntent = new Intent(context, VipChatActivity.class);
                 chatIntent.putExtra("id", userInfo.getId());
-                chatIntent.putExtra("avatar_url", userInfo.getAvatar());
+
+                ByteArrayOutputStream bs = new ByteArrayOutputStream();
+                bmp.compress(Bitmap.CompressFormat.JPEG, 50, bs);
+                chatIntent.putExtra("byteArray", bs.toByteArray());
+
                 chatIntent.putExtra("name_text", userInfo.getName());
                 context.startActivity(chatIntent);
             }
@@ -115,6 +121,7 @@ public class VipListAdapter extends RecyclerView.Adapter<VipListAdapter.MyViewHo
             @Override
             public void onClick(View v) {
                 VipOrderBottomSheetDialog dialog = new VipOrderBottomSheetDialog();
+                dialog.setData(userInfo.getName(), bmp);
                 dialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "tag");
             }
         });
