@@ -37,25 +37,11 @@ public class VipChatActivity extends AppCompatActivity {
         textViewDesignerName=findViewById(R.id.textViewDesignerName);
         editTextToDesigner=findViewById(R.id.editTextToDesigner);
         checkBoxToCheckWardrobe=findViewById(R.id.checkBoxToCheckWardrobe);
-
-        // 获取传递的头像资源ID
-        int avatarResId = getIntent().getIntExtra("avatar_res_id", -1);
         // 设置头像图片
-        if (avatarResId != -1) {
-//            // 获取头像图片资源
-//            Bitmap avatarBitmap = BitmapFactory.decodeResource(getResources(), avatarResId);
-//
-//            RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), avatarBitmap);
-//            roundedBitmapDrawable.setCircular(true); // 设置为圆形
-//
-//            int radius = 30;
-//            roundedBitmapDrawable.setCornerRadius(radius);
-//            roundedBitmapDrawable.setAntiAlias(true); // 设置抗锯齿
-//
-//            imageViewDesignerAvatar.setImageDrawable(roundedBitmapDrawable);
-
-            //上述代码：设置圆角失败
-            imageViewDesignerAvatar.setImageResource(avatarResId);
+        if (getIntent().hasExtra("byteArray")) {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(getIntent().getByteArrayExtra("byteArray"),
+                    0, getIntent().getByteArrayExtra("byteArray").length);
+            imageViewDesignerAvatar.setImageBitmap(bitmap);
         }
 
         String nameText =getIntent().getStringExtra("name_text");

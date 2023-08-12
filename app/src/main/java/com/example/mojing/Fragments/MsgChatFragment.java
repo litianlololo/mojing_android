@@ -125,7 +125,7 @@ public class MsgChatFragment extends Fragment {
                                 addCallback.onAddDesigner();
                                 break;
                             default:
-                                showRequestFailedDialog("添加失败");
+                                showRequestFailedDialog("网络连接失败");
                                 break;
                         }
                         //System.out.println("Response: " + responseData);
@@ -137,7 +137,7 @@ public class MsgChatFragment extends Fragment {
                         showRequestFailedDialog("请求失败");
                     }
                 } catch (IOException e) {
-                    showRequestFailedDialog("网络错误，添加失败");
+                    showRequestFailedDialog("网络错误: msg-chat");
                     e.printStackTrace();
                 } catch (JSONException e) {
                     throw new RuntimeException(e);

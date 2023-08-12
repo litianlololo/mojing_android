@@ -121,7 +121,7 @@ public class Fragment_VIP extends Fragment {
                         showRequestFailedDialog("请求失败");
                     }
                 } catch (IOException e) {
-                    showRequestFailedDialog("网络错误，添加失败");
+                    showRequestFailedDialog("网络错误(vip-)");
                     e.printStackTrace();
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -166,6 +166,10 @@ public class Fragment_VIP extends Fragment {
 
         // 将适配器设置给 RecyclerView
         recyclerView.setAdapter(vipListAdapter);
+
+        vip_designer_infoList.add(new VIPDesignerInfoType("id", "nickname",
+                "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201707%2F15%2F20170715164510_xm2yL.thumb.400_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1623550913&t=d8cae253f81749dbb3da16509d0b1abd",
+                "intro", 34));
 
 // 调用 loadAll 方法获取设计师信息
         loadAll(new AddCallback() {
