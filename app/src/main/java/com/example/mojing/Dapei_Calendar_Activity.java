@@ -347,13 +347,15 @@ public class Dapei_Calendar_Activity extends AppCompatActivity {
                                 case 200:
                                     JSONObject dataJson = responseJson.getJSONObject("data");
                                     System.out.println(dataJson);
-                                    JSONArray sketchArray = dataJson.getJSONArray("sketch");
-                                    String[] sketch = new String[sketchArray.length()];
-                                    for (int k = 0; k < sketchArray.length(); k++) {
-                                        sketch[k] = sketchArray.getString(k);
-                                    }
-                                    tmp.up_url = sketch[0];
-                                    tmp.down_url = sketch[1];
+//                                    JSONArray sketchArray = dataJson.getJSONArray("sketch");
+//                                    String[] sketch = new String[sketchArray.length()];
+//                                    for (int k = 0; k < sketchArray.length(); k++) {
+//                                        sketch[k] = sketchArray.getString(k);
+//                                    }
+                                    String up_url = dataJson.getString("up_img_url");
+                                    String down_url = dataJson.getString("down_img_url");
+                                    tmp.up_url = up_url;
+                                    tmp.down_url = down_url;
                                     Glide.with(activity)
                                             .asBitmap()
                                             .load(uuimg + tmp.up_url)
@@ -397,6 +399,10 @@ public class Dapei_Calendar_Activity extends AppCompatActivity {
                                 case 1001:
                                     System.out.println(sharedPreferencesManager.getUsername());
                                     showRequestFailedDialog("登录过期，请重新登陆");
+                                    break;
+                                case 2002:
+                                    System.out.println("未查询到搭配");
+                                    showRequestFailedDialog("未查询到搭配");
                                     break;
                                 default:
                                     showRequestFailedDialog("添加失败");

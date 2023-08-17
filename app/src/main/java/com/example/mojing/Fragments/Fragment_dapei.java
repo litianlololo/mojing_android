@@ -277,13 +277,17 @@ public class Fragment_dapei extends Fragment {
                         try {
                             json.put("up_cloth",up._id);
                             json.put("down_cloth",down._id);
+                            json.put("up_img_url",up.img_url);
+                            json.put("down_img_url",down.img_url);
                             System.out.println("up_cloth "+up._id);
                             System.out.println("down_cloth "+down._id);
                             if(Automode) origin="ai"; else origin="self";
                             json.put("origin",origin);
+//                            Bitmap tmp1,tmp2,tmp0;
+//                            tmp1 = ((BitmapDrawable) ImgBtn_1.getDrawable()).getBitmap();
+//                            tmp2 =((BitmapDrawable) ImgBtn_2.getDrawable()).getBitmap();
+//                            tmp0 = combineImages(tmp1,tmp2);
                             JSONArray sketchArray = new JSONArray();
-                            sketchArray.put(up.img_url);
-                            sketchArray.put(down.img_url);
                             json.put("sketch",sketchArray);
                             JSONArray sceneArray = new JSONArray(); int i=0;
                             if(changjingChosed[i++]) sceneArray.put("工作");

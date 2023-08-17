@@ -196,10 +196,10 @@ public class Me_Figure_Activity extends AppCompatActivity {
                                                     sharedPreferencesManager.setFigureYaowei(modifiedYaowei);
                                                     tv_xiongwei.setText(Integer.toString(modifiedXiongwei));
 
-                                                    if (!modifiedPassword.equals("")) {
+                                                    if (!modifiedPassword.equals("user_password")) {
                                                         sharedPreferencesManager.setUserPassword(modifiedPassword);
-                                                        tv_password.setText(modifiedPassword);
                                                     }
+                                                    tv_password.setText("******");
                                                 }
                                             });
                                             break;
@@ -233,12 +233,14 @@ public class Me_Figure_Activity extends AppCompatActivity {
                     etTizhong.setVisibility(View.GONE);
                     etYaowei.setVisibility(View.GONE);
                     etXiongwei.setVisibility(View.GONE);
+                    etpassword.setVisibility(View.GONE);
 
                     tv_tunwei.setVisibility(View.VISIBLE);
                     tv_shengao.setVisibility(View.VISIBLE);
                     tv_tizhong.setVisibility(View.VISIBLE);
                     tv_yaowei.setVisibility(View.VISIBLE);
                     tv_xiongwei.setVisibility(View.VISIBLE);
+                    tv_password.setVisibility(View.VISIBLE);
 
                     btnModify.setText("修改");
                 }

@@ -396,15 +396,16 @@ public class Dapei_Album_Activity extends AppCompatActivity {
             String down_cloth = clothObject.has("down_cloth") ?clothObject.getString("down_cloth"): "";
             String origin = clothObject.has("origin") ? clothObject.getString("origin") : "";
             String name = clothObject.has("name") ? clothObject.getString("name") : "";
-
-            JSONArray sketchArray = clothObject.getJSONArray("sketch");
-            String[] sketch = new String[sketchArray.length()];
-            for (int k = 0; k < sketchArray.length(); k++) {
-                sketch[k] = sketchArray.getString(k);
-            }
-            for (String s : sketch) {
-                System.out.println(s);
-            }
+            String up_img =clothObject.has("up_img_url") ?clothObject.getString("up_img_url"): "";
+            String down_img = clothObject.has("down_img_url") ?clothObject.getString("down_img_url"): "";
+//            JSONArray sketchArray= clothObject.getJSONArray("sketch");
+//            String[] sketch = new String[sketchArray.length()];
+//            for (int k = 0; k < sketchArray.length(); k++) {
+//                sketch[k] = sketchArray.getString(k);
+//            }
+//            for (String s : sketch) {
+//                System.out.println(s);
+//            }
             // 提取 "share_score" 字段
             JSONArray shareScoreArray = clothObject.has("share_score") ?clothObject.getJSONArray("share_score"):null;
             int[] shareScore = new int[shareScoreArray.length()];
@@ -438,8 +439,8 @@ public class Dapei_Album_Activity extends AppCompatActivity {
             tmp.up._id=up_cloth;
             tmp.down._id= down_cloth;
             tmp.origin = origin;
-            tmp.up.img_url = sketch[0];
-            tmp.down.img_url =sketch[1];
+            tmp.up.img_url = up_img;
+            tmp.down.img_url =down_img;
             tmp.share_score = shareScore;
             tmp.designer_score = designerScore;
 

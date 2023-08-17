@@ -5,15 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
@@ -41,11 +47,19 @@ public class Dapei_Info_Activity extends AppCompatActivity {
     private ImageView Img;
     private TextView AvgScoreText,AIScoreText;
     private TextView calendarBtn;
+    private TextView shareBtn;
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dapei_info);
+
+        // 获取传递的Intent对象
+        Intent intent = getIntent();
+        // 从Intent对象中获取传递的id变量，假设id是整数类型
+        byte[] byteArray = intent.getByteArrayExtra("bitmap");
+        Bitmap receivedBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        String _id = intent.getStringExtra("_id");
 
         Img = findViewById(R.id.Img);
         sharedPreferencesManager = new SharedPreferencesManager(this);
@@ -53,7 +67,24 @@ public class Dapei_Info_Activity extends AppCompatActivity {
         AIScoreText = findViewById(R.id.AIScoreText);
         deleteBtn = findViewById(R.id.deleteBtn);
         calendarBtn = findViewById(R.id.calendarBtn);
+        shareBtn = findViewById(R.id.shareBtn);
+        shareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 要复制到剪切板的字符串
+                String textToCopy =uuimg+"/cloth/share/"+_id;
 
+                // 获取剪切板管理器
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+
+                // 创建一个ClipData对象并将要复制的文本添加到剪切板
+                ClipData clip = ClipData.newPlainText("Label", textToCopy);
+                clipboard.setPrimaryClip(clip);
+
+                // 显示弹窗提示已复制到剪切板
+                Toast.makeText(getApplicationContext(), "分享链接已复制到剪切板", Toast.LENGTH_SHORT).show();
+            }
+        });
         //返回按钮
         ImageButton btnBack = findViewById(R.id.btn_back);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -62,17 +93,9 @@ public class Dapei_Info_Activity extends AppCompatActivity {
                 finish(); // 返回上一个Activity
             }
         });
-        // 获取传递的Intent对象
-        Intent intent = getIntent();
-        // 从Intent对象中获取传递的id变量，假设id是整数类型
-        byte[] byteArray = intent.getByteArrayExtra("bitmap");
-        Bitmap receivedBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-        String _id = intent.getStringExtra("_id");
         AvgScoreText.setText(Integer.toString(intent.getIntExtra("avg_score",0)));
         Img.setImageBitmap(receivedBitmap);
         getAIScore(_id);
-//        String share_score=intent.getStringExtra("share_score");
-//        String designer_score = intent.getStringExtra("designer_score");
         calendarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
