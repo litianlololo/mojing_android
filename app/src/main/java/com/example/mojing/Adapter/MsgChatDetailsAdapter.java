@@ -3,6 +3,7 @@ package com.example.mojing.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,17 +24,21 @@ public class MsgChatDetailsAdapter extends RecyclerView.Adapter<MsgChatDetailsAd
     static class ViewHolder extends RecyclerView.ViewHolder{
         LinearLayout leftLayout;
         TextView left_msg;
+        ImageView left_avatar;
 
         LinearLayout rightLayout;
         TextView right_msg;
+        ImageView right_avatar;
 
         public ViewHolder(View view){
             super(view);
             leftLayout = view.findViewById(R.id.left_layout);
             left_msg = view.findViewById(R.id.left_msg);
+            left_avatar=view.findViewById(R.id.left_avatar);
 
             rightLayout = view.findViewById(R.id.right_layout);
             right_msg = view.findViewById(R.id.right_msg);
+            right_avatar=view.findViewById(R.id.right_avatar);
         }
     }
 
@@ -51,6 +56,7 @@ public class MsgChatDetailsAdapter extends RecyclerView.Adapter<MsgChatDetailsAd
             //如果是收到的消息，则显示左边的消息布局，将右边的消息布局隐藏
             holder.leftLayout.setVisibility(View.VISIBLE);
             holder.left_msg.setText(msg.getContent());
+            holder.left_avatar.setImageBitmap(msg.getBitmapAvatar());
 
             //注意此处隐藏右面的消息布局用的是 View.GONE
             holder.rightLayout.setVisibility(View.GONE);
@@ -58,6 +64,8 @@ public class MsgChatDetailsAdapter extends RecyclerView.Adapter<MsgChatDetailsAd
             //如果是发出的消息，则显示右边的消息布局，将左边的消息布局隐藏
             holder.rightLayout.setVisibility(View.VISIBLE);
             holder.right_msg.setText(msg.getContent());
+            //todo:aks头像获取
+            holder.right_avatar.setImageBitmap(msg.getBitmapAvatar());
 
             //同样使用View.GONE
             holder.leftLayout.setVisibility(View.GONE);

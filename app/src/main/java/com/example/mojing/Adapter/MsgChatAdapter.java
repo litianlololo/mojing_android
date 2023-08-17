@@ -20,6 +20,7 @@ import com.example.mojing.Fragments.placeholder.MsgChatInfoType;
 import com.example.mojing.MsgChatDetailsActivity;
 import com.example.mojing.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -32,6 +33,7 @@ import java.util.concurrent.TimeUnit;
 public class MsgChatAdapter extends RecyclerView.Adapter<MsgChatAdapter.ViewHolder> {
 
     static ImageView avatarImage;
+    Bitmap bmp;
     private List<MsgChatInfoType> mValues;
     private Context context;
     private Handler handle = new Handler() {
@@ -39,7 +41,7 @@ public class MsgChatAdapter extends RecyclerView.Adapter<MsgChatAdapter.ViewHold
             switch (msg.what) {
                 case 0:
 //                    System.out.println("111");
-                    Bitmap bmp=(Bitmap)msg.obj;
+                    bmp=(Bitmap)msg.obj;
                     avatarImage.setImageBitmap(bmp);
                     break;
             }
@@ -88,7 +90,7 @@ public class MsgChatAdapter extends RecyclerView.Adapter<MsgChatAdapter.ViewHold
         // 设置用户头像、名字等数据
         holder.nameText.setText(userInfo.getName());
         String msg =userInfo.getMsg();
-        if(msg.length()>19) msg=msg.substring(0, 19)+"...";
+        if(msg.length()>15) msg=msg.substring(0, 15)+"...";
         holder.msgText.setText(msg);
 
         //新建线程加载图片信息，发送到消息队列中
@@ -131,6 +133,14 @@ public class MsgChatAdapter extends RecyclerView.Adapter<MsgChatAdapter.ViewHold
             public void onClick(View view) {
                 // 创建 Intent 对象，指定要启动的目标 Activity
                 Intent intent = new Intent(context, MsgChatDetailsActivity.class);
+
+//                intent.putExtra("id", userInfo.getId());
+
+                ByteArrayOutputStream bs = new ByteArrayOutputStream();
+                bmp.compress(Bitmap.CompressFormat.JPEG, 50, bs);
+                intent.putExtra("byteArray", bs.toByteArray());
+
+                intent.putExtra("name_text", userInfo.getName());
 
                 // 启动目标 Activity
                 context.startActivity(intent);

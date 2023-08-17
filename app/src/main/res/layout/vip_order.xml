@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
     android:gravity="center_vertical"
     android:orientation="vertical"
     android:paddingVertical="10dp">
@@ -13,9 +14,9 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/avatarImage"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:id="@+id/avatarImageView"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
@@ -23,20 +24,24 @@
             tools:src="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/nameText"
+            android:id="@+id/nameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/avatarImage"
-            android:textSize="27sp"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/avatarImageView"
+            android:textColor="@color/black"
+            android:textSize="16sp"
             tools:text="@tools:sample/lorem[1]" />
 
         <TextView
             android:id="@+id/cancelText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="false"
+            android:layout_centerVertical="true"
             android:text="取消"
-            android:textSize="22sp"
-            android:layout_alignParentEnd="true"/>
+            android:textSize="16sp" />
 
     </RelativeLayout>
 
@@ -52,19 +57,22 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:text="购买数量" />
 
             <Button
                 android:id="@+id/button5"
                 android:layout_width="40dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_toStartOf="@+id/textView38"
-                android:text="-" />
+                android:text="-"
+                android:background="@drawable/rectangle_plus_minus"/>
 
             <TextView
                 android:id="@+id/textView38"
-                android:layout_width="80dp"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:layout_toStartOf="@+id/button6"
                 android:gravity="center"
                 android:text="1" />
@@ -72,9 +80,11 @@
             <Button
                 android:id="@+id/button6"
                 android:layout_width="40dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
-                android:text="+" />
+                android:layout_margin="0dp"
+                android:text="+"
+                android:background="@drawable/rectangle_plus_minus"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -105,29 +115,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="选择支付方式"
-        android:textSize="24sp" />
+        android:textSize="20sp" />
 
     <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <RadioButton
             android:id="@+id/radioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="支付宝支付" />
+            android:text="支付宝支付"
+            android:drawableLeft="@drawable/icon_zhifubao"/>
 
         <RadioButton
             android:id="@+id/radioButton2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="微信支付" />
+            android:text="微信支付"
+            android:drawableLeft="@drawable/icon_weixin"/>
     </RadioGroup>
 
     <Button
         android:id="@+id/button4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="立即购买" />
 </LinearLayout>
 
