@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -93,8 +94,11 @@ public class MsgChatFragment extends Fragment {
             public void run() {
                 //创建一个OkHttpClient对象
                 OkHttpClient okHttpClient = new OkHttpClient();
+                HttpUrl.Builder urlBuilder = HttpUrl.parse(uu + "/chat/getChatList").newBuilder();
+                urlBuilder.addQueryParameter("customer_id", customerID);
+                String url = urlBuilder.build().toString();
                 Request.Builder requestBuilder = new Request.Builder()
-                        .url(uu+"/chat/getChatList?customer_id="+customerID)
+                        .url(url)
                         .get();
 
                 // 发送请求并获取响应
@@ -164,23 +168,12 @@ public class MsgChatFragment extends Fragment {
     }
 
     void AddDesigner(JSONArray dataJson) throws JSONException {
-        // 遍历对象列表
+
+        System.out.println("bagaa");
+
         for (int i = 0; i < dataJson.length(); i++) {
             // 获取当前对象
             JSONObject obj = dataJson.getJSONObject(i);
-
-            // 访问对象的属性并进行处理
-            String id = obj.getString("_id");
-            String nickname = obj.getString("nickname");
-            String avatar = obj.getString("avatar");
-            String intro = obj.getString("intro");
-            int availableService = obj.getInt("available_service");
-
-        }
-        for (int i = 0; i < dataJson.length(); i++) {
-            // 获取当前对象
-            JSONObject obj = dataJson.getJSONObject(i);
-
 
             String chatId = obj.getString("chat_id");
             String designerId = obj.getString("designer_id");
@@ -212,8 +205,7 @@ public class MsgChatFragment extends Fragment {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            msgChatInfoTypeList.add(new MsgChatInfoType("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201707%2F15%2F20170715164510_xm2yL.thumb.400_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1623550913&t=d8cae253f81749dbb3da16509d0b1abd",
-                    nickname,content,date,chatId,designerId));
+            msgChatInfoTypeList.add(new MsgChatInfoType(avatar, nickname,content,date,chatId,designerId));
         }
     }
 }
