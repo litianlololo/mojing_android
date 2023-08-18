@@ -347,6 +347,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
     private Uri removebackground(Uri uri,RemoveBackgroundCallback callback) throws URISyntaxException {
         File pngFile = new File(new URI(uri.toString()));
         final Uri[] result = new Uri[1];
+        System.out.println("pngFile   "+pngFile);
         new Thread(new Runnable() {
             @Override
             public void run() {

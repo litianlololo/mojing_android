@@ -9,21 +9,6 @@
 
     <!-- 第一排布局 -->
 
-    <ImageView
-        android:id="@+id/headIcon2"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:background="@drawable/tabbar_icon_home_press_1"
-        android:src="@drawable/circle_images"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.109" />
-
     <LinearLayout
         android:id="@+id/firstLayout"
         android:layout_width="match_parent"
@@ -60,15 +45,20 @@
 
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/imageButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="64dp"
-        app:layout_constraintStart_toStartOf="@+id/headIcon2"
-        app:layout_constraintTop_toTopOf="@+id/headIcon2"
-        app:srcCompat="@drawable/picture_24" />
+    <ImageView
+        android:id="@+id/headIcon2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/tabbar_icon_home_press_1"
+        android:src="@drawable/circle_images"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.109" />
 
     <Button
         android:id="@+id/button"

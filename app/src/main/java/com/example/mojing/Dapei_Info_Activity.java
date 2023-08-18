@@ -30,6 +30,8 @@ import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -46,7 +48,7 @@ public class Dapei_Info_Activity extends AppCompatActivity {
     private Activity activity=this;
     private ImageView Img;
     private TextView AvgScoreText,AIScoreText;
-    private TextView calendarBtn;
+    private TextView calendarBtn,modifyBtn;
     private TextView shareBtn;
     @SuppressLint("SetTextI18n")
     @Override
@@ -60,7 +62,9 @@ public class Dapei_Info_Activity extends AppCompatActivity {
         byte[] byteArray = intent.getByteArrayExtra("bitmap");
         Bitmap receivedBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         String _id = intent.getStringExtra("_id");
-
+        String up_img_url = intent.getStringExtra("up_url");
+        String down_img_url = intent.getStringExtra("down_url");
+        ArrayList<String> SceneList = intent.getStringArrayListExtra("scene");
         Img = findViewById(R.id.Img);
         sharedPreferencesManager = new SharedPreferencesManager(this);
         AvgScoreText = findViewById(R.id.AvgScoreText);
@@ -68,6 +72,20 @@ public class Dapei_Info_Activity extends AppCompatActivity {
         deleteBtn = findViewById(R.id.deleteBtn);
         calendarBtn = findViewById(R.id.calendarBtn);
         shareBtn = findViewById(R.id.shareBtn);
+        modifyBtn= findViewById(R.id.modifyBtn);
+        modifyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity, Dapei_Modify_Activity.class);
+                intent.putExtra("match_id", _id);
+                intent.putExtra("up_img_url", up_img_url);
+                intent.putExtra("down_img_url", down_img_url);
+                intent.putStringArrayListExtra("scene", SceneList);
+                // 启动新活动
+                startActivity(intent);
+                finish();
+            }
+        });
         shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

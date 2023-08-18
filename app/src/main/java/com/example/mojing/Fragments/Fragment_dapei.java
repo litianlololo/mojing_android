@@ -265,10 +265,6 @@ public class Fragment_dapei extends Fragment {
         downloadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if( !(changed1 && changed2)){
-//                    showRequestFailedDialog("请先完善搭配信息");
-//                    return;
-//                }
                 new Thread(new Runnable() {
                     @Override
                     public void run() {

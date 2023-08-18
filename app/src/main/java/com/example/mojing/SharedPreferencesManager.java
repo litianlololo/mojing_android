@@ -10,6 +10,7 @@ public class SharedPreferencesManager {
     private static final String KEY_IS_LOGGED_IN = "false";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_USER_Password = "userPassword";
+    private static final String KEY_USER_Profile = "/";//头像
     private static final String KEY_USER_Phone = "userPhone";
     private static final String KEY_USER_ID = "userID";
     private static final String KEY_USER_Role = "userRole";
@@ -18,9 +19,10 @@ public class SharedPreferencesManager {
     private static final String KEY_Figure_Tunwei = "tunwei";
     private static final String KEY_Figure_Xiongwei = "xiongwei";
     private static final String KEY_Figure_Yaowei = "yaowei";
-    private static final String KEY_UserSignature = "未设置";
+    private static final String KEY_UserSignature = "未设置个性签名";//个性签名
     private static final String KEY_UserGender = "女";
     private static final String KEY_IS_Youke = "isyouke";
+
     private static final String KEY_Session_ID = "";
     private SharedPreferences sharedPreferences;
 
@@ -86,6 +88,15 @@ public class SharedPreferencesManager {
     public void setUserPassword(String userPassword) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(KEY_USER_Password, userPassword);
+        editor.apply();
+    }
+
+    public String getKEY_USER_Profile() {
+        return sharedPreferences.getString(KEY_USER_Profile, "");
+    }
+    public void setKEY_USER_Profile(String userProfile) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_USER_Profile, userProfile);
         editor.apply();
     }
 

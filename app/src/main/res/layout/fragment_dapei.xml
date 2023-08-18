@@ -14,17 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <View
-            android:id="@+id/view2"
-            android:layout_width="295dp"
-            android:layout_height="562dp"
-            android:layout_marginTop="104dp"
-            android:background="@drawable/radius_border1"
-            android:backgroundTint="@color/bgcolorgray"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <ImageButton
             android:id="@+id/img_button"
             android:layout_width="56dp"
@@ -35,6 +24,17 @@
             android:backgroundTint="@color/bgcolorgray"
             android:src="@drawable/dapei_album"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="295dp"
+            android:layout_height="562dp"
+            android:layout_marginTop="104dp"
+            android:background="@drawable/radius_border1"
+            android:backgroundTint="@color/bgcolorgray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton

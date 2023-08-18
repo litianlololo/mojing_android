@@ -271,6 +271,10 @@ public class Dapei_Album_Activity extends AppCompatActivity {
                             if(urls.get(finalPosition).share_score.length!=0)
                                 avg_score=totalScore / urls.get(finalPosition).share_score.length;
                             intent.putExtra("avg_score", avg_score);
+
+                            intent.putExtra("up_url",urls.get(finalPosition).up.img_url);
+                            intent.putExtra("down_url",urls.get(finalPosition).down.img_url);
+                            intent.putStringArrayListExtra("scene", (ArrayList<String>)urls.get(finalPosition).scene);
 //                          intent.putExtra("designer_score", urls.get(finalPosition).designer_score);
                             activity.startActivity(intent);
                         }
@@ -425,7 +429,15 @@ public class Dapei_Album_Activity extends AppCompatActivity {
             for (int score : designerScore) {
                 System.out.println("Designer Score: " + score);
             }
-
+            // 提取 "scene_score" 字段
+            JSONArray sceneArray = clothObject.has("scene") ?clothObject.getJSONArray("scene"):null;
+            List<String> sceneList = new ArrayList<>();
+            for (int k = 0; k < sceneArray.length();k++) {
+                sceneList.add(sceneArray.getString(k));
+            }
+            for (String scenestr : sceneList) {
+                System.out.println("Share Score: " + scenestr);
+            }
 //            // 提取 "tags" 字段
 //            JSONArray tagsArray = clothObject.getJSONArray("tags");
 //            String[] tags = new String[tagsArray.length()];
@@ -443,7 +455,7 @@ public class Dapei_Album_Activity extends AppCompatActivity {
             tmp.down.img_url =down_img;
             tmp.share_score = shareScore;
             tmp.designer_score = designerScore;
-
+            tmp.scene =sceneList;
             dapeis.add(tmp);
         }
     }

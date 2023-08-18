@@ -13,8 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.mojing.InitFigureActivity;
 import com.example.mojing.InitSanweiActivity;
 import com.example.mojing.LoginActivity;
@@ -42,6 +44,8 @@ import okhttp3.ResponseBody;
 
 
 public class Fragment_me extends Fragment {
+    private String uu="http://47.103.223.106:5004/api";
+    private String uuimg="http://47.103.223.106:5004";
     MainActivity activity;
     private SharedPreferencesManager sharedPreferencesManager;
     private Button exitButton;
@@ -54,6 +58,7 @@ public class Fragment_me extends Fragment {
     private Button ModifyBtn;
     private PersonalItemView xiongwei_content, yaowei_content, tunwei_content;
     private TextView changjingBtn;
+    private ImageView headIcon;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -99,7 +104,15 @@ public class Fragment_me extends Fragment {
         settingBtn = activity.findViewById(R.id.settingBtn);
         changjingBtn = activity.findViewById(R.id.changjingBtn);
         signatureText.setText(sharedPreferencesManager.getUserSignature());
+        headIcon = activity.findViewById(R.id.headIcon);
         View view = activity.findViewById(R.id.view);
+
+        if(!sharedPreferencesManager.getKEY_USER_Profile().equals("/")){
+            Glide.with(activity)
+                    .load(uuimg + sharedPreferencesManager.getKEY_USER_Profile())
+                    .error(R.drawable.error) // Error image (optional)
+                    .into(headIcon);
+        }
         //没有登录
         if (!activity.sharedPreferencesManager.isLoggedIn()) {
             //
@@ -110,6 +123,14 @@ public class Fragment_me extends Fragment {
         //编辑资料
         ModifyBtn = getActivity().findViewById(R.id.edit);
         ModifyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println(sharedPreferencesManager.getKEY_Session_ID());
+                Intent tmp = new Intent(getActivity(), ModifyAccountActivity.class);
+                startActivity(tmp);
+            }
+        });
+        headIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 System.out.println(sharedPreferencesManager.getKEY_Session_ID());

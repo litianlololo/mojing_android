@@ -12,42 +12,85 @@
         android:id="@+id/imageView12"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="68dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="64dp"
         app:layout_constraintEnd_toEndOf="@+id/Img"
         app:layout_constraintTop_toBottomOf="@+id/Img"
         app:srcCompat="@drawable/share_score" />
 
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/Img"
+        app:layout_constraintTop_toBottomOf="@+id/Img"
+        app:srcCompat="@drawable/ai_score" />
+
     <TextView
-        android:id="@+id/AvgScoreText"
-        android:layout_width="54dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="44dp"
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="24dp"
+        android:text="分"
+        app:layout_constraintStart_toStartOf="@+id/imageView12"
+        app:layout_constraintTop_toBottomOf="@+id/Img" />
+
+    <TextView
+        android:id="@+id/AIScoreText"
+        android:layout_width="56dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="100"
         android:textColor="#000000"
         android:textSize="28sp"
-        app:layout_constraintStart_toStartOf="@+id/imageView12"
+        app:layout_constraintStart_toStartOf="@+id/imageView11"
+        app:layout_constraintTop_toBottomOf="@+id/Img" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="24dp"
+        android:text="分"
+        app:layout_constraintStart_toStartOf="@+id/imageView11"
+        app:layout_constraintTop_toBottomOf="@+id/Img" />
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="56dp"
+        android:text="AI分数"
+        app:layout_constraintStart_toStartOf="@+id/imageView11"
         app:layout_constraintTop_toBottomOf="@+id/Img" />
 
     <TextView
         android:id="@+id/textView27"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="56dp"
         android:text="平均分值"
         app:layout_constraintStart_toStartOf="@+id/imageView12"
         app:layout_constraintTop_toBottomOf="@+id/Img" />
 
     <TextView
-        android:id="@+id/textView26"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="56dp"
-        android:text="分"
+        android:id="@+id/AvgScoreText"
+        android:layout_width="54dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:text="100"
+        android:textColor="#000000"
+        android:textSize="28sp"
         app:layout_constraintStart_toStartOf="@+id/imageView12"
         app:layout_constraintTop_toBottomOf="@+id/Img" />
 
@@ -99,48 +142,6 @@
         app:srcCompat="@drawable/dapei_tmp" />
 
     <ImageView
-        android:id="@+id/imageView11"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="48dp"
-        app:layout_constraintStart_toStartOf="@+id/Img"
-        app:layout_constraintTop_toBottomOf="@+id/Img"
-        app:srcCompat="@drawable/ai_score" />
-
-    <TextView
-        android:id="@+id/AIScoreText"
-        android:layout_width="56dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="48dp"
-        android:gravity="center"
-        android:text="100"
-        android:textColor="#000000"
-        android:textSize="28sp"
-        app:layout_constraintStart_toStartOf="@+id/imageView11"
-        app:layout_constraintTop_toBottomOf="@+id/Img" />
-
-    <TextView
-        android:id="@+id/textView24"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="56dp"
-        android:text="分"
-        app:layout_constraintStart_toStartOf="@+id/imageView11"
-        app:layout_constraintTop_toBottomOf="@+id/Img" />
-
-    <TextView
-        android:id="@+id/textView25"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="88dp"
-        android:text="AI分数"
-        app:layout_constraintStart_toStartOf="@+id/imageView11"
-        app:layout_constraintTop_toBottomOf="@+id/Img" />
-
-    <ImageView
         android:id="@+id/deleteBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -165,6 +166,22 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView11" />
+
+    <TextView
+        android:id="@+id/modifyBtn"
+        android:layout_width="216dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/radius_border1"
+        android:backgroundTint="#000000"
+        android:gravity="center"
+        android:text="修改搭配"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendarBtn" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
