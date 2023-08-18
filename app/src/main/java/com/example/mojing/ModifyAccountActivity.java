@@ -92,6 +92,11 @@ public class ModifyAccountActivity extends AppCompatActivity {
         signature_content=findViewById(R.id.signature_content);
         gender_content=findViewById(R.id.gender_content);
         headIcon = findViewById(R.id.headIcon2);
+        if(!sharedPreferencesManager.getKEY_USER_Profile().equals("/"))
+            Glide.with(activity)
+                    .load(uuimg + sharedPreferencesManager.getKEY_USER_Profile())
+                    .error(R.drawable.error) // Error image (optional)
+                    .into(headIcon);
         headIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -191,11 +196,11 @@ public class ModifyAccountActivity extends AppCompatActivity {
                 // 构建请求体，将图片数据作为请求体传输
                 RequestBody requestBody = new MultipartBody.Builder()
                         .setType(MultipartBody.FORM)
-                        .addFormDataPart("image", "image.jpg",
+                        .addFormDataPart("file", "image.png",
                                 RequestBody.create(MediaType.parse("image/png"), pngFile))
                         .build();
                 Request request = new Request.Builder()
-                        .url(uu + "/file/rembg")
+                        .url(uu + "/file/upload-file")
                         .post(requestBody)
                         .build();
                 // 发送请求并获取响应
@@ -245,10 +250,10 @@ public class ModifyAccountActivity extends AppCompatActivity {
     }
     private Uri saveBitmapToCache(Bitmap bitmap) {
         File cacheDir = activity.getCacheDir();
-        File file = new File(cacheDir, "cropped_image.jpg");
+        File file = new File(cacheDir, "cropped_image.png");
         try {
             OutputStream outputStream = Files.newOutputStream(file.toPath());
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
             outputStream.close();
             // 获取文件的 Uri
             return Uri.fromFile(file);
