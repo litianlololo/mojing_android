@@ -41,10 +41,9 @@ public class MsgOrderWtfDeliveryFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         List<MsgOrderInfoType> msgOrderInfoTypeList = new ArrayList<>();
-        msgOrderInfoTypeList.add(new MsgOrderInfoType("User 1","baga",180,1, R.drawable.dapei_album));
-        msgOrderInfoTypeList.add(new MsgOrderInfoType("User 2","bag8olgikflyryjsryja",180,1, R.drawable.dapei_vest_24));
-        msgOrderInfoTypeList.add(new MsgOrderInfoType("User 3","baga",180,1, R.drawable.dapei_album));
-        msgOrderInfoTypeList.add(new MsgOrderInfoType("User 56","baga",180,1, R.drawable.dapei_vest_24));
+        msgOrderInfoTypeList.add(new MsgOrderInfoType("User 1","baga",180,1, "https://pic1.zhimg.com/80/v2-c29322edcd03ead5207049b44abad0d8_1440w.webp"));
+        msgOrderInfoTypeList.add(new MsgOrderInfoType("User 2","bag8olgikflyryjsryja",180,1, "https://pic3.zhimg.com/80/v2-285a104b2e557836ca09a386e6ee73d2_1440w.webp"));
+        msgOrderInfoTypeList.add(new MsgOrderInfoType("User 3","baga",180,1, "https://pic2.zhimg.com/80/v2-cef1bd681556b3352f3b8bea15d4e0fd_1440w.webp"));
 
         // 实例化适配器对象
         MsgOrderWtfDeliveryAdapter msgOrderWtfDeliveryAdapter = new MsgOrderWtfDeliveryAdapter(getActivity(), msgOrderInfoTypeList);
