@@ -47,6 +47,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -61,8 +62,8 @@ public class ModifyAccountActivity extends AppCompatActivity {
     public String uuimg="http://47.103.223.106:5004";
     private String username;
     private String signature;
-    private String gender;
-    private TextView usernameText,signatureText,genderText;
+    private String gender,profile;
+    private TextView usernameText,signatureText,genderText,saveBtn;
     private Activity activity=this;
     private PersonalItemView username_content,signature_content,gender_content;
     private SharedPreferencesManager sharedPreferencesManager;
@@ -70,6 +71,7 @@ public class ModifyAccountActivity extends AppCompatActivity {
     private Uri headIconUri;
     private Bitmap tmpb;
     private  BottomSheetDialog genderbottomSheetDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +81,7 @@ public class ModifyAccountActivity extends AppCompatActivity {
         username = sharedPreferencesManager.getUsername();
         signature = sharedPreferencesManager.getUserSignature();
         gender = sharedPreferencesManager.getUserGender();
+        profile = sharedPreferencesManager.getKEY_USER_Profile();
 
         usernameText=findViewById(R.id.usernameText);
         signatureText=findViewById(R.id.signatureText);
@@ -92,6 +95,8 @@ public class ModifyAccountActivity extends AppCompatActivity {
         signature_content=findViewById(R.id.signature_content);
         gender_content=findViewById(R.id.gender_content);
         headIcon = findViewById(R.id.headIcon2);
+        saveBtn = findViewById(R.id.saveBtn);
+
         if(!sharedPreferencesManager.getKEY_USER_Profile().equals("/"))
             Glide.with(activity)
                     .load(uuimg + sharedPreferencesManager.getKEY_USER_Profile())
@@ -103,13 +108,19 @@ public class ModifyAccountActivity extends AppCompatActivity {
                 openGallery(headIcon);
             }
         });
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveNow();
+            }
+        });
         username_content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showInputDialog("请输入新的昵称", new OnInputCompleteListener() {
                     public void onInputComplete(String input) {
                         username = input;
-                        sharedPreferencesManager.setUsername(username);
+                        //sharedPreferencesManager.setUsername(username);
                         usernameText.setText(username);
                     }
                 });
@@ -121,7 +132,7 @@ public class ModifyAccountActivity extends AppCompatActivity {
                 showInputDialog("请输入新的个性签名", new OnInputCompleteListener() {
                     public void onInputComplete(String input) {
                         signature = input;
-                        sharedPreferencesManager.setUserSignature(signature);
+                        //sharedPreferencesManager.setUserSignature(signature);
                         signatureText.setText(signature);
                     }
                 });
@@ -221,7 +232,8 @@ public class ModifyAccountActivity extends AppCompatActivity {
                             case 200:
                                 String url = data.getString("url");
                                 result[0]=Uri.parse(url);
-                                sharedPreferencesManager.setKEY_USER_Profile(url);
+                                profile = url;
+                                //sharedPreferencesManager.setKEY_USER_Profile(url);
                                 break;
                             case 1001:
                                 showRequestFailedDialog("文件为空");
@@ -345,7 +357,8 @@ public class ModifyAccountActivity extends AppCompatActivity {
                 String select = "";
                 int SelectedIndex = wheelPicker.getCurrentItemPosition();
                 select = (String) wheelPicker.getData().get(SelectedIndex);
-                sharedPreferencesManager.setUserGender(select);
+                gender=select;
+                //sharedPreferencesManager.setUserGender(select);
                 genderText.setText(select);
                 genderbottomSheetDialog.cancel();
             }
@@ -371,4 +384,76 @@ public class ModifyAccountActivity extends AppCompatActivity {
             }
         });
     }
+    //保存修改 网络请求
+    private void saveNow()
+    {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                MediaType JSON = MediaType.parse("application/json;charset=utf-8");
+                JSONObject json = new JSONObject();
+                try {
+                    json.put("profile", profile);
+                    json.put("username", username);
+                    json.put("bio", signature);
+                    json.put("gender", gender);
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+                //创建一个OkHttpClient对象
+                OkHttpClient okHttpClient = new OkHttpClient();
+                RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
+                // 创建请求
+                Request.Builder requestBuilder = new Request.Builder()
+                        .url(uu+"/auth/update")
+                        .post(requestBody)
+                        .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID());
+                // 发送请求并获取响应
+                try {
+                    Request request = requestBuilder.build();
+                    Response response = okHttpClient.newCall(request).execute();
+                    // 检查响应是否成功
+                    if (response.isSuccessful()) {
+                        // 获取响应体
+                        ResponseBody responseBody = response.body();
+                        // 处理响应数据
+                        String responseData = responseBody.string();
+                        JSONObject responseJson = new JSONObject(responseData);
+                        System.out.println(responseData);
+                        // 提取键为"code"的值
+                        int code = responseJson.getInt("code");
+                        //确定返回状态
+                        switch (code) {
+                            case 200:
+                                showRequestFailedDialog("修改成功");
+                                sharedPreferencesManager.setKEY_USER_Profile(profile);
+                                sharedPreferencesManager.setUsername(username);
+                                sharedPreferencesManager.setUserSignature(signature);
+                                sharedPreferencesManager.setUserGender(gender);
+                                break;
+                            case 1001:
+                                System.out.println(sharedPreferencesManager.getUsername());
+                                showRequestFailedDialog("登录过期，请重新登陆");
+                                break;
+                            default:
+                                showRequestFailedDialog("修改失败");
+                                break;
+                        }
+                        System.out.println("Response: " + responseData);
+                        // 记得关闭响应体
+                        responseBody.close();
+                    } else {
+                        // 请求失败，处理错误
+                        System.out.println("Request failed");
+                        showRequestFailedDialog("请求失败");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }).start();
+    }
+
 }

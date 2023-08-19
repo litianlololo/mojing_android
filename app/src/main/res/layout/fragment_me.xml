@@ -48,14 +48,15 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:background="@drawable/circle_style1"
+            android:scaleType="centerCrop"
+            android:src="@drawable/user_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.104"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.169"
-            android:scaleType="centerCrop"
-            android:src="@drawable/user_24" />
+            app:srcCompat="@drawable/tabbar_icon_home_press_1" />
 
         <TextView
             android:id="@+id/user_name"

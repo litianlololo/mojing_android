@@ -114,7 +114,7 @@ public class MsgChatFragment extends Fragment {
                         switch (code) {
                             case 200:
                                 JSONArray dataJson = responseJson.getJSONArray("data");
-                                AddDesigner(dataJson);
+                                //AddDesigner(dataJson);
                                 // 更新UI，通知适配器进行刷新
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override

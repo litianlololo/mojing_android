@@ -84,6 +84,11 @@ public class Fragment_me extends Fragment {
         xiongweiText.setText(sharedPreferencesManager.getFigureXiongwei()+"cm");
         yaoweiText.setText(sharedPreferencesManager.getFigureYaowei()+"cm");
         tunweiText.setText(sharedPreferencesManager.getFigureTunwei()+"cm");
+
+        Glide.with(activity)
+                .load(uuimg + sharedPreferencesManager.getKEY_USER_Profile())
+                .error(R.drawable.error) // Error image (optional)
+                .into(headIcon);
     }
 
     @Override

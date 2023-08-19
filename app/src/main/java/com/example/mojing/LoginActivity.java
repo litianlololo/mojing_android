@@ -243,10 +243,6 @@ public class LoginActivity extends AppCompatActivity {
                                                     // 可以将其存储在本地，后续的请求可以携带这个会话信息
                                                     sessionCookie = s.substring(0, s.indexOf(";"));
                                                     sharedPreferencesManager.setKEY_Session_ID(sessionCookie);
-                                                    //showRequestFailedDialog(sessionCookie);
-                                                } else {
-                                                    // 服务器没有返回会话信息
-                                                    // 可能是未登录状态或者会话已经过期
                                                 }
                                                 setData(responseJson);
                                                 // 登录成功，改变登录状态
@@ -477,6 +473,10 @@ public class LoginActivity extends AppCompatActivity {
         String userRole = dataJson.optString("role", "");
         String username = dataJson.optString("username", "");
 
+        String bio =dataJson.optString("bio","");
+        String profile =dataJson.optString("profile","/");
+        String gender =dataJson.optString("gender","");
+
         if(shengao*tizhong*tunwei*xiongwei*yaowei==0)
             needSet=true;
         sharedPreferencesManager.setFigureShengao(shengao);
@@ -489,6 +489,9 @@ public class LoginActivity extends AppCompatActivity {
         sharedPreferencesManager.setUserRole(userRole);
         sharedPreferencesManager.setUsername(username);
         sharedPreferencesManager.setLoggedIn(true);
+        sharedPreferencesManager.setKEY_USER_Profile(profile);
+        sharedPreferencesManager.setUserSignature(bio);
+        sharedPreferencesManager.setUserGender(gender);
     }
 }
 //sharedPreferencesManager.setUserPassword(dataJson.getString("password"));
