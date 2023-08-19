@@ -47,7 +47,7 @@ public class MsgOrderFragment extends Fragment {
 
         //todo:AKS这个为什么按那个放大镜图标才会显示搜索框，按放大镜后面的部分就没有反应？这个searchview的宽是parent的，我想按到这个控件的任何一处都可以输入文字
 //        LinearLayout searchContainer = contextView.findViewById(R.id.searchContainer);
-        SearchView searchView = contextView.findViewById(R.id.searchView);
+//        SearchView searchView = contextView.findViewById(R.id.searchView);
 
 //        searchContainer.setOnClickListener(new View.OnClickListener() {
 //            @Override

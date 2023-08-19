@@ -5,12 +5,12 @@ public class MsgOrderInfoType {
     private String orderNumber;
     private int money;
     private int orderTime;
-    private int avatarResId; // 头像资源 ID
+    private String avatarUrl;
 
-    public MsgOrderInfoType(String name, String orderNumber,int money, int orderTime, int avatarResId) {
+    public MsgOrderInfoType(String name, String orderNumber,int money, int orderTime, String avatarUrl) {
         this.name = name;
         this.orderNumber = orderNumber;
-        this.avatarResId = avatarResId;
+        this.avatarUrl = avatarUrl;
         this.money = money;
         this.orderTime = orderTime;
     }
@@ -31,7 +31,7 @@ public class MsgOrderInfoType {
         return "x"+String.valueOf(orderTime);
     }
 
-    public int getAvatarResId() {
-        return avatarResId;
+    public String getAvatarUrl() {
+        return avatarUrl;
     }
 }

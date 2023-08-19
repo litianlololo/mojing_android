@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_margin="12dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,7 +15,8 @@
             android:id="@+id/textView33"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="订单编号：" />
+            android:text="订单编号："
+            android:textSize="16dp" />
 
         <TextView
             android:id="@+id/orderNumberText"
@@ -22,26 +24,30 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_toEndOf="@+id/textView33"
-            android:text="12345678901234567890" />
+            android:text="12345678901234567890"
+            android:textSize="18dp"  />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:text="待发货" />
+            android:text="待发货"
+            android:textSize="16dp" />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="80dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/touchLinearLayout">
 
         <ImageView
             android:id="@+id/avatarImage"
             android:layout_width="160dp"
             android:layout_height="80dp"
             android:layout_weight="1"
-            tools:srcCompat="@tools:sample/avatars" />
+            tools:srcCompat="@tools:sample/avatars"
+            android:padding="5dp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -53,7 +59,8 @@
                 android:id="@+id/nameText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="namme" />
+                android:text="namme"
+                android:textSize="26dp"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -63,21 +70,26 @@
                     android:id="@+id/textView34"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="￥  " />
+                    android:text="\n￥"
+                    android:textSize="14dp"/>
 
                 <TextView
                     android:id="@+id/moneyText1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/textView34"
-                    android:text="180" />
+                    android:text="180"
+                    android:textSize="32dp"
+                    android:textColor="@color/black"/>
 
                 <TextView
                     android:id="@+id/orderTimeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:text="x1" />
+                    android:text="x1"
+                    android:textSize="16dp"
+                    android:textColor="@color/black"/>
 
             </RelativeLayout>
 
@@ -92,7 +104,8 @@
             android:id="@+id/textView40"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="总计 ￥  " />
+            android:text="总计 ￥  "
+            android:textSize="16dp"/>
 
         <TextView
             android:id="@+id/moneyText2"
@@ -100,7 +113,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/textView40"
-            android:text="180" />
+            android:text="180"
+            android:textSize="22dp"/>
 
         <Button
             android:id="@+id/remindDeliveryButton"
