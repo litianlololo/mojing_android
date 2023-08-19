@@ -10,7 +10,8 @@ public class Dapei {
     public Danpin up=new Danpin();
     public Bitmap up_img;
     public Bitmap down_img;
-
+    public int lowtemp=0;
+    public int hightemp=0;
     public Bitmap combin_img;
     public Danpin down = new Danpin();
     public String name;
@@ -18,7 +19,6 @@ public class Dapei {
     public List<String> scene = new ArrayList<>();
     public String[] tags;
 
-    public String dapei_id;
     public int AI_Score;
     public int[] share_score;
     public int[] designer_score;

@@ -14,6 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -43,16 +44,17 @@ public class Dapei_Modify_Activity extends AppCompatActivity {
     private String up_img_url;
     private String down_img_url;
     private Activity activity=this;
-    private BottomSheetDialog bottomSheetDialog;
+    private BottomSheetDialog chagnjingbottomSheetDialog,tempbottomSheetDialog;
     private int changjingCNT=5;
     private Boolean[] isView;
     private boolean[] changjingChosed = new boolean[5];
     private View[] changjingView;
-    private TextView changjingText,savaBtn;
+    private TextView changjingText,savaBtn,tempText;
     private ImageView ImgBtn_1,ImgBtn_2;
     private String uu="http://47.103.223.106:5004/api";
     private String uuimg="http://47.103.223.106:5004";
     private Dapei dapei=new Dapei();
+    private int lowtemp,hightemp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,7 +108,14 @@ public class Dapei_Modify_Activity extends AppCompatActivity {
         changjingText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BottomSheet();
+                changjingBottomSheet();
+            }
+        });
+        tempText = findViewById(R.id.tempBtn);
+        tempText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tempBottomSheet();
             }
         });
         savaBtn=findViewById(R.id.saveBtn);
@@ -119,6 +128,10 @@ public class Dapei_Modify_Activity extends AppCompatActivity {
                         MediaType JSON = MediaType.parse("application/json;charset=utf-8");
                         JSONObject json = new JSONObject();
                         try {
+                            JSONArray temperatureArray = new JSONArray();
+                            temperatureArray.put(dapei.lowtemp);
+                            temperatureArray.put(dapei.hightemp);
+                            json.put("temperature",temperatureArray);
                             json.put("_id",dapei._id);
                             if(dapei.up._id!=null) {
                                 json.put("up_cloth", dapei.up._id);
@@ -198,14 +211,14 @@ public class Dapei_Modify_Activity extends AppCompatActivity {
         });
         Glide.with(activity)
                 .load(uuimg + up_img_url)
-                //.placeholder(R.drawable.placeholder_image) // Placeholder image (optional)
                 .error(R.drawable.error) // Error image (optional)
                 .into(ImgBtn_1);
         Glide.with(activity)
                 .load(uuimg + down_img_url)
-                //.placeholder(R.drawable.placeholder_image) // Placeholder image (optional)
                 .error(R.drawable.error) // Error image (optional)
                 .into(ImgBtn_2);
+        //获取match
+        getmatch();
     }
     private ActivityResultLauncher<Intent> activityLauncher_up = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -224,7 +237,6 @@ public class Dapei_Modify_Activity extends AppCompatActivity {
                             public void run() {
                                 Glide.with(activity)
                                         .load(uuimg + dapei.up.img_url)
-                                        //.placeholder(R.drawable.placeholder_image) // Placeholder image (optional)
                                         .error(R.drawable.error) // Error image (optional)
                                         .into(ImgBtn_1);
                             }
@@ -249,7 +261,6 @@ public class Dapei_Modify_Activity extends AppCompatActivity {
                             public void run() {
                                 Glide.with(activity)
                                         .load(uuimg + dapei.down.img_url)
-                                        //.placeholder(R.drawable.placeholder_image) // Placeholder image (optional)
                                         .error(R.drawable.error) // Error image (optional)
                                         .into(ImgBtn_2);
                             }
@@ -259,13 +270,13 @@ public class Dapei_Modify_Activity extends AppCompatActivity {
             }
     );
     @SuppressLint("UseCompatLoadingForDrawables")
-    private void BottomSheet(){
+    private void changjingBottomSheet(){
         Drawable radius_border1,radius_chosed;
         //创建布局
         View view = LayoutInflater.from(activity).inflate(R.layout.dapei_changjing, null, false);
-        bottomSheetDialog = new BottomSheetDialog(activity);
+        chagnjingbottomSheetDialog = new BottomSheetDialog(activity);
         //设置布局
-        bottomSheetDialog.setContentView(view);
+        chagnjingbottomSheetDialog.setContentView(view);
         changjingView=new View[changjingCNT];
         isView=new Boolean[5];
         Arrays.fill(isView, Boolean.FALSE);
@@ -316,7 +327,40 @@ public class Dapei_Modify_Activity extends AppCompatActivity {
             });
         }
 
-        bottomSheetDialog.show();
+        chagnjingbottomSheetDialog.show();
+    }
+    @SuppressLint("SetTextI18n")
+    private void tempBottomSheet(){
+        //创建布局
+        View view = LayoutInflater.from(activity).inflate(R.layout.dapei_temp_bottom_sheet, null, false);
+        tempbottomSheetDialog = new BottomSheetDialog(activity);
+        //设置布局
+        tempbottomSheetDialog.setContentView(view);
+        TextView enBtn = view.findViewById(R.id.enBtn);
+        EditText lowEdit =  view.findViewById(R.id.low_temp);
+        EditText highEdit = view.findViewById(R.id.high_temp);
+        lowEdit.setText(Integer.toString(dapei.lowtemp));
+        highEdit.setText(Integer.toString(dapei.hightemp));
+        enBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String lowTempText = lowEdit.getText().toString().trim(); // 获取输入的文本并去除首尾空格
+                String highTempText = highEdit.getText().toString().trim();
+                if (!lowTempText.isEmpty() && !highTempText.isEmpty()) {
+                    try {
+                        dapei.lowtemp = Integer.parseInt(lowTempText);
+                        dapei.hightemp = Integer.parseInt(highTempText);
+
+                        // 在这里可以使用 low_temp 和 high_temp
+                    } catch (NumberFormatException e) {
+                        // 处理转换失败的情况，比如用户输入的不是数字
+                        showRequestFailedDialog("请输入整数");
+                    }
+                }
+                tempbottomSheetDialog.cancel();
+            }
+        });
+        tempbottomSheetDialog.show();
     }
     private void showRequestFailedDialog(String str) {
         runOnUiThread(new Runnable() {
@@ -329,5 +373,63 @@ public class Dapei_Modify_Activity extends AppCompatActivity {
                         .show();
             }
         });
+    }
+    private void getmatch()
+    {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                MediaType JSON = MediaType.parse("application/json;charset=utf-8");
+                //创建一个OkHttpClient对象
+                OkHttpClient okHttpClient = new OkHttpClient();
+                // 创建请求
+                Request.Builder requestBuilder = new Request.Builder()
+                        .url(uu+"/cloth/match-id?id="+match_id)
+                        .get()
+                        .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID());
+                // 将会话信息添加到请求头部
+                // 发送请求并获取响应
+                try {
+                    Request request = requestBuilder.build();
+                    Response response = okHttpClient.newCall(request).execute();
+                    // 检查响应是否成功
+                    if (response.isSuccessful()) {
+                        // 获取响应体
+                        ResponseBody responseBody = response.body();
+                        // 处理响应数据
+                        String responseData = responseBody.string();
+                        JSONObject responseJson = new JSONObject(responseData);
+                        // 提取键为"code"的值
+                        int code = responseJson.getInt("code");
+                        System.out.println(responseData);
+                        //确定返回状态
+                        switch (code) {
+                            case 200:
+                                JSONObject dataJson = responseJson.getJSONObject("data");
+                                if(dataJson.has("temperature")){
+                                    JSONArray temp = dataJson.getJSONArray("temperature");
+                                    dapei.lowtemp = temp.getInt(0);
+                                    dapei.hightemp= temp.getInt(1);
+                                }
+                                System.out.println(dataJson);
+                                break;
+                            default:
+                                showRequestFailedDialog("获取搭配信息失败");
+                                break;
+                        }
+                        responseBody.close();
+                    } else {
+                        // 请求失败，处理错误
+                        System.out.println("Request failed");
+                        showRequestFailedDialog("网络错误，添加失败");
+                    }
+                } catch (IOException e) {
+                    showRequestFailedDialog("网络错误，添加失败");
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }).start();
     }
 }
