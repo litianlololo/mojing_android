@@ -764,7 +764,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
         dataList.add("羊毛");
         dataList.add("棉");
         dataList.add("麻");
-        dataList.add("毛妮");
+        dataList.add("毛呢");
         dataList.add("其他");
         wheelPicker.setData(dataList);
         TextView xiuchangBtn = view.findViewById(R.id.xiuchangBtn);
