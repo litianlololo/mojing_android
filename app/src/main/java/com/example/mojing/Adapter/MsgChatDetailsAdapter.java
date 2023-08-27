@@ -64,7 +64,6 @@ public class MsgChatDetailsAdapter extends RecyclerView.Adapter<MsgChatDetailsAd
             //如果是发出的消息，则显示右边的消息布局，将左边的消息布局隐藏
             holder.rightLayout.setVisibility(View.VISIBLE);
             holder.right_msg.setText(msg.getContent());
-            //todo:aks头像获取
             holder.right_avatar.setImageBitmap(msg.getBitmapAvatar());
 
             //同样使用View.GONE

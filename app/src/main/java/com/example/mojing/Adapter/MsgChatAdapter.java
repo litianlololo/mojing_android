@@ -141,6 +141,8 @@ public class MsgChatAdapter extends RecyclerView.Adapter<MsgChatAdapter.ViewHold
                 intent.putExtra("byteArray", bs.toByteArray());
 
                 intent.putExtra("name_text", userInfo.getName());
+                intent.putExtra("chatid_text", userInfo.getChatId());
+                intent.putExtra("designerid_text", userInfo.getDesignerId());
 
                 // 启动目标 Activity
                 context.startActivity(intent);
