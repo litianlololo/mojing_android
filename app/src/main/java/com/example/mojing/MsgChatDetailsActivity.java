@@ -80,7 +80,7 @@ public class MsgChatDetailsActivity extends AppCompatActivity {
         String designerIdText =getIntent().getStringExtra("designerid_text");
         textViewTitleText.setText(nameText);
 
-        msgList.add(new MsgChatDetailsInfoType(bitmapAvatar, "test :What's your name?",MsgChatDetailsInfoType.TYPE_RECEIVED));
+//        msgList.add(new MsgChatDetailsInfoType(bitmapAvatar, "test :What's your name?",MsgChatDetailsInfoType.TYPE_RECEIVED));
         adapter.notifyItemInserted(msgList.size()-1);
         msgRecyclerView.scrollToPosition(msgList.size()-1);
 
@@ -292,10 +292,10 @@ public class MsgChatDetailsActivity extends AppCompatActivity {
             String content = obj.getString("content");
 
             // 输出参数
-            System.out.println("Sender ID: " + senderId);
-            System.out.println("Receiver ID: " + receiverId);
-            System.out.println("Sent Time: " + sentTime);
-            System.out.println("Content: " + content);
+            System.out.println("bagaSender ID: " + senderId);
+            System.out.println("bagaReceiver ID: " + receiverId);
+            System.out.println("bagaSent Time: " + sentTime);
+            System.out.println("bagaContent: " + content);
 
             System.out.println("bagaadddetails--------------------");
 
@@ -307,14 +307,18 @@ public class MsgChatDetailsActivity extends AppCompatActivity {
 //                e.printStackTrace();
 //            }
 
-            if(senderId==customerID){
+            if(senderId.equals(customerID)){
                 msgList.add(new MsgChatDetailsInfoType(bitmapAvatar, content, MsgChatDetailsInfoType.TYPE_SEND));
+                System.out.println("bagaadddetails--------------------send");
             }else{
                 msgList.add(new MsgChatDetailsInfoType(bitmapAvatar, content, MsgChatDetailsInfoType.TYPE_RECEIVED));
+                System.out.println("bagaadddetails--------------------received");
             }
             System.out.println("bagaadddetails--------------------c");
-            adapter.notifyItemInserted(msgList.size()-1);
-            msgRecyclerView.scrollToPosition(msgList.size()-1);
+//
+// todo: aks这里要是滚动就会闪退
+//            adapter.notifyItemInserted(msgList.size()-1);
+//            msgRecyclerView.scrollToPosition(msgList.size()-1);
             System.out.println("bagaadddetails--------------------d");
         }
     }

@@ -62,14 +62,8 @@ public class MsgChatFragment extends Fragment {
 
         msgChatInfoTypeList = new ArrayList<>();
 
-        msgChatInfoTypeList.add(new MsgChatInfoType("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201707%2F15%2F20170715164510_xm2yL.thumb.400_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1623550913&t=d8cae253f81749dbb3da16509d0b1abd",
-                "nickname","content",new Date(123414514513L),"chatId","designerId"));
+//        msgChatInfoTypeList.add(new MsgChatInfoType("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201707%2F15%2F20170715164510_xm2yL.thumb.400_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1623550913&t=d8cae253f81749dbb3da16509d0b1abd","nickname","content",new Date(123414514513L),"chatId","designerId"));
 
-        // 实例化适配器对象
-        msgChatAdapter = new MsgChatAdapter(getActivity(), msgChatInfoTypeList);
-
-        // 将适配器设置给 RecyclerView
-        recyclerView.setAdapter(msgChatAdapter);
 
         // 调用 loadAll 方法获取信息
         loadAll(new AddCallback() {
@@ -84,6 +78,12 @@ public class MsgChatFragment extends Fragment {
                 });
             }
         });
+
+        // 实例化适配器对象
+        msgChatAdapter = new MsgChatAdapter(getActivity(), msgChatInfoTypeList);
+
+        // 将适配器设置给 RecyclerView
+        recyclerView.setAdapter(msgChatAdapter);
 
         return view;
     }
@@ -118,7 +118,7 @@ public class MsgChatFragment extends Fragment {
                         switch (code) {
                             case 200:
                                 JSONArray dataJson = responseJson.getJSONArray("data");
-                                //AddDesigner(dataJson);
+                                AddDesigner(dataJson);
                                 // 更新UI，通知适配器进行刷新
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
@@ -169,7 +169,7 @@ public class MsgChatFragment extends Fragment {
 
     void AddDesigner(JSONArray dataJson) throws JSONException {
 
-        System.out.println("bagaa");
+//        System.out.println("bagaa");
 
         for (int i = 0; i < dataJson.length(); i++) {
             // 获取当前对象
