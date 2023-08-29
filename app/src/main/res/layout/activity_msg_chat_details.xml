@@ -2,12 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingHorizontal="10dp">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="10dp">
 
         <ImageButton
             android:id="@+id/back"
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="聊天"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
     </RelativeLayout>
 
@@ -33,12 +33,17 @@
         android:id="@+id/msg_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:paddingHorizontal="10dp"
+        android:background="#f5f5f9"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal">
+        android:paddingTop="5dp"
+        android:orientation="horizontal"
+        android:paddingHorizontal="10dp"
+        android:background="#f5f5f9">
 
         <EditText
             android:id="@+id/input_text"
@@ -46,9 +51,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="left"
-            android:hint=" 说点什么吧..."
+            android:hint="说点什么吧..."
             android:maxLines="2"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            android:paddingLeft="10dp" />
 
         <Button
             android:id="@+id/send"

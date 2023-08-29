@@ -41,7 +41,7 @@ public class VipOrderBottomSheetDialog extends BottomSheetDialogFragment {
         // 显示名字
         nameTextView.setText(name);
 
-        TextView cancelText=view.findViewById(R.id.cancelText);
+        TextView  cancelText=view.findViewById(R.id.cancelText);
         cancelText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

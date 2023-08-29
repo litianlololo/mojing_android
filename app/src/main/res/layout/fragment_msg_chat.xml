@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:id="@+id/chatLinear">
+    android:id="@+id/chatLinear"
+    android:layout_margin="8dp">
 
     <ImageView
         android:id="@+id/avatarImage"
         android:layout_width="160dp"
         android:layout_height="80dp"
         android:layout_weight="1"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"
+        android:padding="8dp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -21,7 +23,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="50dp">
 
             <TextView
                 android:id="@+id/nameText"
@@ -29,7 +31,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:text="namme" />
+                android:text="namme"
+                android:textSize="26dp"/>
 
             <TextView
                 android:id="@+id/timeText"
@@ -44,7 +47,8 @@
             android:id="@+id/msgText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="我是长度我是长度我是长度我是长度我是长度" />
+            android:text="我是长度我是长度我是长度我是长度我是长度"
+            android:layout_marginVertical="3dp"/>
 
     </LinearLayout>
 </LinearLayout>
