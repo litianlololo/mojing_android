@@ -93,12 +93,12 @@ public class VipOrderBottomSheetDialog extends BottomSheetDialogFragment {
         buttonOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dismiss();
                 Intent chatIntent = new Intent(context, PaymentResultActivity.class);
                 chatIntent.putExtra("payMethod", payMethod);
                 chatIntent.putExtra("payMoney", price.multiply(new BigDecimal(buyNum)).toString());
                 chatIntent.putExtra("designer", name);
                 context.startActivity(chatIntent);
-                dismiss();
             }
         });
         radioGroupBuyMethod.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

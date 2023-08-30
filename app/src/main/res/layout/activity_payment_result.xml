@@ -100,7 +100,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:text="我"
                 android:textSize="20dp"
                 android:textColor="@color/black"/>
         </LinearLayout>
@@ -116,8 +115,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="6dp"
             android:text="返回首页"
-            android:layout_alignParentBottom="true"
-            android:textSize="20sp" />
+            android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 
 

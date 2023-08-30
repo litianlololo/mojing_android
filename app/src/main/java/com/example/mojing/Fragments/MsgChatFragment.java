@@ -13,7 +13,9 @@ import android.view.ViewGroup;
 
 import com.example.mojing.Adapter.MsgChatAdapter;
 import com.example.mojing.Fragments.placeholder.MsgChatInfoType;
+import com.example.mojing.Fragments.placeholder.MsgOrderInfoType;
 import com.example.mojing.R;
+import com.example.mojing.SharedPreferencesManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +39,8 @@ public class MsgChatFragment extends Fragment {
     MsgChatAdapter msgChatAdapter;
     public String uu="http://47.102.43.156:8007/api";
     String customerID="64b0b9f3f90395f59d5a9432";
+    private SharedPreferencesManager sharedPreferencesManager;
+
 
     public MsgChatFragment() {
     }
@@ -56,7 +60,7 @@ public class MsgChatFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_msg_chat_list, container, false);
-
+        sharedPreferencesManager = new SharedPreferencesManager(getContext());
         RecyclerView recyclerView = view.findViewById(R.id.msgChatRecView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -95,11 +99,12 @@ public class MsgChatFragment extends Fragment {
                 //创建一个OkHttpClient对象
                 OkHttpClient okHttpClient = new OkHttpClient();
                 HttpUrl.Builder urlBuilder = HttpUrl.parse(uu + "/chat/getChatList").newBuilder();
-                urlBuilder.addQueryParameter("customer_id", customerID);
+//                urlBuilder.addQueryParameter("customer_id", customerID);
                 String url = urlBuilder.build().toString();
                 Request.Builder requestBuilder = new Request.Builder()
                         .url(url)
-                        .get();
+                        .get()
+                        .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID());
 
                 // 发送请求并获取响应
                 try {
@@ -169,7 +174,7 @@ public class MsgChatFragment extends Fragment {
 
     void AddDesigner(JSONArray dataJson) throws JSONException {
 
-//        System.out.println("bagaa");
+        System.out.println("bagaa");
 
         for (int i = 0; i < dataJson.length(); i++) {
             // 获取当前对象
