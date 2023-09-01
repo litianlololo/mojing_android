@@ -79,7 +79,9 @@ public class MsgOrderFragment extends Fragment {
 //                imm.showSoftInput(searchView, InputMethodManager.SHOW_IMPLICIT);
 //            }
 //        });
-        msgOrderFinishedList.add(new MsgOrderInfoType("User 3","baga",180,1, "https://pic2.zhimg.com/80/v2-cef1bd681556b3352f3b8bea15d4e0fd_1440w.webp"));
+        msgOrderFinishedList.add(new MsgOrderInfoType("User 1","baga",180,1, "https://pic2.zhimg.com/80/v2-cef1bd681556b3352f3b8bea15d4e0fd_1440w.webp"));
+        msgOrderWtfDeliveryList.add(new MsgOrderInfoType("User 2","baga",180,1, "https://pic2.zhimg.com/80/v2-cef1bd681556b3352f3b8bea15d4e0fd_1440w.webp"));
+        msgOrderWtfReceivingList.add(new MsgOrderInfoType("User 3","baga",180,1, "https://pic2.zhimg.com/80/v2-cef1bd681556b3352f3b8bea15d4e0fd_1440w.webp"));
         return contextView;
     }
 

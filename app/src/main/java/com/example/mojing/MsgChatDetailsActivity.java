@@ -45,6 +45,7 @@ public class MsgChatDetailsActivity extends AppCompatActivity {
 
     public String uu="http://47.102.43.156:8007/api";
     String customerID="64b0b9f3f90395f59d5a9432";
+    private SharedPreferencesManager sharedPreferencesManager;
     public Activity activity = this;
     private List<MsgChatDetailsInfoType> msgList = new ArrayList<>();
     private RecyclerView msgRecyclerView;
@@ -55,6 +56,7 @@ public class MsgChatDetailsActivity extends AppCompatActivity {
     private Bitmap bitmapAvatar;
     private LinearLayoutManager layoutManager;
     private MsgChatDetailsAdapter adapter;
+    String designerIdText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +79,10 @@ public class MsgChatDetailsActivity extends AppCompatActivity {
 
         String nameText =getIntent().getStringExtra("name_text");
         String chatIdText =getIntent().getStringExtra("chatid_text");
-        String designerIdText =getIntent().getStringExtra("designerid_text");
+        designerIdText =getIntent().getStringExtra("designerid_text");
         textViewTitleText.setText(nameText);
+
+        sharedPreferencesManager = new SharedPreferencesManager(this);
 
 //        msgList.add(new MsgChatDetailsInfoType(bitmapAvatar, "test :What's your name?",MsgChatDetailsInfoType.TYPE_RECEIVED));
         adapter.notifyItemInserted(msgList.size()-1);
@@ -130,15 +134,17 @@ public class MsgChatDetailsActivity extends AppCompatActivity {
                             //创建一个OkHttpClient对象
                             OkHttpClient okHttpClient = new OkHttpClient();
                             RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
-                            HttpUrl.Builder urlBuilder = HttpUrl.parse(uu + "/chat/sendMessage").newBuilder();
-                            urlBuilder.addQueryParameter("chat_id", chatIdText);
-                            urlBuilder.addQueryParameter("sender_id", customerID);
+                            HttpUrl.Builder urlBuilder = HttpUrl.parse(uu + "/chat/message/send").newBuilder();
+//                            urlBuilder.addQueryParameter("chat_id", chatIdText);
+//                            urlBuilder.addQueryParameter("sender_id", customerID);
                             urlBuilder.addQueryParameter("receiver_id", designerIdText);
                             String url = urlBuilder.build().toString();
                             // 创建请求
                             Request.Builder requestBuilder = new Request.Builder()
                                     .url(url)
-                                    .post(requestBody);
+                                    .post(requestBody)
+//                        .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID());
+                                    .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID_with_fake_cookie());
 
                             // 发送请求并获取响应
                             try {
@@ -159,7 +165,7 @@ public class MsgChatDetailsActivity extends AppCompatActivity {
                                             // todo: aks200好像不用干什么
                                             break;
                                         default:
-                                            showRequestFailedDialog("发送失败");
+                                            showRequestFailedDialog("发送失败msgchatdetial");
                                             break;
                                     }
                                     System.out.println("Response: " + responseData);
@@ -219,13 +225,15 @@ public class MsgChatDetailsActivity extends AppCompatActivity {
             public void run() {
                 //创建一个OkHttpClient对象
                 OkHttpClient okHttpClient = new OkHttpClient();
-                HttpUrl.Builder urlBuilder = HttpUrl.parse(uu + "/chat/getChatDetail").newBuilder();
-                urlBuilder.addQueryParameter("customer_id", customerID);
-                urlBuilder.addQueryParameter("designer_id", "64d3933ff392e07c93839d5a");
+                HttpUrl.Builder urlBuilder = HttpUrl.parse(uu + "/chat/detail").newBuilder();
+//                urlBuilder.addQueryParameter("customer_id", customerID);
+                urlBuilder.addQueryParameter("designer_id", designerIdText);
                 String url = urlBuilder.build().toString();
                 Request.Builder requestBuilder = new Request.Builder()
                         .url(url)
-                        .get();
+                        .get()
+//                        .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID());
+                        .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID_with_fake_cookie());
 
                 // 发送请求并获取响应
                 try {
@@ -255,7 +263,7 @@ public class MsgChatDetailsActivity extends AppCompatActivity {
                                 addCallback.onAddDetails();
                                 break;
                             default:
-                                showRequestFailedDialog("添加失败");
+                                showRequestFailedDialog("添加失败(msgchatdetail)");
                                 break;
                         }
                         //System.out.println("Response: " + responseData);
@@ -264,7 +272,7 @@ public class MsgChatDetailsActivity extends AppCompatActivity {
                     } else {
                         // 请求失败，处理错误
                         System.out.println("Request failed");
-                        showRequestFailedDialog("请求失败");
+                        showRequestFailedDialog("请求失败(msgchatdetail)");
                     }
                 } catch (IOException e) {
                     showRequestFailedDialog("网络错误(msgchatdetail)");

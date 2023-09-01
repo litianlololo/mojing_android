@@ -26,6 +26,14 @@ public class SharedPreferencesManager {
     private static final String KEY_Session_ID = "";
     private SharedPreferences sharedPreferences;
 
+    //aks
+    private static boolean isFakeCookie=true;
+    public String getKEY_Session_ID_with_fake_cookie() {
+        if(isFakeCookie)
+            return "session=eyJjdXN0b21lcl9pZCI6IjY0YjBiOWYzZjkwMzk1ZjU5ZDVhOTQzMiIsInJvbGUiOiJjdXN0b21lciJ9.ZO79dQ.YfUYWFCHfGRoHbSwMGnoTTBanVw; HttpOnly; Path=/";
+        else
+            return sharedPreferences.getString(KEY_Session_ID, "");
+    }
     public SharedPreferencesManager(Context context) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }

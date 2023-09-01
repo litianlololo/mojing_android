@@ -98,13 +98,14 @@ public class MsgChatFragment extends Fragment {
             public void run() {
                 //创建一个OkHttpClient对象
                 OkHttpClient okHttpClient = new OkHttpClient();
-                HttpUrl.Builder urlBuilder = HttpUrl.parse(uu + "/chat/getChatList").newBuilder();
+                HttpUrl.Builder urlBuilder = HttpUrl.parse(uu + "/chat/customer/list").newBuilder();
 //                urlBuilder.addQueryParameter("customer_id", customerID);
                 String url = urlBuilder.build().toString();
                 Request.Builder requestBuilder = new Request.Builder()
                         .url(url)
                         .get()
-                        .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID());
+//                        .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID());
+                        .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID_with_fake_cookie());
 
                 // 发送请求并获取响应
                 try {
@@ -134,7 +135,7 @@ public class MsgChatFragment extends Fragment {
                                 addCallback.onAddDesigner();
                                 break;
                             default:
-                                showRequestFailedDialog("网络连接失败");
+                                showRequestFailedDialog("网络连接失败: msg-chat");
                                 break;
                         }
                         //System.out.println("Response: " + responseData);
@@ -143,7 +144,7 @@ public class MsgChatFragment extends Fragment {
                     } else {
                         // 请求失败，处理错误
                         System.out.println("Request failed");
-                        showRequestFailedDialog("请求失败");
+                        showRequestFailedDialog("请求失败: msg-chat");
                     }
                 } catch (IOException e) {
                     showRequestFailedDialog("网络错误: msg-chat");

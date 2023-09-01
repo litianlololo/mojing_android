@@ -2,10 +2,35 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="12dp">
+    tools:context=".MsgOrderFinishedDetailActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/buttonBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:padding="8dp"
+            android:src="@drawable/back_icon" />
+
+        <TextView
+            android:id="@+id/textViewTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="订单详情页"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -25,29 +50,29 @@
             android:layout_marginStart="5dp"
             android:layout_toEndOf="@+id/textView33"
             android:text="12345678901234567890"
-            android:textSize="18dp"  />
+            android:textSize="18dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:text="待发货"
+            android:text="已完成"
             android:textSize="16dp" />
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/touchLinearLayout"
         android:layout_width="wrap_content"
         android:layout_height="80dp"
-        android:orientation="horizontal"
-        android:id="@+id/touchLinearLayout">
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/avatarImage"
             android:layout_width="160dp"
             android:layout_height="80dp"
             android:layout_weight="1"
-            tools:srcCompat="@tools:sample/avatars"
-            android:padding="5dp"/>
+            android:padding="5dp"
+            tools:srcCompat="@tools:sample/avatars" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -60,8 +85,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="namme"
-                android:textSize="26dp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:textSize="26dp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -72,7 +97,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="\n￥"
-                    android:textSize="14dp"/>
+                    android:textSize="14dp" />
 
                 <TextView
                     android:id="@+id/moneyText1"
@@ -80,8 +105,8 @@
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/textView34"
                     android:text="180"
-                    android:textSize="32dp"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/black"
+                    android:textSize="32dp" />
 
                 <TextView
                     android:id="@+id/orderTimeText"
@@ -89,39 +114,62 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:text="x1"
-                    android:textSize="16dp"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
 
             </RelativeLayout>
 
         </LinearLayout>
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/textView53"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="80dp"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView40"
+        <ImageView
+            android:id="@+id/imageView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="总计 ￥  "
-            android:textSize="16dp"/>
+            android:src="@drawable/icon_payment_nor" />
 
-        <TextView
-            android:id="@+id/moneyText2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/textView40"
-            android:text="180"
-            android:textSize="22dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/remindDeliveryButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:text="提醒发货" />
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/textView54"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/textView55"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+        </LinearLayout>
+    </LinearLayout>
+
+
 </LinearLayout>
