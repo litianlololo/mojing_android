@@ -10,14 +10,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.mojing.R;
-
-public class MsgOrderFinishedDetailActivity extends AppCompatActivity {
+public class MsgOrderWtfDeliveryDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_msg_order_finished_detail);
+        setContentView(R.layout.activity_msg_order_wtf_delivery_detail);
 
         TextView textViewOrderNumber = findViewById(R.id.orderNumberText);
         ImageView imageViewAvatar = findViewById(R.id.avatarImage);
@@ -27,8 +25,6 @@ public class MsgOrderFinishedDetailActivity extends AppCompatActivity {
         TextView textViewAllMoney = findViewById(R.id.textViewAllMoney);
         TextView textViewTime1 = findViewById(R.id.textViewTime1);
         TextView textViewTime2 = findViewById(R.id.textViewTime2);
-        TextView textViewTime3 = findViewById(R.id.textViewTime3);
-        TextView textViewTime4 = findViewById(R.id.textViewTime4);
 
         String nameText =getIntent().getStringExtra("nameText");
         String moneyText =getIntent().getStringExtra("moneyText");

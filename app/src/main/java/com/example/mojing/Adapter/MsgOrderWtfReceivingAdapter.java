@@ -1,6 +1,7 @@
 package com.example.mojing.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
@@ -16,8 +17,10 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mojing.Fragments.placeholder.MsgOrderInfoType;
+import com.example.mojing.MsgOrderWtfReceivingDetailActivity;
 import com.example.mojing.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -83,7 +86,7 @@ public class MsgOrderWtfReceivingAdapter extends RecyclerView.Adapter<MsgOrderWt
         holder.nameText.setText(userInfo.getName());
         holder.orderNumberText.setText(userInfo.getOrderNumber());
         holder.moneyText1.setText(userInfo.getMoney());
-        holder.moneyText2.setText(userInfo.getMoney());
+        holder.moneyText2.setText(userInfo.getAllMoney());
         holder.orderTimeText.setText(userInfo.getOrderTime());
 
         new Thread(new Runnable() {
@@ -102,19 +105,21 @@ public class MsgOrderWtfReceivingAdapter extends RecyclerView.Adapter<MsgOrderWt
         holder.touchLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                // 创建 Intent 对象，指定要启动的目标 Activity
-//                Intent intent = new Intent(context, MsgChatDetailsActivity.class);
-//
-////                intent.putExtra("id", userInfo.getId());
-//
-//                ByteArrayOutputStream bs = new ByteArrayOutputStream();
-//                bmp.compress(Bitmap.CompressFormat.JPEG, 50, bs);
-//                intent.putExtra("byteArray", bs.toByteArray());
-//
-//                intent.putExtra("name_text", userInfo.getName());
-//
-//                // 启动目标 Activity
-//                context.startActivity(intent);
+                // 创建 Intent 对象，指定要启动的目标 Activity
+                Intent intent = new Intent(context, MsgOrderWtfReceivingDetailActivity.class);
+
+                ByteArrayOutputStream bs = new ByteArrayOutputStream();
+                bmp.compress(Bitmap.CompressFormat.JPEG, 50, bs);
+                intent.putExtra("byteArray", bs.toByteArray());
+
+                intent.putExtra("nameText", userInfo.getName());
+                intent.putExtra("moneyText", userInfo.getMoney());
+                intent.putExtra("orderNumberText", userInfo.getOrderNumber());
+                intent.putExtra("orderTimeText", userInfo.getOrderTime());
+                intent.putExtra("allMoneyText", userInfo.getAllMoney());
+
+                // 启动目标 Activity
+                context.startActivity(intent);
             }
         });
         holder.confirmReceiptButton.setOnClickListener(new View.OnClickListener() {
@@ -152,8 +157,8 @@ public class MsgOrderWtfReceivingAdapter extends RecyclerView.Adapter<MsgOrderWt
             avatarImage=view.findViewById(R.id.avatarImage);
             nameText = view.findViewById(R.id.nameText);
             orderNumberText = view.findViewById(R.id.orderNumberText);
-            moneyText1 = view.findViewById(R.id.moneyText1);
-            moneyText2 = view.findViewById(R.id.moneyText2);
+            moneyText1 = view.findViewById(R.id.moneyText);
+            moneyText2 = view.findViewById(R.id.allMoneyText);
             orderTimeText = view.findViewById(R.id.orderTimeText);
             confirmReceiptButton = view.findViewById(R.id.confirmReceiptButton);
             touchLinear=view.findViewById(R.id.touchLinearLayout);

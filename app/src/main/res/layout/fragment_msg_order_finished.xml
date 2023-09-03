@@ -75,7 +75,7 @@
                     android:textSize="14dp"/>
 
                 <TextView
-                    android:id="@+id/moneyText1"
+                    android:id="@+id/moneyText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/textView34"
@@ -105,11 +105,12 @@
             android:id="@+id/textView40"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="总计 ￥  "
-            android:textSize="16dp"/>
+            android:text="总计 ￥"
+            android:textSize="14dp"
+            android:layout_marginTop="6dp"/>
 
         <TextView
-            android:id="@+id/moneyText2"
+            android:id="@+id/allMoneyText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
