@@ -9,13 +9,21 @@ public class MsgOrderInfoType {
     private BigDecimal money;
     private int orderTime;
     private String avatarUrl;
-
-    public MsgOrderInfoType(String name, String orderNumber,BigDecimal money, int orderTime, String avatarUrl) {
+    private String time1="";
+    private String time2="";
+    private String time3="";
+    private String time4="";
+    public MsgOrderInfoType(String name, String orderNumber,BigDecimal money, int orderTime, String avatarUrl,
+                            String time1, String time2, String time3, String time4) {
         this.name = name;
         this.orderNumber = orderNumber;
         this.avatarUrl = avatarUrl;
         this.money = money;
         this.orderTime = orderTime;
+        if(null!=time1) this.time1=time1;
+        if(null!=time2) this.time2=time2;
+        if(null!=time3) this.time3=time3;
+        if(null!=time4) this.time4=time4;
     }
 
     private BigDecimal toLessDigit(BigDecimal number){
@@ -52,4 +60,9 @@ public class MsgOrderInfoType {
         System.out.println("bagademical "+toLessDigit(money));
         return (toLessDigit(money).multiply(new BigDecimal(orderTime)).toPlainString());
     }
+
+    public String getTime1(){return time1;}
+    public String getTime2(){return time2;}
+    public String getTime3(){return time3;}
+    public String getTime4(){return time4;}
 }

@@ -78,8 +78,9 @@ public class Fragment_VIP extends Fragment {
                 //创建一个OkHttpClient对象
                 OkHttpClient okHttpClient = new OkHttpClient();
                 Request.Builder requestBuilder = new Request.Builder()
-                        .url(uu+"/query/getAvailableDesigners")
+                        .url(uu+"/service/customer/designer/list")
                         .get();
+//                        .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID_with_fake_cookie());
 
                 // 发送请求并获取响应
                 try {

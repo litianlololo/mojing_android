@@ -48,8 +48,10 @@ public class MsgOrderFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     ArrayList fragmentList = new ArrayList<Fragment>();
-    String[] temp = {"\n已完成","\n待发货","\n待收货"};
+//    String[] temp = {"\n已完成","\n待发货","\n待收货"};
+    String[] temp = {"已完成","待发货","待收货"};
     int[] statusNumber=new int[3]; //"\n已完成","\n待发货","\n待收货"
+    MPagerAdapter mPagerAdapter;
 
     public static List<MsgOrderInfoType> msgOrderFinishedList = new ArrayList<>();
     public static List<MsgOrderInfoType> msgOrderWtfDeliveryList = new ArrayList<>();
@@ -80,20 +82,21 @@ public class MsgOrderFragment extends Fragment {
 //                imm.showSoftInput(searchView, InputMethodManager.SHOW_IMPLICIT);
 //            }
 //        });
-        msgOrderFinishedList.add(new MsgOrderInfoType("User 1","baga",new BigDecimal(180),1, "https://pic1.zhimg.com/v2-95ed6ea0f78292c9cad905ad117c7fcc_r.jpg?source=1940ef5c"));
-        msgOrderWtfDeliveryList.add(new MsgOrderInfoType("User 2","bagaaga",new BigDecimal(179.9),3, "https://pic1.zhimg.com/80/v2-da2b0a3b96103d87a682409fc5a261a9_1440w.webp?source=1940ef5c"));
-        msgOrderWtfReceivingList.add(new MsgOrderInfoType("User 3","bagabagaga",new BigDecimal(180.00),4, "https://pic2.zhimg.com/80/v2-cef1bd681556b3352f3b8bea15d4e0fd_1440w.webp"));
+        msgOrderFinishedList.add(new MsgOrderInfoType("User 1","baga",new BigDecimal(180),1, "https://pic1.zhimg.com/v2-95ed6ea0f78292c9cad905ad117c7fcc_r.jpg?source=1940ef5c",
+                null,"time","time","timeqwer"));
+        statusNumber[0]++;
+        msgOrderWtfDeliveryList.add(new MsgOrderInfoType("User 2","bagaaga",new BigDecimal(179.9),3, "https://pic1.zhimg.com/80/v2-da2b0a3b96103d87a682409fc5a261a9_1440w.webp?source=1940ef5c",
+                "time",null,"time","timeasdf"));
+        statusNumber[1]++;
+        msgOrderWtfReceivingList.add(new MsgOrderInfoType("User 3","bagabagaga",new BigDecimal(180.00),4, "https://pic2.zhimg.com/80/v2-cef1bd681556b3352f3b8bea15d4e0fd_1440w.webp",
+                "time","time",null,"timezcxv"));
+        statusNumber[2]++;
         return contextView;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // fragment中嵌套fragment, Manager需要用(getChildFragmentManager())
-        MsgOrderFragment.MPagerAdapter mPagerAdapter = new MsgOrderFragment.MPagerAdapter(getChildFragmentManager());
-        initFragment();
-        tabLayout.setupWithViewPager(viewPager);
-        viewPager.setAdapter(mPagerAdapter);
 
         // 调用 loadAll 方法获取信息
         loadAll(new AddCallback() {
@@ -104,8 +107,23 @@ public class MsgOrderFragment extends Fragment {
                     @Override
                     public void run() {}
                 });
+
+
             }
         });
+//todo: aks这个地方后面的代码会先执行，导致订单数量不对。先把这个功能关了
+//        //几个已完成？几个还没玩？
+//        for(int i=0;i<3;i++){
+//            temp[i]=statusNumber[i]+temp[i];
+//        }
+        System.out.println("baganumbera: "+statusNumber[1]);
+
+        // fragment中嵌套fragment, Manager需要用(getChildFragmentManager())
+        mPagerAdapter = new MsgOrderFragment.MPagerAdapter(getChildFragmentManager());
+        initFragment();
+        tabLayout.setupWithViewPager(viewPager);
+        viewPager.setAdapter(mPagerAdapter);
+        System.out.println("baganumberb: "+statusNumber[1]);
     }
 
     void loadAll(AddCallback addCallback){
@@ -120,7 +138,7 @@ public class MsgOrderFragment extends Fragment {
                 Request.Builder requestBuilder = new Request.Builder()
                         .url(url)
                         .get()
-                        .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID());
+                        .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID_with_fake_cookie());
 
                 // 发送请求并获取响应
                 try {
@@ -148,7 +166,7 @@ public class MsgOrderFragment extends Fragment {
                                 addCallback.onAddDesigner();
                                 break;
                             default:
-                                showRequestFailedDialog("网络连接失败");
+                                showRequestFailedDialog("网络连接失败: msg-order");
                                 break;
                         }
                         //System.out.println("Response: " + responseData);
@@ -157,7 +175,7 @@ public class MsgOrderFragment extends Fragment {
                     } else {
                         // 请求失败，处理错误
                         System.out.println("Request failed");
-                        showRequestFailedDialog("请求失败");
+                        showRequestFailedDialog("请求失败: msg-order");
                     }
                 } catch (IOException e) {
                     showRequestFailedDialog("网络错误: msg-order");
@@ -192,42 +210,48 @@ public class MsgOrderFragment extends Fragment {
 
         for (int i = 0; i < dataJson.length(); i++) {
             //todo:bagaaks
-//            // 获取当前对象
-//            JSONObject obj = dataJson.getJSONObject(i);
-//
-//            String chatId = obj.getString("chat_id");
-//            String designerId = obj.getString("designer_id");
-//            JSONObject latestMessage = obj.getJSONObject("lastest_message");
-//            String nickname = obj.getString("nickname");
-//            String avatar = obj.getString("avatar");
-//
-//            System.out.println("Chat ID: " + chatId);
-//            System.out.println("Designer ID: " + designerId);
-//            System.out.println("Nickname: " + nickname);
-//            System.out.println("Avatar: " + avatar);
-//
-//            String senderId = latestMessage.getString("sender_id");
-//            String receiverId = latestMessage.getString("receiver_id");
-//            String sentTime = latestMessage.getString("sent_time");
-//            String content = latestMessage.getString("content");
-//
-//            System.out.println("Sender ID: " + senderId);
-//            System.out.println("Receiver ID: " + receiverId);
-//            System.out.println("Sent Time: " + sentTime);
-//            System.out.println("Content: " + content);
-//
-//            System.out.println("----------------------");
-//
-//            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//            Date date = null;
-//            try {
-//                date = sdf.parse(sentTime);
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
+            // 获取当前对象
+            JSONObject obj = dataJson.getJSONObject(i);
+            String id = obj.getString("_id");
+            int type = obj.getInt("type");
+            String createdTime = obj.getString("created_time");
+            String deadline = obj.getString("deadline");
+            int price = obj.getInt("price");
+            int state = obj.getInt("state");
 
-//            msgChatInfoTypeList.add(new MsgChatInfoType(avatar, nickname,content,date,chatId,designerId));
+            JSONArray designerArray = obj.getJSONArray("designer");
+            JSONObject designerObj = designerArray.getJSONObject(0);
+            String nickname = designerObj.getString("nickname");
+            String avatar = designerObj.getString("avatar");
+
+            // 打印获取到的值
+            System.out.println("ID: " + id);
+            System.out.println("Type: " + type);
+            System.out.println("Created Time: " + createdTime);
+            System.out.println("Deadline: " + deadline);
+            System.out.println("Price: " + price);
+            System.out.println("State: " + state);
+            System.out.println("Designer Nickname: " + nickname);
+            System.out.println("Designer Avatar: " + avatar);
+            System.out.println("----------------------");
+
+            if(0==state) {
+                msgOrderFinishedList.add(new MsgOrderInfoType(nickname, id, new BigDecimal(price), 1, avatar, createdTime, null, null, deadline));
+                statusNumber[0]++;
+            }else if(1==state) {
+                msgOrderWtfDeliveryList.add(new MsgOrderInfoType(nickname, id, new BigDecimal(price), 1, avatar, createdTime, null, null, null));
+                statusNumber[1]++;
+            }else if(2==state) {
+                msgOrderWtfReceivingList.add(new MsgOrderInfoType(nickname, id, new BigDecimal(price), 1, avatar, createdTime, null, null, null));
+                statusNumber[2]++;
+            }
         }
+
+        //几个已完成？几个还没玩？
+        for(int i=0;i<3;i++){
+            temp[i]=statusNumber[i]+temp[i];
+        }
+        System.out.println("baganumberc: "+statusNumber[1]);
     }
 
     private void initFragment() {
@@ -237,7 +261,6 @@ public class MsgOrderFragment extends Fragment {
     }
 
     class MPagerAdapter extends FragmentPagerAdapter {
-
 
         public MPagerAdapter(FragmentManager fm) {
             super(fm);

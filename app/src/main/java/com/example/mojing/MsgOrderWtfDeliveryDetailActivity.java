@@ -31,12 +31,16 @@ public class MsgOrderWtfDeliveryDetailActivity extends AppCompatActivity {
         String allMoneyText =getIntent().getStringExtra("allMoneyText");
         String orderNumberText =getIntent().getStringExtra("orderNumberText");
         String orderTimeText =getIntent().getStringExtra("orderTimeText");
+        String time1 = getIntent().getStringExtra("time1");
+        String time2 = getIntent().getStringExtra("time2");
 
         textViewOrderNumber.setText(orderNumberText);
         textViewName.setText(nameText);
         textViewMoney.setText(moneyText);
         textViewOrderTime.setText(orderTimeText);
         textViewAllMoney.setText(allMoneyText);
+        textViewTime1.setText(time1);
+        textViewTime2.setText(time2);
 
         // 设置头像图片
         if (getIntent().hasExtra("byteArray")) {
