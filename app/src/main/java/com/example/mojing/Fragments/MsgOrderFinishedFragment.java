@@ -41,16 +41,9 @@ public class MsgOrderFinishedFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.msgOrderFinishedRecView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        List<MsgOrderInfoType> msgOrderInfoTypeList = MsgOrderFragment.msgOrderFinishedList;
-        msgOrderInfoTypeList.add(new MsgOrderInfoType("User 1","bagabagabagabagabagaba",180,1, "https://pic2.zhimg.com/80/v2-cef1bd681556b3352f3b8bea15d4e0fd_1440w.webp"));
-        msgOrderInfoTypeList.add(new MsgOrderInfoType("User 2","baga",180,1, "https://pic2.zhimg.com/80/v2-cef1bd681556b3352f3b8bea15d4e0fd_1440w.webp"));
-//        msgOrderInfoTypeList.add(new MsgOrderInfoType("User 3","baga",180,1, "https://pic2.zhimg.com/80/v2-cef1bd681556b3352f3b8bea15d4e0fd_1440w.webp"));
-//        msgOrderInfoTypeList.add(new MsgOrderInfoType("User 56","baga",180,1, "https://pic3.zhimg.com/80/v2-911318ac58f4d15608e6b20a94834c3a_1440w.webp"));
-//        msgOrderInfoTypeList.add(new MsgOrderInfoType("User 56","baga",180,1, "https://pic3.zhimg.com/80/v2-911318ac58f4d15608e6b20a94834c3a_1440w.webp"));
-//        msgOrderInfoTypeList.add(new MsgOrderInfoType("User 1","bagabagabagabagabagaba",180,1, "https://pic2.zhimg.com/80/v2-cef1bd681556b3352f3b8bea15d4e0fd_1440w.webp"));
-
-        // 实例化适配器对象
-        MsgOrderFinishedAdapter msgOrderFinishedAdapter = new MsgOrderFinishedAdapter(getActivity(), msgOrderInfoTypeList);
+       // 实例化适配器对象
+        MsgOrderFinishedAdapter msgOrderFinishedAdapter =
+                new MsgOrderFinishedAdapter(getActivity(), MsgOrderFragment.msgOrderFinishedList);
 
         // 将适配器设置给 RecyclerView
         recyclerView.setAdapter(msgOrderFinishedAdapter);
