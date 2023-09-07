@@ -117,6 +117,8 @@ public class MsgOrderWtfDeliveryAdapter extends RecyclerView.Adapter<MsgOrderWtf
                 intent.putExtra("orderNumberText", userInfo.getOrderNumber());
                 intent.putExtra("orderTimeText", userInfo.getOrderTime());
                 intent.putExtra("allMoneyText", userInfo.getAllMoney());
+                intent.putExtra("time1", userInfo.getTime1());
+                intent.putExtra("time2", userInfo.getTime2());
 
                 // 启动目标 Activity
                 context.startActivity(intent);

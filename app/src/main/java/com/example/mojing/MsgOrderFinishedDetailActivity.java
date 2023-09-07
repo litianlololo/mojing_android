@@ -35,12 +35,20 @@ public class MsgOrderFinishedDetailActivity extends AppCompatActivity {
         String allMoneyText =getIntent().getStringExtra("allMoneyText");
         String orderNumberText =getIntent().getStringExtra("orderNumberText");
         String orderTimeText =getIntent().getStringExtra("orderTimeText");
+        String time1 = getIntent().getStringExtra("time1");
+        String time2 = getIntent().getStringExtra("time2");
+        String time3 = getIntent().getStringExtra("time3");
+        String time4 = getIntent().getStringExtra("time4");
 
         textViewOrderNumber.setText(orderNumberText);
         textViewName.setText(nameText);
         textViewMoney.setText(moneyText);
         textViewOrderTime.setText(orderTimeText);
         textViewAllMoney.setText(allMoneyText);
+        textViewTime1.setText(time1);
+        textViewTime2.setText(time2);
+        textViewTime3.setText(time3);
+        textViewTime4.setText(time4);
 
         // 设置头像图片
         if (getIntent().hasExtra("byteArray")) {

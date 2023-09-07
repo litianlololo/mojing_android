@@ -116,6 +116,10 @@ public class MsgOrderFinishedAdapter extends RecyclerView.Adapter<MsgOrderFinish
                 intent.putExtra("orderNumberText", userInfo.getOrderNumber());
                 intent.putExtra("orderTimeText", userInfo.getOrderTime());
                 intent.putExtra("allMoneyText", userInfo.getAllMoney());
+                intent.putExtra("time1", userInfo.getTime1());
+                intent.putExtra("time2", userInfo.getTime2());
+                intent.putExtra("time3", userInfo.getTime3());
+                intent.putExtra("time4", userInfo.getTime4());
 
                 // 启动目标 Activity
                 context.startActivity(intent);
