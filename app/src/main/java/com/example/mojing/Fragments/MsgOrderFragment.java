@@ -82,15 +82,15 @@ public class MsgOrderFragment extends Fragment {
 //                imm.showSoftInput(searchView, InputMethodManager.SHOW_IMPLICIT);
 //            }
 //        });
-        msgOrderFinishedList.add(new MsgOrderInfoType("User 1","baga",new BigDecimal(180),1, "https://pic1.zhimg.com/v2-95ed6ea0f78292c9cad905ad117c7fcc_r.jpg?source=1940ef5c",
-                null,"time","time","timeqwer"));
-        statusNumber[0]++;
-        msgOrderWtfDeliveryList.add(new MsgOrderInfoType("User 2","bagaaga",new BigDecimal(179.9),3, "https://pic1.zhimg.com/80/v2-da2b0a3b96103d87a682409fc5a261a9_1440w.webp?source=1940ef5c",
-                "time",null,"time","timeasdf"));
-        statusNumber[1]++;
-        msgOrderWtfReceivingList.add(new MsgOrderInfoType("User 3","bagabagaga",new BigDecimal(180.00),4, "https://pic2.zhimg.com/80/v2-cef1bd681556b3352f3b8bea15d4e0fd_1440w.webp",
-                "time","time",null,"timezcxv"));
-        statusNumber[2]++;
+//        msgOrderFinishedList.add(new MsgOrderInfoType("User 1","baga",new BigDecimal(180),1, "https://pic1.zhimg.com/v2-95ed6ea0f78292c9cad905ad117c7fcc_r.jpg?source=1940ef5c",
+//                null,"time","time","timeqwer"));
+//        statusNumber[0]++;
+//        msgOrderWtfDeliveryList.add(new MsgOrderInfoType("User 2","bagaaga",new BigDecimal(179.9),3, "https://pic1.zhimg.com/80/v2-da2b0a3b96103d87a682409fc5a261a9_1440w.webp?source=1940ef5c",
+//                "time",null,"time","timeasdf"));
+//        statusNumber[1]++;
+//        msgOrderWtfReceivingList.add(new MsgOrderInfoType("User 3","bagabagaga",new BigDecimal(180.00),4, "https://pic2.zhimg.com/80/v2-cef1bd681556b3352f3b8bea15d4e0fd_1440w.webp",
+//                "time","time",null,"timezcxv"));
+//        statusNumber[2]++;
         return contextView;
     }
 

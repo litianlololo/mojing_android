@@ -27,16 +27,18 @@ import java.util.List;
 public class VipOrderBottomSheetDialog extends BottomSheetDialogFragment {
     private Context context;
     private String name;
+    private String id;
     private Bitmap avatarBmp;
 
     private int buyNum=1;
     private BigDecimal price=new BigDecimal("179.99");
     private int payMethod=0;//0支付宝，1微信
 
-    public VipOrderBottomSheetDialog(Context context, String name, Bitmap avatarBmp) {
+    public VipOrderBottomSheetDialog(Context context, String name, Bitmap avatarBmp, String id) {
         this.context = context;
         this.name = name;
         this.avatarBmp = avatarBmp;
+        this.id = id;
     }
 
     @Override
@@ -98,6 +100,12 @@ public class VipOrderBottomSheetDialog extends BottomSheetDialogFragment {
                 chatIntent.putExtra("payMethod", payMethod);
                 chatIntent.putExtra("payMoney", price.multiply(new BigDecimal(buyNum)).toString());
                 chatIntent.putExtra("designer", name);
+                chatIntent.putExtra("id", id);
+
+                ByteArrayOutputStream bs = new ByteArrayOutputStream();
+                avatarBmp.compress(Bitmap.CompressFormat.JPEG, 50, bs);
+                chatIntent.putExtra("byteArray", bs.toByteArray());
+
                 context.startActivity(chatIntent);
             }
         });

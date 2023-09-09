@@ -124,24 +124,24 @@ public class MsgOrderWtfDeliveryAdapter extends RecyclerView.Adapter<MsgOrderWtf
                 context.startActivity(intent);
             }
         });
-        holder.remindDeliveryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                // 创建 Intent 对象，指定要启动的目标 Activity
-//                Intent intent = new Intent(context, MsgChatDetailsActivity.class);
-//
-////                intent.putExtra("id", userInfo.getId());
-//
-//                ByteArrayOutputStream bs = new ByteArrayOutputStream();
-//                bmp.compress(Bitmap.CompressFormat.JPEG, 50, bs);
-//                intent.putExtra("byteArray", bs.toByteArray());
-//
-//                intent.putExtra("name_text", userInfo.getName());
-//
-//                // 启动目标 Activity
-//                context.startActivity(intent);
-            }
-        });
+//        holder.remindDeliveryButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                // 创建 Intent 对象，指定要启动的目标 Activity
+////                Intent intent = new Intent(context, MsgChatDetailsActivity.class);
+////
+//////                intent.putExtra("id", userInfo.getId());
+////
+////                ByteArrayOutputStream bs = new ByteArrayOutputStream();
+////                bmp.compress(Bitmap.CompressFormat.JPEG, 50, bs);
+////                intent.putExtra("byteArray", bs.toByteArray());
+////
+////                intent.putExtra("name_text", userInfo.getName());
+////
+////                // 启动目标 Activity
+////                context.startActivity(intent);
+//            }
+//        });
     }
 
     @Override
@@ -151,7 +151,7 @@ public class MsgOrderWtfDeliveryAdapter extends RecyclerView.Adapter<MsgOrderWtf
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView nameText, orderNumberText, moneyText1,moneyText2,orderTimeText;
-        Button remindDeliveryButton;
+//        Button remindDeliveryButton;
         LinearLayout touchLinear;
 
         public ViewHolder(View view) {
@@ -162,7 +162,7 @@ public class MsgOrderWtfDeliveryAdapter extends RecyclerView.Adapter<MsgOrderWtf
             moneyText1 = view.findViewById(R.id.moneyText);
             moneyText2 = view.findViewById(R.id.allMoneyText);
             orderTimeText = view.findViewById(R.id.orderTimeText);
-            remindDeliveryButton = view.findViewById(R.id.remindDeliveryButton);
+//            remindDeliveryButton = view.findViewById(R.id.remindDeliveryButton);
             touchLinear=view.findViewById(R.id.touchLinearLayout);
         }
     }
