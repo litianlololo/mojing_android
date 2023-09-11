@@ -27,7 +27,7 @@ public class SharedPreferencesManager {
     private SharedPreferences sharedPreferences;
 
     //aks
-    private static boolean isFakeCookie=true;
+    private static boolean isFakeCookie=false;
     public String getKEY_Session_ID_with_fake_cookie() {
         if(isFakeCookie)
             return "session=eyJjdXN0b21lcl9pZCI6IjY0YjBiOWYzZjkwMzk1ZjU5ZDVhOTQzMiIsInJvbGUiOiJjdXN0b21lciJ9.ZO79dQ.YfUYWFCHfGRoHbSwMGnoTTBanVw; HttpOnly; Path=/";

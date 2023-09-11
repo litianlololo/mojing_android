@@ -125,24 +125,24 @@ public class MsgOrderWtfReceivingAdapter extends RecyclerView.Adapter<MsgOrderWt
                 context.startActivity(intent);
             }
         });
-        holder.confirmReceiptButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                // 创建 Intent 对象，指定要启动的目标 Activity
-//                Intent intent = new Intent(context, MsgChatDetailsActivity.class);
-//
-////                intent.putExtra("id", userInfo.getId());
-//
-//                ByteArrayOutputStream bs = new ByteArrayOutputStream();
-//                bmp.compress(Bitmap.CompressFormat.JPEG, 50, bs);
-//                intent.putExtra("byteArray", bs.toByteArray());
-//
-//                intent.putExtra("name_text", userInfo.getName());
-//
-//                // 启动目标 Activity
-//                context.startActivity(intent);
-            }
-        });
+//        holder.confirmReceiptButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                // 创建 Intent 对象，指定要启动的目标 Activity
+////                Intent intent = new Intent(context, MsgChatDetailsActivity.class);
+////
+//////                intent.putExtra("id", userInfo.getId());
+////
+////                ByteArrayOutputStream bs = new ByteArrayOutputStream();
+////                bmp.compress(Bitmap.CompressFormat.JPEG, 50, bs);
+////                intent.putExtra("byteArray", bs.toByteArray());
+////
+////                intent.putExtra("name_text", userInfo.getName());
+////
+////                // 启动目标 Activity
+////                context.startActivity(intent);
+//            }
+//        });
     }
 
     @Override
@@ -152,7 +152,7 @@ public class MsgOrderWtfReceivingAdapter extends RecyclerView.Adapter<MsgOrderWt
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView nameText, orderNumberText, moneyText1,moneyText2,orderTimeText;
-        Button confirmReceiptButton;
+//        Button confirmReceiptButton;
         LinearLayout touchLinear;
 
         public ViewHolder(View view) {
@@ -163,7 +163,7 @@ public class MsgOrderWtfReceivingAdapter extends RecyclerView.Adapter<MsgOrderWt
             moneyText1 = view.findViewById(R.id.moneyText);
             moneyText2 = view.findViewById(R.id.allMoneyText);
             orderTimeText = view.findViewById(R.id.orderTimeText);
-            confirmReceiptButton = view.findViewById(R.id.confirmReceiptButton);
+//            confirmReceiptButton = view.findViewById(R.id.confirmReceiptButton);
             touchLinear=view.findViewById(R.id.touchLinearLayout);
         }
     }

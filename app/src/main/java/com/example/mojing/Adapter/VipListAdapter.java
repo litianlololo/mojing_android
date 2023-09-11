@@ -120,7 +120,7 @@ public class VipListAdapter extends RecyclerView.Adapter<VipListAdapter.MyViewHo
         holder.orderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                VipOrderBottomSheetDialog dialog = new VipOrderBottomSheetDialog(context, userInfo.getName(), bmp);
+                VipOrderBottomSheetDialog dialog = new VipOrderBottomSheetDialog(context, userInfo.getName(), bmp, userInfo.getId());
                 dialog.show(((AppCompatActivity) context).getSupportFragmentManager(), "tag");
             }
         });

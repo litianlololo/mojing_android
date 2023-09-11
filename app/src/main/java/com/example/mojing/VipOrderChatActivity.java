@@ -24,7 +24,6 @@ import com.example.mojing.Fragments.placeholder.MsgChatDetailsInfoType;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -37,27 +36,28 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-/**
- * Checkout implementation for the app
- */
-public class VipChatActivity extends AppCompatActivity {
+public class VipOrderChatActivity extends AppCompatActivity {
     public String uu="http://47.102.43.156:8007/api";
     private SharedPreferencesManager sharedPreferencesManager;
     private ImageView imageViewDesignerAvatar;
     private TextView textViewDesignerName;
     private EditText editTextToDesigner;
+    private CheckBox checkBoxToCheckWardrobe;
+    private boolean checkboxValue;
     private Button buttonOK;
-    private String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vip_chat);
+        setContentView(R.layout.activity_vip_order_chat);
 
         sharedPreferencesManager = new SharedPreferencesManager(this);
         imageViewDesignerAvatar=findViewById(R.id.imageViewDesignerAvatar);
         textViewDesignerName=findViewById(R.id.textViewDesignerName);
         editTextToDesigner=findViewById(R.id.editTextToDesigner);
+        checkBoxToCheckWardrobe=findViewById(R.id.checkBoxToCheckWardrobe);
+        // 初始化checkboxValue为CheckBox的初始状态
+        checkboxValue = checkBoxToCheckWardrobe.isChecked();
         // 设置头像图片
         if (getIntent().hasExtra("byteArray")) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(getIntent().getByteArrayExtra("byteArray"),
@@ -65,16 +65,20 @@ public class VipChatActivity extends AppCompatActivity {
             imageViewDesignerAvatar.setImageBitmap(bitmap);
         }
 
-        id =getIntent().getStringExtra("id");
+        String id =getIntent().getStringExtra("id");
         String nameText =getIntent().getStringExtra("name_text");
         textViewDesignerName.setText(nameText);
 
 
-        ImageButton btnBack = findViewById(R.id.buttonBack);
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { finish(); }
-        });
+//        ImageButton btnBack = findViewById(R.id.buttonBack);
+//        btnBack.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) { finish(); }
+//        });
+
+        // 监听CheckBox状态改变事件，更新checkboxValue的值
+        checkBoxToCheckWardrobe.setOnCheckedChangeListener((buttonView, isChecked) ->
+                checkboxValue = isChecked);
 
         Button buttonShijian = findViewById(R.id.buttonShijian);
         buttonShijian.setOnClickListener(new View.OnClickListener() {
@@ -179,13 +183,34 @@ public class VipChatActivity extends AppCompatActivity {
                     showRequestFailedDialog("请填写留言");
                     return;
                 }
+                // 获取当前日期
+                LocalDate currentDate = LocalDate.now();
 
+                // 将日期增加7天
+                LocalDate futureDate = currentDate.plusDays(7);
+
+                // 定义日期格式化器
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+                // 格式化日期为字符串
+                String formattedDate = futureDate.format(formatter);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        MediaType JSON = MediaType.parse("application/json;charset=utf-8");
+                        JSONObject json = new JSONObject();
+                        try {
+                            json.put("comment",content);
+                            json.put("type", 0);
+                            json.put("deadline", formattedDate);
+                            json.put("can_view_outfits", checkboxValue);
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
                         //创建一个OkHttpClient对象
                         OkHttpClient okHttpClient = new OkHttpClient();
-                        HttpUrl.Builder urlBuilder = HttpUrl.parse(uu + "/chat/init").newBuilder();
+                        RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
+                        HttpUrl.Builder urlBuilder = HttpUrl.parse(uu + "/service/customer/service/commit").newBuilder();
 //                            urlBuilder.addQueryParameter("chat_id", chatIdText);
 //                            urlBuilder.addQueryParameter("sender_id", customerID);
                         urlBuilder.addQueryParameter("designer_id", id);
@@ -193,7 +218,7 @@ public class VipChatActivity extends AppCompatActivity {
                         // 创建请求
                         Request.Builder requestBuilder = new Request.Builder()
                                 .url(url)
-                                .post(RequestBody.create("", MediaType.get("application/json")))
+                                .post(requestBody)
 //                        .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID());
                                 .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID_with_fake_cookie());
 
@@ -213,92 +238,29 @@ public class VipChatActivity extends AppCompatActivity {
                                 //确定返回状态
                                 switch (code) {
                                     case 200:
-                                        new Thread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                MediaType JSON = MediaType.parse("application/json;charset=utf-8");
-                                                JSONObject json = new JSONObject();
-                                                try {
-                                                    json.put("content",content);
-                                                } catch (JSONException e) {
-                                                    throw new RuntimeException(e);
-                                                }
-                                                //创建一个OkHttpClient对象
-                                                OkHttpClient okHttpClient = new OkHttpClient();
-                                                RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
-                                                HttpUrl.Builder urlBuilder = HttpUrl.parse(uu + "/chat/message/send").newBuilder();
-//                            urlBuilder.addQueryParameter("chat_id", chatIdText);
-//                            urlBuilder.addQueryParameter("sender_id", customerID);
-                                                urlBuilder.addQueryParameter("receiver_id", id);
-                                                String url = urlBuilder.build().toString();
-                                                // 创建请求
-                                                Request.Builder requestBuilder = new Request.Builder()
-                                                        .url(url)
-                                                        .post(requestBody)
-//                        .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID());
-                                                        .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID_with_fake_cookie());
-
-                                                // 发送请求并获取响应
-                                                try {
-                                                    Request request = requestBuilder.build();
-                                                    Response response = okHttpClient.newCall(request).execute();
-                                                    // 检查响应是否成功
-                                                    if (response.isSuccessful()) {
-                                                        System.out.println("bagagae");
-                                                        // 获取响应体
-                                                        ResponseBody responseBody = response.body();
-                                                        System.out.println("bagagaf");
-                                                        // 处理响应数据
-                                                        String responseData = responseBody.string();
-                                                        JSONObject responseJson = new JSONObject(responseData);
-                                                        // 提取键为"code"的值
-                                                        int code = responseJson.getInt("code");
-                                                        //确定返回状态
-                                                        switch (code) {
-                                                            case 200:
-                                                                System.out.println("bagagag");
-                                                                finish();
-                                                                break;
-                                                            default:
-                                                                showRequestFailedDialog("发送失败vipchat");
-                                                                break;
-                                                        }
-                                                        System.out.println("bagagaResponse: " + responseData);
-                                                        // 记得关闭响应体
-                                                        responseBody.close();
-                                                    } else {
-                                                        // 请求失败，处理错误
-                                                        System.out.println("Request failed");
-                                                        showRequestFailedDialog("网络错误vipchat");
-                                                    }
-                                                } catch (IOException e) {
-                                                    showRequestFailedDialog("网络错误vipchat");
-                                                    e.printStackTrace();
-                                                } catch (JSONException e) {
-                                                    throw new RuntimeException(e);
-                                                }
-                                            }
-                                        }).start();
+                                        finish();
                                         break;
                                     default:
-                                        showRequestFailedDialog("发送失败：init聊天请求");
+                                        showRequestFailedDialog("发送失败viporderchat");
                                         break;
                                 }
-                                System.out.println("bagaResponse: " + responseData);
+                                System.out.println("Response: " + responseData);
                                 // 记得关闭响应体
                                 responseBody.close();
                             } else {
                                 // 请求失败，处理错误
-                                showRequestFailedDialog("网络错误：init聊天请求");
+                                System.out.println("Request failed");
+                                showRequestFailedDialog("网络错误viporderchat");
                             }
                         } catch (IOException e) {
-                            showRequestFailedDialog("网络错误：init聊天请求2");
+                            showRequestFailedDialog("网络错误viporderchat");
                             e.printStackTrace();
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
                     }
                 }).start();
+
             }
         });
     }
@@ -306,7 +268,7 @@ public class VipChatActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                AlertDialog.Builder builder = new AlertDialog.Builder(VipChatActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(VipOrderChatActivity.this);
                 builder.setTitle("注意")
                         .setMessage(str)
                         .setPositiveButton("确定", null)
