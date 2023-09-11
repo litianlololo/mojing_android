@@ -584,7 +584,7 @@ public class Fragment_yichu extends Fragment {
                 });
             }
         }).start();
-//        imageLoadingCallback.onImagesLoaded(selectedURL);
+//        imageLoadingCallback.onImagesLoaded(selectedURL);a
     }
     private void AddDanpin(JSONObject dataJson) throws JSONException {
         if(!sharedPreferencesManager.isLoggedIn())

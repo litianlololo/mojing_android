@@ -34,7 +34,7 @@ public class StartActivity extends AppCompatActivity {
     private CheckBox checkbox;
     private TextView LoginBtn;
     private TextView RegisteBtn;
-    private Button SKIPBtn;
+    private TextView SKIPBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
