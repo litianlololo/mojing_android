@@ -17,7 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mojing.Fragments.placeholder.MsgOrderInfoType;
-import com.example.mojing.MsgChatDetailsActivity;
+import com.example.mojing.MsgOrderFinishedDetailActivity;
 import com.example.mojing.R;
 
 import java.io.ByteArrayOutputStream;
@@ -85,7 +85,7 @@ public class MsgOrderFinishedAdapter extends RecyclerView.Adapter<MsgOrderFinish
         holder.nameText.setText(userInfo.getName());
         holder.orderNumberText.setText(userInfo.getOrderNumber());
         holder.moneyText1.setText(userInfo.getMoney());
-        holder.moneyText2.setText(userInfo.getMoney());
+        holder.moneyText2.setText(userInfo.getAllMoney());
         holder.orderTimeText.setText(userInfo.getOrderTime());
 
         new Thread(new Runnable() {
@@ -104,19 +104,25 @@ public class MsgOrderFinishedAdapter extends RecyclerView.Adapter<MsgOrderFinish
         holder.touchLinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                // 创建 Intent 对象，指定要启动的目标 Activity
-//                Intent intent = new Intent(context, MsgChatDetailsActivity.class);
-//
-////                intent.putExtra("id", userInfo.getId());
-//
-//                ByteArrayOutputStream bs = new ByteArrayOutputStream();
-//                bmp.compress(Bitmap.CompressFormat.JPEG, 50, bs);
-//                intent.putExtra("byteArray", bs.toByteArray());
-//
-//                intent.putExtra("name_text", userInfo.getName());
-//
-//                // 启动目标 Activity
-//                context.startActivity(intent);
+                // 创建 Intent 对象，指定要启动的目标 Activity
+                Intent intent = new Intent(context, MsgOrderFinishedDetailActivity.class);
+
+                ByteArrayOutputStream bs = new ByteArrayOutputStream();
+                bmp.compress(Bitmap.CompressFormat.JPEG, 50, bs);
+                intent.putExtra("byteArray", bs.toByteArray());
+
+                intent.putExtra("nameText", userInfo.getName());
+                intent.putExtra("moneyText", userInfo.getMoney());
+                intent.putExtra("orderNumberText", userInfo.getOrderNumber());
+                intent.putExtra("orderTimeText", userInfo.getOrderTime());
+                intent.putExtra("allMoneyText", userInfo.getAllMoney());
+                intent.putExtra("time1", userInfo.getTime1());
+                intent.putExtra("time2", userInfo.getTime2());
+                intent.putExtra("time3", userInfo.getTime3());
+                intent.putExtra("time4", userInfo.getTime4());
+
+                // 启动目标 Activity
+                context.startActivity(intent);
             }
         });
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -172,8 +178,8 @@ public class MsgOrderFinishedAdapter extends RecyclerView.Adapter<MsgOrderFinish
             avatarImage=view.findViewById(R.id.avatarImage);
             nameText = view.findViewById(R.id.nameText);
             orderNumberText = view.findViewById(R.id.orderNumberText);
-            moneyText1 = view.findViewById(R.id.moneyText1);
-            moneyText2 = view.findViewById(R.id.moneyText2);
+            moneyText1 = view.findViewById(R.id.moneyText);
+            moneyText2 = view.findViewById(R.id.allMoneyText);
             orderTimeText = view.findViewById(R.id.orderTimeText);
             deleteButton = view.findViewById(R.id.deleteButton);
             reorderButton = view.findViewById(R.id.reorderButton);

@@ -13,7 +13,9 @@ import android.view.ViewGroup;
 
 import com.example.mojing.Adapter.MsgChatAdapter;
 import com.example.mojing.Fragments.placeholder.MsgChatInfoType;
+import com.example.mojing.Fragments.placeholder.MsgOrderInfoType;
 import com.example.mojing.R;
+import com.example.mojing.SharedPreferencesManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +39,8 @@ public class MsgChatFragment extends Fragment {
     MsgChatAdapter msgChatAdapter;
     public String uu="http://47.102.43.156:8007/api";
     String customerID="64b0b9f3f90395f59d5a9432";
+    private SharedPreferencesManager sharedPreferencesManager;
+
 
     public MsgChatFragment() {
     }
@@ -56,20 +60,14 @@ public class MsgChatFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_msg_chat_list, container, false);
-
+        sharedPreferencesManager = new SharedPreferencesManager(getContext());
         RecyclerView recyclerView = view.findViewById(R.id.msgChatRecView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         msgChatInfoTypeList = new ArrayList<>();
 
-        msgChatInfoTypeList.add(new MsgChatInfoType("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201707%2F15%2F20170715164510_xm2yL.thumb.400_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1623550913&t=d8cae253f81749dbb3da16509d0b1abd",
-                "nickname","content",new Date(123414514513L),"chatId","designerId"));
+//        msgChatInfoTypeList.add(new MsgChatInfoType("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201707%2F15%2F20170715164510_xm2yL.thumb.400_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1623550913&t=d8cae253f81749dbb3da16509d0b1abd","nickname","content",new Date(123414514513L),"chatId","designerId"));
 
-        // 实例化适配器对象
-        msgChatAdapter = new MsgChatAdapter(getActivity(), msgChatInfoTypeList);
-
-        // 将适配器设置给 RecyclerView
-        recyclerView.setAdapter(msgChatAdapter);
 
         // 调用 loadAll 方法获取信息
         loadAll(new AddCallback() {
@@ -85,6 +83,12 @@ public class MsgChatFragment extends Fragment {
             }
         });
 
+        // 实例化适配器对象
+        msgChatAdapter = new MsgChatAdapter(getActivity(), msgChatInfoTypeList);
+
+        // 将适配器设置给 RecyclerView
+        recyclerView.setAdapter(msgChatAdapter);
+
         return view;
     }
 
@@ -94,12 +98,14 @@ public class MsgChatFragment extends Fragment {
             public void run() {
                 //创建一个OkHttpClient对象
                 OkHttpClient okHttpClient = new OkHttpClient();
-                HttpUrl.Builder urlBuilder = HttpUrl.parse(uu + "/chat/getChatList").newBuilder();
-                urlBuilder.addQueryParameter("customer_id", customerID);
+                HttpUrl.Builder urlBuilder = HttpUrl.parse(uu + "/chat/customer/list").newBuilder();
+//                urlBuilder.addQueryParameter("customer_id", customerID);
                 String url = urlBuilder.build().toString();
                 Request.Builder requestBuilder = new Request.Builder()
                         .url(url)
-                        .get();
+                        .get()
+//                        .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID());
+                        .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID_with_fake_cookie());
 
                 // 发送请求并获取响应
                 try {
@@ -118,7 +124,7 @@ public class MsgChatFragment extends Fragment {
                         switch (code) {
                             case 200:
                                 JSONArray dataJson = responseJson.getJSONArray("data");
-                                //AddDesigner(dataJson);
+                                AddDesigner(dataJson);
                                 // 更新UI，通知适配器进行刷新
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
@@ -129,7 +135,7 @@ public class MsgChatFragment extends Fragment {
                                 addCallback.onAddDesigner();
                                 break;
                             default:
-                                showRequestFailedDialog("网络连接失败");
+                                showRequestFailedDialog("网络连接失败: msg-chat");
                                 break;
                         }
                         //System.out.println("Response: " + responseData);
@@ -138,7 +144,7 @@ public class MsgChatFragment extends Fragment {
                     } else {
                         // 请求失败，处理错误
                         System.out.println("Request failed");
-                        showRequestFailedDialog("请求失败");
+                        showRequestFailedDialog("请求失败: msg-chat");
                     }
                 } catch (IOException e) {
                     showRequestFailedDialog("网络错误: msg-chat");

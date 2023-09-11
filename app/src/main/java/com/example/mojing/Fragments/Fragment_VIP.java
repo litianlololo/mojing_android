@@ -32,7 +32,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-//todo:aks:传ID进vip的chat和order
+//todo:aks:传ID进vip的chat和order$
 
 public class Fragment_VIP extends Fragment {
     List<VIPDesignerInfoType> vip_designer_infoList;
@@ -79,8 +79,9 @@ public class Fragment_VIP extends Fragment {
                 //创建一个OkHttpClient对象
                 OkHttpClient okHttpClient = new OkHttpClient();
                 Request.Builder requestBuilder = new Request.Builder()
-                        .url(uu+"/query/getAvailableDesigners")
+                        .url(uu+"/service/customer/designer/list")
                         .get();
+//                        .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID_with_fake_cookie());
 
                 // 发送请求并获取响应
                 try {
@@ -166,9 +167,8 @@ public class Fragment_VIP extends Fragment {
         // 将适配器设置给 RecyclerView
         recyclerView.setAdapter(vipListAdapter);
 
-        vip_designer_infoList.add(new VIPDesignerInfoType("id", "nickname",
-                "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201707%2F15%2F20170715164510_xm2yL.thumb.400_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1623550913&t=d8cae253f81749dbb3da16509d0b1abd",
-                "intro", 34));
+        //akstest
+        vip_designer_infoList.add(new VIPDesignerInfoType("id", "nickname","https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201707%2F15%2F20170715164510_xm2yL.thumb.400_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1623550913&t=d8cae253f81749dbb3da16509d0b1abd", "intro", 34));
 
 // 调用 loadAll 方法获取设计师信息
         loadAll(new AddCallback() {
