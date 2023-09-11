@@ -141,7 +141,7 @@ public class Fragment_VIP extends Fragment {
             // 访问对象的属性并进行处理
             String id = obj.getString("_id");
             String nickname = obj.getString("nickname");
-            String avatar = obj.getString("avatar");
+            String avatar = "http://47.102.43.156:8007"+obj.getString("avatar");
             String intro = obj.getString("intro");
             int availableService = obj.getInt("available_service");
 

@@ -244,19 +244,19 @@ public class VipChatActivity extends AppCompatActivity {
                                                     Response response = okHttpClient.newCall(request).execute();
                                                     // 检查响应是否成功
                                                     if (response.isSuccessful()) {
-                                                        System.out.println("bagagae");
                                                         // 获取响应体
                                                         ResponseBody responseBody = response.body();
-                                                        System.out.println("bagagaf");
                                                         // 处理响应数据
                                                         String responseData = responseBody.string();
+                                                        System.out.println("bagagaf"+responseData);
                                                         JSONObject responseJson = new JSONObject(responseData);
+                                                        System.out.println("bagagag");
                                                         // 提取键为"code"的值
                                                         int code = responseJson.getInt("code");
+                                                        System.out.println("bagagah"+code);
                                                         //确定返回状态
                                                         switch (code) {
                                                             case 200:
-                                                                System.out.println("bagagag");
                                                                 finish();
                                                                 break;
                                                             default:

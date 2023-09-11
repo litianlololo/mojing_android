@@ -185,7 +185,7 @@ public class MsgChatFragment extends Fragment {
             String designerId = obj.getString("designer_id");
             JSONObject latestMessage = obj.getJSONObject("lastest_message");
             String nickname = obj.getString("nickname");
-            String avatar = obj.getString("avatar");
+            String avatar = "http://47.102.43.156:8007"+obj.getString("avatar");
 
             System.out.println("Chat ID: " + chatId);
             System.out.println("Designer ID: " + designerId);

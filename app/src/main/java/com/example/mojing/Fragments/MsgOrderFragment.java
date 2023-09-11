@@ -222,7 +222,7 @@ public class MsgOrderFragment extends Fragment {
             JSONArray designerArray = obj.getJSONArray("designer");
             JSONObject designerObj = designerArray.getJSONObject(0);
             String nickname = designerObj.getString("nickname");
-            String avatar = designerObj.getString("avatar");
+            String avatar = "http://47.102.43.156:8007"+designerObj.getString("avatar");
 
             // 打印获取到的值
             System.out.println("ID: " + id);
