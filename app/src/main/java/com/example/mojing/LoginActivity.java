@@ -29,8 +29,8 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class LoginActivity extends AppCompatActivity {
-    //public String uu = "http://47.102.43.156:8007/api";
-    public String uu="http://47.103.223.106:5004/api";
+    public String uu="http://47.102.43.156:8007/api";
+    public String uuimg="http://47.102.43.156:8007";
     private int countdownTime = 60; // 倒计时时长，单位：秒
 
     private Handler handler = new Handler(Looper.getMainLooper());
@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
                         MediaType JSON = MediaType.parse("application/json;charset=utf-8");
                         JSONObject json = new JSONObject();
                         try {
-                            json.put("phone_number", phone_number);
+                            json.put("phone", phone_number);
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
@@ -116,6 +116,7 @@ public class LoginActivity extends AppCompatActivity {
                             } else {
                                 // 请求失败，处理错误
                                 System.out.println("Request failed");
+
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -163,7 +164,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!isRegister) {
+                if (!isRegister) {
                     if (isPasswordLogin) {
                         // 使用密码登录
                         // 进行密码登录的逻辑处理
@@ -171,8 +172,7 @@ public class LoginActivity extends AppCompatActivity {
                         String password = passwordEditText.getText().toString();
                         if (phone_number.equals("") || password.equals("")) {
                             return;
-                        }
-                        ;
+                        };
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -180,8 +180,6 @@ public class LoginActivity extends AppCompatActivity {
                                 JSONObject json = new JSONObject();
                                 try {
                                     json.put("phone", phone_number);
-//                                    json.put("username", phone_number);
-//                                    json.put("username", );
                                     json.put("password", password);
                                 } catch (JSONException e) {
                                     throw new RuntimeException(e);
@@ -191,7 +189,7 @@ public class LoginActivity extends AppCompatActivity {
                                 RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
                                 Request request = new Request.Builder()
                                         //.url(uu+"/auth/login")
-                                        .url(uu+"/auth/login")
+                                        .url(uu + "/auth/login")
                                         .post(requestBody)
                                         .build();
                                 // 发送请求并获取响应
@@ -214,7 +212,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 Headers headers = response.headers();
                                                 List<String> cookies = headers.values("Set-Cookie");
                                                 String s = cookies.get(0);
-                                                System.out.println("cookie  "+s);
+                                                System.out.println("cookie  " + s);
                                                 String sessionCookie;
                                                 if (s != null) {
                                                     // 在这里处理获取到的会话信息
@@ -226,11 +224,11 @@ public class LoginActivity extends AppCompatActivity {
                                                 setData(responseJson);
                                                 // 登录成功，改变登录状态
                                                 if (sharedPreferencesManager.isLoggedIn()) {
-                                                    if(!needSet) {
+                                                    if (!needSet) {
                                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                                         startActivity(intent);
                                                         finish(); // 结束当前的LoginActivity
-                                                    }else{
+                                                    } else {
                                                         Intent intent = new Intent(LoginActivity.this, InitFigureActivity.class);
                                                         startActivity(intent);
                                                         finish(); // 结束当前的LoginActivity
@@ -256,6 +254,14 @@ public class LoginActivity extends AppCompatActivity {
                                                 });
                                                 break;
                                             //密码错误
+                                            default:
+                                                runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        showRequestFailedDialog("错误代码："+code);
+                                                    }
+                                                });
+                                                break;
                                         }
                                         System.out.println("username: " + phone_number);
                                         System.out.println("password: " + password);
@@ -265,6 +271,12 @@ public class LoginActivity extends AppCompatActivity {
                                     } else {
                                         // 请求失败，处理错误
                                         System.out.println("Request failed");
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                showRequestFailedDialog("请求失败/auth/login");
+                                            }
+                                        });
                                     }
                                 } catch (IOException e) {
                                     showRequestFailedDialog("网络请求失败");
@@ -274,18 +286,6 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                             }
                         }).start();
-                        // 登录成功，改变登录状态
-                        if (sharedPreferencesManager.isLoggedIn()) {
-                            if(!needSet) {
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                startActivity(intent);
-                                finish(); // 结束当前的LoginActivity
-                            }else{
-                                Intent intent = new Intent(LoginActivity.this, InitFigureActivity.class);
-                                startActivity(intent);
-                                finish(); // 结束当前的LoginActivity
-                            }
-                        }
                     } else {
                         // 使用验证码登录
                         // 进行验证码登录的逻辑处理
@@ -301,7 +301,7 @@ public class LoginActivity extends AppCompatActivity {
                                 MediaType JSON = MediaType.parse("application/json;charset=utf-8");
                                 JSONObject json = new JSONObject();
                                 try {
-                                    json.put("phone_number", phone_number);
+                                    json.put("phone", phone_number);
                                     json.put("code", code);
                                 } catch (JSONException e) {
                                     throw new RuntimeException(e);
@@ -310,7 +310,7 @@ public class LoginActivity extends AppCompatActivity {
                                 OkHttpClient okHttpClient = new OkHttpClient();
                                 RequestBody requestBody = RequestBody.create(JSON, String.valueOf(json));
                                 Request request = new Request.Builder()
-                                        .url(uu+"/auth/loginByCode")
+                                        .url(uu + "/auth/loginByCode")
                                         .post(requestBody)
                                         .build();
                                 // 发送请求并获取响应
@@ -332,27 +332,20 @@ public class LoginActivity extends AppCompatActivity {
                                                 Headers headers = response.headers();
                                                 List<String> cookies = headers.values("Set-Cookie");
                                                 String s = cookies.get(0);
-                                                System.out.println("cookie  "+s);
+                                                System.out.println("cookie  " + s);
                                                 String sessionCookie;
                                                 if (s != null) {
-                                                    // 在这里处理获取到的会话信息
-                                                    // sessionCookie 变量中存储了服务器返回的会话信息
-                                                    // 可以将其存储在本地，后续的请求可以携带这个会话信息
                                                     sessionCookie = s.substring(0, s.indexOf(";"));
                                                     sharedPreferencesManager.setKEY_Session_ID(sessionCookie);
-                                                    //showRequestFailedDialog(sessionCookie);
-                                                } else {
-                                                    // 服务器没有返回会话信息
-                                                    // 可能是未登录状态或者会话已经过期
                                                 }
                                                 setData(responseJson);
                                                 // 登录成功，改变登录状态
                                                 if (sharedPreferencesManager.isLoggedIn()) {
-                                                    if(!needSet) {
+                                                    if (!needSet) {
                                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                                         startActivity(intent);
                                                         finish(); // 结束当前的LoginActivity
-                                                    }else{
+                                                    } else {
                                                         Intent intent = new Intent(LoginActivity.this, InitFigureActivity.class);
                                                         startActivity(intent);
                                                         finish(); // 结束当前的LoginActivity
@@ -379,12 +372,18 @@ public class LoginActivity extends AppCompatActivity {
                                                 break;
                                             //密码错误
                                         }
-                                        //System.out.println("Response: " + responseData);
+                                        System.out.println("Response: " + responseData);
                                         // 记得关闭响应体
                                         responseBody.close();
                                     } else {
                                         // 请求失败，处理错误
                                         System.out.println("Request failed");
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                showRequestFailedDialog("请求失败/auth/loginByCode");
+                                            }
+                                        });
                                     }
                                 } catch (IOException e) {
                                     showRequestFailedDialog("网络请求失败");
@@ -396,7 +395,7 @@ public class LoginActivity extends AppCompatActivity {
                         }).start();
                     }
                 }
-        }
+            }
         });
 
 

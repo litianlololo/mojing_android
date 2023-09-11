@@ -51,8 +51,8 @@ public class Dapei_Modify_Activity extends AppCompatActivity {
     private View[] changjingView;
     private TextView changjingText,savaBtn,tempText;
     private ImageView ImgBtn_1,ImgBtn_2;
-    private String uu="http://47.103.223.106:5004/api";
-    private String uuimg="http://47.103.223.106:5004";
+    public String uu="http://47.102.43.156:8007/api";
+    public String uuimg="http://47.102.43.156:8007";
     private Dapei dapei=new Dapei();
     private int lowtemp,hightemp;
     @Override
@@ -197,10 +197,10 @@ public class Dapei_Modify_Activity extends AppCompatActivity {
                             } else {
                                 // 请求失败，处理错误
                                 System.out.println("Request failed");
-                                showRequestFailedDialog("网络错误，添加失败");
+                                showRequestFailedDialog("网络错误，修改失败");
                             }
                         } catch (IOException e) {
-                            showRequestFailedDialog("网络错误，添加失败");
+                            showRequestFailedDialog("网络错误，修改失败");
                             e.printStackTrace();
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
@@ -421,10 +421,10 @@ public class Dapei_Modify_Activity extends AppCompatActivity {
                     } else {
                         // 请求失败，处理错误
                         System.out.println("Request failed");
-                        showRequestFailedDialog("网络错误，添加失败");
+                        showRequestFailedDialog("网络错误，获取搭配信息失败");
                     }
                 } catch (IOException e) {
-                    showRequestFailedDialog("网络错误，添加失败");
+                    showRequestFailedDialog("网络错误，获取搭配信息失败");
                     e.printStackTrace();
                 } catch (JSONException e) {
                     throw new RuntimeException(e);

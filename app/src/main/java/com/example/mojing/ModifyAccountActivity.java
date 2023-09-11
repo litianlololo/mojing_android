@@ -58,8 +58,8 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class ModifyAccountActivity extends AppCompatActivity {
-    public String uu="http://47.103.223.106:5004/api";
-    public String uuimg="http://47.103.223.106:5004";
+    public String uu="http://47.102.43.156:8007/api";
+    public String uuimg="http://47.102.43.156:8007";
     private String username;
     private String signature;
     private String gender,profile;
@@ -105,12 +105,22 @@ public class ModifyAccountActivity extends AppCompatActivity {
         headIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(sharedPreferencesManager.isYouke())
+                {
+                    showRequestFailedDialog("游客无此权限，请先登录");
+                    return;
+                }
                 openGallery(headIcon);
             }
         });
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(sharedPreferencesManager.isYouke())
+                {
+                    showRequestFailedDialog("游客无此权限，请先登录");
+                    return;
+                }
                 saveNow();
             }
         });

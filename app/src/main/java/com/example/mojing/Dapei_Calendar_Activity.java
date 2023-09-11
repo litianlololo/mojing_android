@@ -44,8 +44,8 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class Dapei_Calendar_Activity extends AppCompatActivity {
-    public String uu="http://47.103.223.106:5004/api";
-    public String uuimg="http://47.103.223.106:5004";
+    public String uu="http://47.102.43.156:8007/api";
+    public String uuimg="http://47.102.43.156:8007";
     private int year;
     private int month;
     private int day;
@@ -175,8 +175,14 @@ public class Dapei_Calendar_Activity extends AppCompatActivity {
         });
         ImageView deleteBtn =findViewById(R.id.deleteBtn);
         deleteBtn.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
+                if(sharedPreferencesManager.isYouke())
+                {
+                    showRequestFailedDialog("游客无此权限，请先登录");
+                    return;
+                }
                 ShowDelete("确定要删除吗？");
             }
         });
@@ -271,7 +277,7 @@ public class Dapei_Calendar_Activity extends AppCompatActivity {
                                 showRequestFailedDialog("登录过期，请重新登陆");
                                 break;
                             default:
-                                showRequestFailedDialog("添加失败");
+                                //showRequestFailedDialog("添加失败");
                                 break;
                         }
                         //System.out.println("Response: " + responseData);
@@ -280,7 +286,7 @@ public class Dapei_Calendar_Activity extends AppCompatActivity {
                     } else {
                         // 请求失败，处理错误
                         System.out.println("Request failed");
-                        showRequestFailedDialog("请求失败");
+                        showRequestFailedDialog("请求失败/cloth/schedule");
                     }
                 } catch (IOException e) {
                     showRequestFailedDialog("网络错误，添加失败");
@@ -405,7 +411,7 @@ public class Dapei_Calendar_Activity extends AppCompatActivity {
                                     showRequestFailedDialog("未查询到搭配");
                                     break;
                                 default:
-                                    showRequestFailedDialog("添加失败");
+                                    //showRequestFailedDialog("添加失败");
                                     break;
                             }
                             //System.out.println("Response: " + responseData);
@@ -414,7 +420,7 @@ public class Dapei_Calendar_Activity extends AppCompatActivity {
                         } else {
                             // 请求失败，处理错误
                             System.out.println("Request failed");
-                            showRequestFailedDialog("请求失败");
+                            showRequestFailedDialog("请求失败/cloth/match-id)");
                         }
                     } catch (IOException e) {
                         showRequestFailedDialog("网络错误，添加失败");
@@ -561,7 +567,7 @@ public class Dapei_Calendar_Activity extends AppCompatActivity {
                                         showRequestFailedDialog("登录过期，请先登录");
                                         break;
                                     default:
-                                        showRequestFailedDialog("添加失败");
+                                        //showRequestFailedDialog("添加失败");
                                         break;
                                 }
                                 System.out.println("Response: " + responseData);

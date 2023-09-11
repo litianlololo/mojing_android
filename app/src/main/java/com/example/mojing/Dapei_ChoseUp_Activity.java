@@ -31,8 +31,8 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class Dapei_ChoseUp_Activity extends AppCompatActivity {
-    public String uu="http://47.103.223.106:5004/api";
-    public String uuimg="http://47.103.223.106:5004";
+    public String uu="http://47.102.43.156:8007/api";
+    public String uuimg="http://47.102.43.156:8007";
     private SharedPreferencesManager sharedPreferencesManager;
     private Activity activity;
     private ScrollView ImgScroll;
@@ -298,6 +298,10 @@ public class Dapei_ChoseUp_Activity extends AppCompatActivity {
     private void AddDanpin(JSONObject dataJson) throws JSONException {
         if(!sharedPreferencesManager.isLoggedIn())
             return;
+        if(!dataJson.has("my_clothes")) {
+            danpins = new Danpin[0];
+            return;
+        }
         JSONArray myClothesArray = dataJson.getJSONArray("my_clothes");
         danpins= new Danpin[myClothesArray.length()];
         for (int i = 0; i < myClothesArray.length(); i++) {

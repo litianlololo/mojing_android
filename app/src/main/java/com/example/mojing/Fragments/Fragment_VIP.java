@@ -39,6 +39,7 @@ public class Fragment_VIP extends Fragment {
     VipListAdapter vipListAdapter;
 
     public String uu="http://47.102.43.156:8007/api";
+    public String uuimg="http://47.102.43.156:8007";
 
     private SharedPreferencesManager sharedPreferencesManager;
 

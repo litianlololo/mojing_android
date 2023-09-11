@@ -44,8 +44,8 @@ import okhttp3.ResponseBody;
 
 
 public class Fragment_me extends Fragment {
-    private String uu="http://47.103.223.106:5004/api";
-    private String uuimg="http://47.103.223.106:5004";
+    public String uu="http://47.102.43.156:8007/api";
+    public String uuimg="http://47.102.43.156:8007";
     MainActivity activity;
     private SharedPreferencesManager sharedPreferencesManager;
     private Button exitButton;
@@ -166,14 +166,24 @@ public class Fragment_me extends Fragment {
         tunwei_content.setOnClickListener(clickListener);
         view.setOnClickListener(clickListener);
     }
-//    public void showBottomSheetDialog() {
-//        MainActivity.MyBottomSheetDialogFragment bottomSheetDialogFragment = new MainActivity.MyBottomSheetDialogFragment();
-//        bottomSheetDialogFragment.show(getParentFragmentManager(), bottomSheetDialogFragment.getTag());
-//
-//        // 设置弹窗的高度为屏幕高度的1/4
-//        bottomSheetDialogFragment.getDialog().getWindow().setLayout(
-//                ViewGroup.LayoutParams.MATCH_PARENT,
-//                getResources().getDisplayMetrics().heightPixels / 4
-//        );
-//    }
+    private void showRequestFailedDialog(String str) {
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("注意")
+                            .setMessage(str)
+                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Positive button click listener (if needed)
+                                    // You can add code here to handle the click event
+                                }
+                            })
+                            .show();
+                }
+            });
+        }
+    }
 }

@@ -41,8 +41,8 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class Dapei_Info_Activity extends AppCompatActivity {
-    public String uu="http://47.103.223.106:5004/api";
-    public String uuimg="http://47.103.223.106:5004";
+    public String uu="http://47.102.43.156:8007/api";
+    public String uuimg="http://47.102.43.156:8007";
     private ImageView deleteBtn;
     private SharedPreferencesManager sharedPreferencesManager;
     private Activity activity=this;
@@ -76,6 +76,11 @@ public class Dapei_Info_Activity extends AppCompatActivity {
         modifyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(sharedPreferencesManager.isYouke())
+                {
+                    showRequestFailedDialog("游客无此权限，请先登录");
+                    return;
+                }
                 Intent intent = new Intent(activity, Dapei_Modify_Activity.class);
                 intent.putExtra("match_id", _id);
                 intent.putExtra("up_img_url", up_img_url);
@@ -117,6 +122,11 @@ public class Dapei_Info_Activity extends AppCompatActivity {
         calendarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(sharedPreferencesManager.isYouke())
+                {
+                    showRequestFailedDialog("游客无此权限，请先登录");
+                    return;
+                }
                 // 创建一个 Intent 并添加数据
                 Intent intent = new Intent(activity, Dapei_Calendar_Activity.class);
                 intent.putExtra("match_id", _id);
@@ -129,6 +139,11 @@ public class Dapei_Info_Activity extends AppCompatActivity {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(sharedPreferencesManager.isYouke())
+                {
+                    showRequestFailedDialog("游客无此权限，请先登录");
+                    return;
+                }
                 AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                 builder.setTitle("确认删除");
                 builder.setMessage("确定要删除吗？");

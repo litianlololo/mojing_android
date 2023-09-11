@@ -48,10 +48,8 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class Yichu_Single_Activity extends AppCompatActivity {
-    public String uu = "http://47.103.223.106:5004/api";
-    public String uuimg = "http://47.103.223.106:5004";
-    //    public String uu="http://47.102.43.156:8007/api";
-//    public String uuimg="http://47.102.43.156:8007";
+    public String uu="http://47.102.43.156:8007/api";
+    public String uuimg="http://47.102.43.156:8007";
     private ImageView imageButton;
     private TextView addBtn;
     public Activity activity = this;
@@ -88,7 +86,7 @@ public class Yichu_Single_Activity extends AppCompatActivity {
         Intent intent = getIntent();
         // 从Intent对象中获取传递的id变量，假设id是整数类型
         String id = intent.getStringExtra("_id");
-
+        System.out.println("Yichu_Single _id"+ id);
         imageButton = findViewById(R.id.clothBtn);
         addBtn = findViewById(R.id.Btn);
         fenlei_content = findViewById(R.id.fenlei_content);
@@ -111,6 +109,11 @@ public class Yichu_Single_Activity extends AppCompatActivity {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(sharedPreferencesManager.isYouke())
+                {
+                    showRequestFailedDialog("游客无此权限，请先登录");
+                    return;
+                }
                 AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                 builder.setTitle("确认删除");
                 builder.setMessage("确定要删除吗？");
@@ -317,6 +320,11 @@ public class Yichu_Single_Activity extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(sharedPreferencesManager.isYouke())
+                {
+                    showRequestFailedDialog("游客无此权限，请先登录");
+                    return;
+                }
                 new Thread(new Runnable() {
                     @Override
                     public void run() {

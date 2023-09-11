@@ -46,10 +46,8 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class Yichu_Add_Activity extends AppCompatActivity {
-    public String uu="http://47.103.223.106:5004/api";
-    public String uuimg="http://47.103.223.106:5004";
-//    public String uu="http://47.102.43.156:8007/api";
-//    public String uuimg="http://47.102.43.156:8007";
+    public String uu="http://47.102.43.156:8007/api";
+    public String uuimg="http://47.102.43.156:8007";
     private ImageView imageButton;
     private TextView addBtn;
     public Activity activity = this;
@@ -159,6 +157,11 @@ public class Yichu_Add_Activity extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(sharedPreferencesManager.isYouke())
+                {
+                    showRequestFailedDialog("游客无此权限，请先登录");
+                    return;
+                }
                 if(danpin.img_url == null){
                     showRequestFailedDialog("请先添加图片");
                     return;

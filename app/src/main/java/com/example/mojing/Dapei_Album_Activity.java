@@ -40,10 +40,8 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class Dapei_Album_Activity extends AppCompatActivity {
-    public String uu="http://47.103.223.106:5004/api";
-    public String uuimg="http://47.103.223.106:5004";
-    //    public String uu="http://47.102.43.156:8007/api";
-//    public String uuimg="http://47.102.43.156:8007";
+    public String uu="http://47.102.43.156:8007/api";
+    public String uuimg="http://47.102.43.156:8007";
     private View PBtn,AIBtn,DBtn;
     private ImageView imgself,imgai,imgdesigner;
     private SharedPreferencesManager sharedPreferencesManager;
@@ -99,17 +97,7 @@ public class Dapei_Album_Activity extends AppCompatActivity {
                     //加载个人搭配
                     ImgScroll.removeAllViews();
                     if(sharedPreferencesManager.isLoggedIn()) {
-                        loadAll(new AddDapeiCallback() {
-                            @Override
-                            public void onAddDapei() {
-                                CombineAll(new ImageLoadCallback() {
-                                    @Override
-                                    public void onImageLoaded(Bitmap upImage, Bitmap downImage) {
-
-                                    }
-                                });
-                            }
-                        });
+                        loadAll();
                     }
                 }
             }
@@ -133,17 +121,7 @@ public class Dapei_Album_Activity extends AppCompatActivity {
                     //加载AI搭配
                     ImgScroll.removeAllViews();
                     if(sharedPreferencesManager.isLoggedIn()) {
-                        loadAll(new AddDapeiCallback() {
-                            @Override
-                            public void onAddDapei() {
-                                CombineAll(new ImageLoadCallback() {
-                                    @Override
-                                    public void onImageLoaded(Bitmap upImage, Bitmap downImage) {
-
-                                    }
-                                });
-                            }
-                        });
+                        loadAll();
                     }
                 }
             }
@@ -167,17 +145,7 @@ public class Dapei_Album_Activity extends AppCompatActivity {
                     //加载AI搭配
                     ImgScroll.removeAllViews();
                     if(sharedPreferencesManager.isLoggedIn()) {
-                        loadAll(new AddDapeiCallback() {
-                            @Override
-                            public void onAddDapei() {
-                                CombineAll(new ImageLoadCallback() {
-                                    @Override
-                                    public void onImageLoaded(Bitmap upImage, Bitmap downImage) {
-
-                                    }
-                                });
-                            }
-                        });
+                        loadAll();
                     }
                 }
             }
@@ -192,17 +160,8 @@ public class Dapei_Album_Activity extends AppCompatActivity {
         });
         //加载我的搭配
         if(sharedPreferencesManager.isLoggedIn()) {
-            loadAll(new AddDapeiCallback() {
-                @Override
-                public void onAddDapei() {
-                    CombineAll(new ImageLoadCallback() {
-                        @Override
-                        public void onImageLoaded(Bitmap upImage, Bitmap downImage) {
-
-                        }
-                    });
-                }
-            });
+            loadAll();
+//
         }
     }
     //generateImageLayout(urls);
@@ -325,7 +284,7 @@ public class Dapei_Album_Activity extends AppCompatActivity {
         return Math.round(dp * density);
     }
     //加载我的搭配
-    private void loadAll(AddDapeiCallback addDapeiCallback)
+    private void loadAll()
     {
         if(!sharedPreferencesManager.isLoggedIn())
             return;
@@ -353,13 +312,23 @@ public class Dapei_Album_Activity extends AppCompatActivity {
                         JSONObject responseJson = new JSONObject(responseData);
                         // 提取键为"code"的值
                         int code = responseJson.getInt("code");
+                        JSONArray dataJson = responseJson.has("data")?responseJson.getJSONArray("data"):null;
                         //确定返回状态
                         switch (code) {
                             case 200:
-                                JSONArray dataJson = responseJson.getJSONArray("data");
-                                AddDapei(dataJson);
+                                AddDapei(dataJson, new AddDapeiCallback() {
+                                    @Override
+                                    public void onAddDapei() {
+                                        CombineAll(new ImageLoadCallback() {
+                                            @Override
+                                            public void onImageLoaded(Bitmap upImage, Bitmap downImage) {
+
+                                            }
+                                        });
+                                    }
+                                });
                                 //showRequestFailedDialog("加载成功");
-                                addDapeiCallback.onAddDapei();
+
                                 System.out.println(dataJson);
                                 break;
                             case 1001:
@@ -367,7 +336,7 @@ public class Dapei_Album_Activity extends AppCompatActivity {
                                 showRequestFailedDialog("请先登录");
                                 break;
                             default:
-                                showRequestFailedDialog("添加失败");
+                                //showRequestFailedDialog("添加失败");
                                 break;
                         }
                         //System.out.println("Response: " + responseData);
@@ -376,7 +345,7 @@ public class Dapei_Album_Activity extends AppCompatActivity {
                     } else {
                         // 请求失败，处理错误
                         System.out.println("Request failed");
-                        showRequestFailedDialog("请求失败");
+                        showRequestFailedDialog("请求失败/cloth/all-match");
                     }
                 } catch (IOException e) {
                     showRequestFailedDialog("网络错误，添加失败");
@@ -387,10 +356,11 @@ public class Dapei_Album_Activity extends AppCompatActivity {
             }
         }).start();
     }
-    private void AddDapei(JSONArray dataJson) throws JSONException {
+    private void AddDapei(JSONArray dataJson,AddDapeiCallback addDapeiCallback) throws JSONException {
         if(!sharedPreferencesManager.isLoggedIn())
             return;
         dapeis= new ArrayList<>();
+        System.out.println("dataJson.length(): " + dataJson.length());
         for (int i = 0; i < dataJson.length(); i++) {
             JSONObject clothObject = dataJson.getJSONObject(i);
 
@@ -414,7 +384,7 @@ public class Dapei_Album_Activity extends AppCompatActivity {
             JSONArray shareScoreArray = clothObject.has("share_score") ?clothObject.getJSONArray("share_score"):null;
             int[] shareScore = new int[shareScoreArray.length()];
             for (int k = 0; k < shareScoreArray.length();k++) {
-                shareScore[k] = shareScoreArray.getInt(i);
+                shareScore[k] = shareScoreArray.getInt(k);
             }
             for (int score : shareScore) {
                 System.out.println("Share Score: " + score);
@@ -435,15 +405,6 @@ public class Dapei_Album_Activity extends AppCompatActivity {
             for (int k = 0; k < sceneArray.length();k++) {
                 sceneList.add(sceneArray.getString(k));
             }
-            for (String scenestr : sceneList) {
-                System.out.println("Share Score: " + scenestr);
-            }
-//            // 提取 "tags" 字段
-//            JSONArray tagsArray = clothObject.getJSONArray("tags");
-//            String[] tags = new String[tagsArray.length()];
-//            for (int k = 0; k < tagsArray.length(); k++) {
-//                tags[k] = tagsArray.getString(k);
-//            }
             String user_id = clothObject.has("user_id") ? clothObject.getString("user_id") : "";
 
             Dapei tmp = new Dapei();
@@ -457,7 +418,9 @@ public class Dapei_Album_Activity extends AppCompatActivity {
             tmp.designer_score = designerScore;
             tmp.scene =sceneList;
             dapeis.add(tmp);
-        }
+            //if(i == dataJson.length()-1)
+
+        }addDapeiCallback.onAddDapei();
     }
     //unicode 转中文
     public static String convertUnicodeToChinese(String unicodeStr) {
@@ -491,10 +454,13 @@ public class Dapei_Album_Activity extends AppCompatActivity {
     private void CombineAll(final ImageLoadCallback callback){
 
         for(Dapei tmp:dapeis) {
+            System.out.println("tmp.up.img_url:"+tmp.up.img_url);
+            System.out.println("tmp.down.img_url:"+tmp.down.img_url);
             //加载up
             Glide.with(this)
                     .asBitmap()
                     .load(uuimg + tmp.up.img_url)
+                    .error(R.drawable.error)
                     .into(new CustomTarget<Bitmap>() {
                         @Override
                         public void onResourceReady(@NonNull Bitmap bitmap, @Nullable Transition<? super Bitmap> transition) {
@@ -516,6 +482,7 @@ public class Dapei_Album_Activity extends AppCompatActivity {
             Glide.with(this)
                     .asBitmap()
                     .load(uuimg + tmp.down.img_url)
+                    .error(R.drawable.error)
                     .into(new CustomTarget<Bitmap>() {
                         @Override
                         public void onResourceReady(@NonNull Bitmap bitmap, @Nullable Transition<? super Bitmap> transition) {

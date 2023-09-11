@@ -29,8 +29,8 @@ import okhttp3.ResponseBody;
 
 public class RegisterActivity extends AppCompatActivity {
     private int countdownTime = 60; // 倒计时时长，单位：秒
-    private String uu="http://47.102.43.156:8007";
-    //private String uu="http://47.103.223.106:5004/api";
+    public String uu="http://47.102.43.156:8007/api";
+    public String uuimg="http://47.102.43.156:8007";
     private Handler handler = new Handler(Looper.getMainLooper());
     private Runnable countdownRunnable;
     private SharedPreferencesManager sharedPreferencesManager;
@@ -75,7 +75,7 @@ public class RegisterActivity extends AppCompatActivity {
                         MediaType JSON = MediaType.parse("application/json;charset=utf-8");
                         JSONObject json = new JSONObject();
                         try {
-                            json.put("phone_number", phone_number);
+                            json.put("phone", phone_number);
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
@@ -100,8 +100,20 @@ public class RegisterActivity extends AppCompatActivity {
                                 // 记得关闭响应体
                                 responseBody.close();
                             } else {
-                                // 请求失败，处理错误
-                                System.out.println("Request failed");
+                                // 获取失败的 HTTP 状态码
+                                int statusCode = response.code();
+                                System.out.println("Request failed with HTTP status code: " + statusCode);
+
+                                // 获取失败的原因
+                                String failureMessage = response.message();
+                                System.out.println("Failure message: " + failureMessage);
+
+                                // 获取失败响应体的内容（如果有）
+                                String errorResponseBody = response.body().string();
+                                System.out.println("Error response body: " + errorResponseBody);
+
+                                // 记得关闭响应体
+                                response.body().close();
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -141,7 +153,7 @@ public class RegisterActivity extends AppCompatActivity {
                         MediaType JSON = MediaType.parse("application/json;charset=utf-8");
                         JSONObject json = new JSONObject();
                         try {
-                            json.put("phone_number", phone_number);
+                            json.put("phone", phone_number);
                             json.put("code", code);
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
@@ -163,6 +175,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 // 处理响应数据
                                 String responseData = responseBody.string();
                                 JSONObject responseJson = new JSONObject(responseData);
+                                System.out.println(responseJson);
                                 // 提取键为"code"的值
                                 int code = responseJson.getInt("code");
                                 //确定返回状态
@@ -206,6 +219,14 @@ public class RegisterActivity extends AppCompatActivity {
                                             }
                                         });
                                         break;
+                                    default:
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                showRequestFailedDialog("错误代码："+code);
+                                            }
+                                        });
+                                        break;
                                 }
                                 System.out.println("Response: " + responseData);
                                 // 记得关闭响应体
@@ -213,6 +234,12 @@ public class RegisterActivity extends AppCompatActivity {
                             } else {
                                 // 请求失败，处理错误
                                 System.out.println("Request failed");
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        showRequestFailedDialog("请求失败/auth/register");
+                                    }
+                                });
                             }
                         } catch (IOException e) {
                             showRequestFailedDialog("网络请求失败");
@@ -246,6 +273,7 @@ public class RegisterActivity extends AppCompatActivity {
                     handler.postDelayed(this, 1000);
                 } else {
                     // 倒计时结束后，恢复按钮状态和文字
+                    countdownTime = 60;
                     getCodeButton.setEnabled(true);
                     getCodeButton.setText("获取验证码");
                 }

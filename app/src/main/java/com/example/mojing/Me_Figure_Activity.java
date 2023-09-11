@@ -27,6 +27,7 @@ import okhttp3.ResponseBody;
 
 public class Me_Figure_Activity extends AppCompatActivity {
     public String uu="http://47.102.43.156:8007/api";
+    public String uuimg="http://47.102.43.156:8007";
     private TextView tv_shengao;
     private TextView tv_tizhong;
     private TextView tv_xiongwei;
@@ -88,6 +89,11 @@ public class Me_Figure_Activity extends AppCompatActivity {
         btnModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(sharedPreferencesManager.isYouke())
+                {
+                    showRequestFailedDialog("游客无此权限，请先登录");
+                    return;
+                }
                 if (btnModify.getText().toString().equals("修改")) {
                     // 将 TextView 替换为 EditText
                     tv_tunwei.setVisibility(View.GONE);

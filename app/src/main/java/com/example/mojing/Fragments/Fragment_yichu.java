@@ -52,9 +52,8 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class Fragment_yichu extends Fragment {
-    //public String uu = "http://47.102.43.156:8007/api";
-    public String uu="http://47.103.223.106:5004/api";
-    public String uuimg="http://47.103.223.106:5004";
+    public String uu="http://47.102.43.156:8007/api";
+    public String uuimg="http://47.102.43.156:8007";
     private ImageView SImg,XImg,LImg;
     private TextView SText,XText,LText;
     private SharedPreferencesManager sharedPreferencesManager;
@@ -530,6 +529,7 @@ public class Fragment_yichu extends Fragment {
                         .url(uu+"/cloth/my-clothes")
                         .get()
                         .addHeader("cookie", sharedPreferencesManager.getKEY_Session_ID());
+                System.out.println("loadAll+++"+sharedPreferencesManager.getKEY_Session_ID());
                 // 发送请求并获取响应
                 try {
                     Request request = requestBuilder.build();
@@ -547,6 +547,7 @@ public class Fragment_yichu extends Fragment {
                         switch (code) {
                             case 200:
                                 JSONObject dataJson = responseJson.getJSONObject("data");
+                                System.out.println(dataJson);
                                 AddDanpin(dataJson);
                                 //showRequestFailedDialog("加载成功");
                                 addDanpincallback.onAddDanpin();
@@ -566,7 +567,7 @@ public class Fragment_yichu extends Fragment {
                     } else {
                         // 请求失败，处理错误
                         System.out.println("Request failed");
-                        showRequestFailedDialog("请求失败");
+                        showRequestFailedDialog("请求失败/cloth/my-clothes");
                     }
                 } catch (IOException e) {
                     showRequestFailedDialog("网络错误，添加失败");
@@ -588,6 +589,11 @@ public class Fragment_yichu extends Fragment {
     private void AddDanpin(JSONObject dataJson) throws JSONException {
         if(!sharedPreferencesManager.isLoggedIn())
             return;
+        if(!dataJson.has("my_clothes")) {
+            System.out.println("No such my_clothes");
+            danpins = new Danpin[0];
+            return;
+        }
         JSONArray myClothesArray = dataJson.getJSONArray("my_clothes");
         danpins= new Danpin[myClothesArray.length()];
         for (int i = 0; i < myClothesArray.length(); i++) {

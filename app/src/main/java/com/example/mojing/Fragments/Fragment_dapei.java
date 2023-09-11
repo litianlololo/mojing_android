@@ -61,8 +61,8 @@ import okhttp3.ResponseBody;
  * create an instance of this fragment.
  */
 public class Fragment_dapei extends Fragment {
-    public String uu="http://47.103.223.106:5004/api";
-    public String uuimg="http://47.103.223.106:5004";
+    public String uu="http://47.102.43.156:8007/api";
+    public String uuimg="http://47.102.43.156:8007";
     private ImageButton ImgBtn_1;
     private ImageButton ImgBtn_2;
     private ImageButton imageButton;
@@ -245,6 +245,11 @@ public class Fragment_dapei extends Fragment {
         downloadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(sharedPreferencesManager.isYouke())
+                {
+                    showRequestFailedDialog("游客无此权限，请先登录");
+                    return;
+                }
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
