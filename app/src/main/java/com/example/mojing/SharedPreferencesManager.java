@@ -130,7 +130,7 @@ public class SharedPreferencesManager {
     }
     public void setUserRole(String userRole) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(KEY_USER_ID, userRole);
+        editor.putString(KEY_USER_Role, userRole);
         editor.apply();
     }
 

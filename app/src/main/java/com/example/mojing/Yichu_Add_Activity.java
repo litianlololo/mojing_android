@@ -198,6 +198,7 @@ public class Yichu_Add_Activity extends AppCompatActivity {
                             json.put("xiuchang", danpin.xiuchang);
                             json.put("storeplace", danpin.storeplace);
                             json.put("shenchang",danpin.shenchang);
+                            System.out.println("JSON+    "+json);
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
