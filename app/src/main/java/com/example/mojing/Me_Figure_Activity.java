@@ -121,11 +121,38 @@ public class Me_Figure_Activity extends AppCompatActivity {
                     //showRequestFailedDialog(sharedPreferencesManager.getKEY_Session_ID());
                 } else if (btnModify.getText().toString().equals("保存修改")) {
                     // 保存修改的值到变量中
-                    int modifiedTunwei = Integer.parseInt(etTunwei.getText().toString());
-                    int modifiedShengao =Integer.parseInt( etShengao.getText().toString());
-                    int modifiedTizhong = Integer.parseInt(etTizhong.getText().toString());
-                    int modifiedYaowei = Integer.parseInt(etYaowei.getText().toString());
-                    int modifiedXiongwei = Integer.parseInt(etXiongwei.getText().toString());
+                    String tunweiText = etTunwei.getText().toString();
+                    String shengaoText = etShengao.getText().toString();
+                    String tizhongText = etTizhong.getText().toString();
+                    String yaoweiText = etYaowei.getText().toString();
+                    String xiongweiText = etXiongwei.getText().toString();
+
+                    if(tunweiText.isEmpty()){
+                        showRequestFailedDialog("臀围不能为空");
+                        return;
+                    }
+                    if(shengaoText.isEmpty()){
+                        showRequestFailedDialog("身高不能为空");
+                        return;
+                    }
+                    if(tizhongText.isEmpty()){
+                        showRequestFailedDialog("体重不能为空");
+                        return;
+                    }
+                    if(yaoweiText.isEmpty()){
+                        showRequestFailedDialog("腰围不能为空");
+                        return;
+                    }
+                    if(xiongweiText.isEmpty()){
+                        showRequestFailedDialog("胸围不能为空");
+                        return;
+                    }
+
+                    int modifiedTunwei = Integer.parseInt(tunweiText);
+                    int modifiedShengao =Integer.parseInt( shengaoText);
+                    int modifiedTizhong = Integer.parseInt(tizhongText);
+                    int modifiedYaowei = Integer.parseInt(yaoweiText);
+                    int modifiedXiongwei = Integer.parseInt(xiongweiText);
                     String modifiedPassword = etpassword.getText().toString();
                     new Thread(new Runnable() {
                         @Override
