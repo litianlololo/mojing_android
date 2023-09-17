@@ -3,8 +3,10 @@ package com.example.mojing;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -32,6 +34,7 @@ public class Me_Figure_Activity extends AppCompatActivity {
     private TextView tv_tizhong;
     private TextView tv_xiongwei;
     private TextView tv_yaowei;
+    private Activity activity = this;
     private TextView tv_tunwei,tv_password;
     private EditText etTunwei, etShengao, etTizhong, etYaowei, etXiongwei,etpassword;
 
@@ -76,7 +79,7 @@ public class Me_Figure_Activity extends AppCompatActivity {
         tv_tunwei.setText(Integer.toString(sharedPreferencesManager.getFigureTunwei()));
         tv_xiongwei.setText(Integer.toString(sharedPreferencesManager.getFigureXiongwei()));
         tv_yaowei.setText(Integer.toString(sharedPreferencesManager.getFigureYaowei()));
-        tv_password.setText("******");
+        tv_password.setText(sharedPreferencesManager.getUserPassword());
         //返回按钮
         ImageButton btnBack = findViewById(R.id.btn_back);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -174,8 +177,41 @@ public class Me_Figure_Activity extends AppCompatActivity {
                                 System.out.println(modifiedXiongwei);
                                 System.out.println(modifiedYaowei);
                                 System.out.println(modifiedTunwei);
-                                if(!modifiedPassword.equals("user_password"))
+                                if(!modifiedPassword.equals(sharedPreferencesManager.getUserPassword())){
+                                    /*
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                                    builder.setTitle("修改密码");
+                                    builder.setMessage("确定要修改您的密码为"+ modifiedPassword+"吗？");
+                                    builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            try {
+                                                json.put("password",modifiedPassword);
+                                            } catch (JSONException e) {
+                                                throw new RuntimeException(e);
+                                            }
+                                        }
+                                    });
+                                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            try {
+                                                json.put("password",sharedPreferencesManager.getUserPassword());
+                                            } catch (JSONException e) {
+                                                throw new RuntimeException(e);
+                                            }
+                                        }
+                                    });
+                                    activity.runOnUiThread(new Runnable() {
+                                        @SuppressLint("SetTextI18n")
+                                        @Override
+                                        public void run() {
+                                            builder.show();
+                                        }
+                                    });
+                                    */
                                     json.put("password",modifiedPassword);
+                                }
                                 else json.put("password",sharedPreferencesManager.getUserPassword());
                             } catch (JSONException e) {
                                 throw new RuntimeException(e);
@@ -229,10 +265,9 @@ public class Me_Figure_Activity extends AppCompatActivity {
                                                     sharedPreferencesManager.setFigureYaowei(modifiedYaowei);
                                                     tv_xiongwei.setText(Integer.toString(modifiedXiongwei));
 
-                                                    if (!modifiedPassword.equals("user_password")) {
-                                                        sharedPreferencesManager.setUserPassword(modifiedPassword);
-                                                    }
-                                                    tv_password.setText("******");
+                                                    sharedPreferencesManager.setUserPassword(modifiedPassword);
+
+                                                    tv_password.setText(sharedPreferencesManager.getUserPassword());
                                                 }
                                             });
                                             break;
